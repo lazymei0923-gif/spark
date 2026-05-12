@@ -1,0 +1,22 @@
+# Mac
+.DS_Store
+
+# Node
+node_modules/
+
+# Dev artifacts
+_screenshots/
+_proposal.html
+_shot*.js
+record-demo.js
+record-slides.js
+recordings/
+package.json
+package-lock.json
+
+# Raw materials (not used by prototype)
+素材/
+商品與情境攝影/
+幕後花絮/
+IG : FB 社群內容矩陣/
+logo/

@@ -1,0 +1,1798 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>管理後台｜SPARK Brand Marketing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ===== Design tokens 沿用首頁 ===== */
+    :root {
+      --bg: #070b10;
+      --bg-2: #0b1017;
+      --card: rgba(18, 23, 31, 0.78);
+      --card-2: rgba(21, 27, 36, 0.72);
+      --line: rgba(255, 255, 255, 0.10);
+      --line-strong: rgba(255, 255, 255, 0.16);
+      --text: #f6f0e8;
+      --text-soft: rgba(246, 240, 232, 0.72);
+      --text-muted: rgba(246, 240, 232, 0.48);
+      --orange: #e07532;
+      --orange-2: #f08c4a;
+      --orange-deep: #b94f1f;
+      --glow: rgba(224, 117, 50, 0.42);
+      --radius: 20px;
+      --radius-sm: 14px;
+      --body-bg: radial-gradient(circle at 8% 12%, rgba(224, 117, 50, .14), transparent 32%),
+        linear-gradient(180deg, #06090e 0%, #080d13 100%);
+    }
+    :root[data-theme="light"] {
+      --bg: #FFF8EF;
+      --bg-2: #F7F0E7;
+      --card: #FFFFFF;
+      --card-2: #FFF4E8;
+      --line: #E7DDD4;
+      --line-strong: #D8C8BA;
+      --text: #1F1F1F;
+      --text-soft: #5F5750;
+      --text-muted: #8B8178;
+      --orange: #E07532;
+      --orange-2: #C65F2B;
+      --orange-deep: #B85A20;
+      --body-bg: linear-gradient(180deg, #FFF8EF 0%, #F7F0E7 100%);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      min-height: 100%; background: var(--bg); color: var(--text);
+      font-family: "Noto Sans TC", "Inter", sans-serif;
+      transition: background .4s, color .4s;
+    }
+    body { background: var(--body-bg); }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ===== Shell（同 portal.html）===== */
+    .admin-shell { display: grid; grid-template-columns: 280px 1fr; min-height: 100vh; }
+    .admin-sidebar {
+      background: var(--card-2); border-right: 1px solid var(--line);
+      display: flex; flex-direction: column;
+      padding: 30px 22px 24px;
+      position: sticky; top: 0; height: 100vh;
+    }
+    .admin-brand {
+      display: flex; align-items: center; gap: 12px;
+      padding-bottom: 24px; margin-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+    .admin-brand img { width: 38px; height: 38px; object-fit: contain; filter: drop-shadow(0 0 10px rgba(224,117,50,.3)); }
+    .admin-brand-text strong {
+      display: block; font-size: 14px; font-weight: 700;
+      letter-spacing: .12em; color: var(--text);
+    }
+    .admin-brand-text span {
+      display: block; font-size: 10px; font-weight: 500;
+      letter-spacing: .25em; color: var(--orange); margin-top: 2px;
+    }
+    .admin-nav { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+    .admin-nav-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 14px; border-radius: 12px;
+      color: var(--text-soft); font-size: 14px;
+      letter-spacing: .08em; cursor: pointer; transition: all .2s;
+    }
+    .admin-nav-item .icon {
+      width: 22px; height: 22px; display: grid; place-items: center;
+      font-size: 16px; opacity: .7;
+    }
+    .admin-nav-item:hover { background: rgba(224,117,50,.08); color: var(--text); }
+    .admin-nav-item.is-active {
+      background: linear-gradient(135deg, rgba(224,117,50,.22), rgba(224,117,50,.08));
+      color: var(--orange-2); font-weight: 700;
+      border: 1px solid rgba(224,117,50,.32);
+    }
+    .admin-nav-item.is-active .icon { opacity: 1; color: var(--orange); }
+    .admin-nav-item .badge {
+      margin-left: auto; padding: 2px 7px;
+      border-radius: 999px; font-size: 10px; font-weight: 700;
+      background: var(--orange); color: #fff;
+    }
+    .admin-user {
+      display: flex; align-items: center; gap: 12px;
+      padding-top: 18px; margin-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+    .admin-user .avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, #f08a43, #d55d24);
+      color: #fff; display: grid; place-items: center;
+      font-weight: 700; font-size: 14px;
+      border: 2px solid rgba(224,117,50,.4);
+      flex-shrink: 0;
+    }
+    .admin-user .meta b {
+      display: block; font-size: 13px; font-weight: 700;
+      letter-spacing: .08em; color: var(--text);
+    }
+    .admin-user .meta span {
+      display: block; font-size: 11px; letter-spacing: .06em;
+      color: var(--text-muted); margin-top: 2px;
+    }
+    .admin-user .logout {
+      margin-left: auto; color: var(--text-muted);
+      font-size: 11px; letter-spacing: .12em; cursor: pointer;
+    }
+    .admin-user .logout:hover { color: var(--orange-2); }
+
+    /* ===== Main ===== */
+    .admin-main { min-height: 100vh; }
+    .admin-topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 36px; border-bottom: 1px solid var(--line);
+      background: rgba(7,11,16,.45); backdrop-filter: blur(14px);
+      position: sticky; top: 0; z-index: 50;
+    }
+    :root[data-theme="light"] .admin-topbar { background: rgba(255,248,239,.78); }
+    .admin-topbar h1 {
+      font-family: "Noto Serif TC", serif;
+      font-size: 22px; letter-spacing: .14em; font-weight: 700;
+    }
+    .admin-topbar .crumbs {
+      font-size: 11px; letter-spacing: .22em;
+      color: var(--text-muted); margin-bottom: 6px; font-weight: 600;
+    }
+    .admin-topbar .back {
+      font-size: 12px; letter-spacing: .14em; color: var(--text-soft);
+      transition: color .2s;
+    }
+    .admin-topbar .back:hover { color: var(--orange-2); }
+
+    .admin-view { display: none; padding: 30px 36px 56px; }
+    .admin-view.is-active { display: block; animation: viewFade .4s ease; }
+    @keyframes viewFade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== Common cards / pills ===== */
+    .card {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 24px;
+    }
+    .card-h {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .card-h h3 { font-size: 15px; font-weight: 700; letter-spacing: .14em; }
+    .card-h .more { font-size: 11px; letter-spacing: .14em; color: var(--orange-2); cursor: pointer; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px; border-radius: 999px;
+      font-size: 11px; letter-spacing: .1em; font-weight: 700;
+    }
+    .pill.success { background: rgba(74,222,128,.14); color: #4ade80; }
+    .pill.warning { background: rgba(245,158,11,.16); color: #f59e0b; }
+    .pill.info    { background: rgba(224,117,50,.16); color: var(--orange-2); }
+    .pill.danger  { background: rgba(239,68,68,.16); color: #ef4444; }
+    .pill.muted   { background: rgba(255,255,255,.06); color: var(--text-muted); }
+    :root[data-theme="light"] .pill.success { background: rgba(34,140,80,.12); color: #228c50; }
+    :root[data-theme="light"] .pill.muted { background: rgba(31,31,31,.06); color: var(--text-muted); }
+
+    /* ===== Dashboard ===== */
+    .welcome {
+      background: linear-gradient(135deg, rgba(224,117,50,.18), rgba(224,117,50,.04));
+      border: 1px solid rgba(224,117,50,.32); border-radius: var(--radius);
+      padding: 28px 32px; margin-bottom: 28px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .welcome h2 {
+      font-family: "Noto Serif TC", serif;
+      font-size: 26px; letter-spacing: .12em; margin-bottom: 8px;
+    }
+    .welcome p { font-size: 13px; color: var(--text-soft); letter-spacing: .08em; line-height: 1.85; }
+    .welcome-status { display: flex; flex-direction: column; gap: 10px; text-align: right; }
+    .metric-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 18px; margin-bottom: 28px;
+    }
+    .metric {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--radius-sm); padding: 20px 22px; position: relative;
+    }
+    .metric .label {
+      font-size: 11px; letter-spacing: .22em; font-weight: 600;
+      color: var(--text-muted); margin-bottom: 12px;
+    }
+    .metric .value {
+      font-family: "Noto Serif TC", serif;
+      font-size: 28px; font-weight: 700;
+      letter-spacing: .04em; color: var(--text);
+    }
+    .metric .value .unit { font-size: 14px; color: var(--text-muted); margin-left: 4px; }
+    .metric .desc { margin-top: 8px; font-size: 12px; color: var(--text-soft); letter-spacing: .06em; }
+    .metric .icon {
+      position: absolute; top: 18px; right: 18px;
+      width: 32px; height: 32px; border-radius: 10px;
+      background: rgba(224,117,50,.1); color: var(--orange);
+      display: grid; place-items: center; font-size: 15px;
+    }
+    .panel-row { display: grid; grid-template-columns: 1.4fr 1fr; gap: 22px; }
+
+    .todo-list { display: flex; flex-direction: column; gap: 10px; }
+    .todo-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 14px; border-radius: 12px;
+      background: var(--bg-2); border: 1px solid var(--line);
+      transition: all .2s;
+    }
+    .todo-item:hover { border-color: rgba(224,117,50,.4); }
+    .todo-item .check {
+      width: 20px; height: 20px; border-radius: 6px;
+      border: 1.5px solid var(--line-strong);
+      flex-shrink: 0; margin-top: 1px; cursor: pointer;
+    }
+    .todo-item .text { flex: 1; font-size: 13px; line-height: 1.65; color: var(--text); }
+    .todo-item .text b { font-weight: 700; letter-spacing: .04em; }
+    .todo-item .text small { display: block; font-size: 11px; color: var(--text-muted); letter-spacing: .1em; margin-top: 4px; }
+
+    .deliver-week {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    }
+    .deliver-col h4 {
+      font-size: 11px; letter-spacing: .22em; color: var(--text-muted);
+      font-weight: 700; margin-bottom: 10px; padding: 0 4px;
+    }
+    .deliver-card {
+      padding: 10px 12px; background: var(--bg-2);
+      border: 1px solid var(--line); border-radius: 10px;
+      margin-bottom: 8px; font-size: 12px;
+    }
+    .deliver-card b { display: block; color: var(--text); font-weight: 700; margin-bottom: 4px; letter-spacing: .04em; }
+    .deliver-card span { color: var(--text-muted); font-size: 10.5px; letter-spacing: .08em; }
+
+    /* ===== CRM ===== */
+    .funnel-bar {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+      margin-bottom: 26px;
+    }
+    .funnel-step {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--radius-sm); padding: 18px 22px;
+      position: relative;
+    }
+    .funnel-step::after {
+      content: "›"; position: absolute; right: -14px; top: 50%;
+      transform: translateY(-50%); color: var(--orange-2);
+      font-size: 24px; font-weight: 700; z-index: 1;
+    }
+    .funnel-step:last-child::after { display: none; }
+    .funnel-step .label {
+      font-size: 11px; letter-spacing: .18em; color: var(--text-muted);
+      font-weight: 600; margin-bottom: 8px;
+    }
+    .funnel-step .num {
+      font-family: "Noto Serif TC", serif;
+      font-size: 30px; font-weight: 700; color: var(--text);
+      letter-spacing: .04em;
+    }
+    .funnel-step .delta { font-size: 11px; color: #4ade80; margin-top: 4px; letter-spacing: .08em; }
+
+    .table {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--radius); overflow: hidden;
+    }
+    .table-row {
+      display: grid; gap: 14px; align-items: center;
+      padding: 14px 22px;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px; transition: background .2s;
+    }
+    .table-row:last-child { border-bottom: none; }
+    .table-row:hover { background: rgba(224,117,50,.05); }
+    .table-row.is-head {
+      font-size: 11px; letter-spacing: .2em;
+      color: var(--text-muted); font-weight: 700;
+      background: var(--bg-2);
+    }
+    .table-row.is-head:hover { background: var(--bg-2); }
+    .lead-row { grid-template-columns: 50px 1.4fr 1fr 100px 110px 130px 110px 90px; }
+    .table-row .who b { display: block; font-size: 13px; color: var(--text); letter-spacing: .04em; margin-bottom: 2px; }
+    .table-row .who span { font-size: 11px; color: var(--text-muted); }
+    .src {
+      display: inline-flex; padding: 3px 9px; border-radius: 999px;
+      font-size: 10px; letter-spacing: .14em; font-weight: 700;
+    }
+    .src.ai     { background: rgba(224,117,50,.16); color: var(--orange-2); }
+    .src.form   { background: rgba(74,222,128,.14); color: #4ade80; }
+    .src.refer  { background: rgba(96,165,250,.16); color: #60a5fa; }
+    .src.partner { background: rgba(167,139,250,.18); color: #a78bfa; }
+    :root[data-theme="light"] .src.form { background: rgba(34,140,80,.12); color: #228c50; }
+    .table-row .pm {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; color: var(--text);
+    }
+    .table-row .pm .av {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: linear-gradient(135deg, #f08a43, #d55d24);
+      color: #fff; font-size: 10px; font-weight: 700;
+      display: grid; place-items: center;
+    }
+    .table-row .amt {
+      font-family: "Inter", sans-serif;
+      font-weight: 700; font-size: 13px; color: var(--text);
+    }
+    .table-row .ico-cell {
+      display: grid; place-items: center;
+    }
+    .table-row .ico-cell .ic {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: rgba(224,117,50,.12); color: var(--orange-2);
+      display: grid; place-items: center; font-size: 13px;
+    }
+
+    /* ===== Sub pane（view 內的子 tab）===== */
+    .sub-pane { display: none; }
+    .sub-pane.is-active { display: block; animation: viewFade .35s ease; }
+
+    /* ===== Action bar + Template library ===== */
+    .action-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px; gap: 14px;
+    }
+    .action-bar .left { display: flex; gap: 8px; }
+    .filter-pill {
+      padding: 8px 16px; border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--card); color: var(--text-soft);
+      font-size: 12px; letter-spacing: .12em; font-weight: 600;
+      cursor: pointer; transition: all .2s;
+    }
+    .filter-pill:hover { border-color: rgba(224,117,50,.4); color: var(--text); }
+    .filter-pill.is-on {
+      background: rgba(224,117,50,.16);
+      border-color: rgba(224,117,50,.5);
+      color: var(--orange-2);
+    }
+    .cta-btn {
+      padding: 10px 20px; border-radius: 10px; border: none;
+      background: var(--orange); color: #fff; cursor: pointer;
+      font-family: inherit; font-size: 12.5px; font-weight: 700;
+      letter-spacing: .14em;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: all .2s;
+    }
+    .cta-btn:hover { background: var(--orange-deep); transform: translateY(-1px); }
+    .cta-btn-ghost {
+      padding: 10px 18px; border-radius: 10px;
+      border: 1px solid var(--line-strong);
+      background: var(--card); color: var(--text);
+      font-family: inherit; font-size: 12px; font-weight: 600;
+      letter-spacing: .14em; cursor: pointer;
+      transition: all .2s;
+    }
+    .cta-btn-ghost:hover { border-color: var(--orange); color: var(--orange-2); }
+
+    .template-lib {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 22px 24px;
+      margin-bottom: 24px;
+    }
+    .template-lib-h {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .template-lib-h h3 {
+      font-size: 13px; letter-spacing: .14em; font-weight: 700;
+    }
+    .template-lib-h h3 small {
+      font-size: 11px; color: var(--text-muted); letter-spacing: .1em;
+      font-weight: 500; margin-left: 8px;
+    }
+    .template-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    }
+    .tpl-card {
+      background: var(--bg-2); border: 1px solid var(--line);
+      border-radius: 12px; padding: 16px;
+      cursor: pointer; transition: all .2s;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .tpl-card:hover {
+      border-color: rgba(224,117,50,.5);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(224,117,50,.1);
+    }
+    .tpl-card .ic {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: rgba(224,117,50,.14); color: var(--orange-2);
+      display: grid; place-items: center; font-size: 16px;
+      margin-bottom: 4px;
+    }
+    .tpl-card b {
+      font-size: 13.5px; font-weight: 700; letter-spacing: .08em;
+      color: var(--text);
+    }
+    .tpl-card p {
+      font-size: 11.5px; line-height: 1.7; letter-spacing: .04em;
+      color: var(--text-muted);
+    }
+    .tpl-card .use {
+      margin-top: 6px; align-self: flex-start;
+      font-size: 10.5px; font-weight: 700; letter-spacing: .14em;
+      color: var(--orange-2);
+    }
+    .tpl-card.custom .ic {
+      background: rgba(255,255,255,.05); color: var(--text-muted);
+      border: 1px dashed var(--line-strong);
+    }
+    @media (max-width: 1080px) {
+      .template-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ===== Project list ===== */
+    .proj-list-row { grid-template-columns: 50px 1.4fr 1fr 110px 130px 130px 90px; }
+    .proj-list-row .stage-pill {
+      display: inline-flex; padding: 4px 10px; border-radius: 999px;
+      font-size: 10.5px; letter-spacing: .12em; font-weight: 700;
+    }
+    .stage-pill.s1 { background: rgba(96,165,250,.16); color: #60a5fa; }
+    .stage-pill.s2 { background: rgba(167,139,250,.18); color: #a78bfa; }
+    .stage-pill.s3 { background: rgba(245,158,11,.18); color: #f59e0b; }
+    .stage-pill.s4 { background: rgba(224,117,50,.18); color: var(--orange-2); }
+    .stage-pill.s5 { background: rgba(74,222,128,.16); color: #4ade80; }
+
+    /* ===== Contract status (6 階段流程) ===== */
+    .pill.draft     { background: rgba(255,255,255,.06); color: var(--text-muted); }
+    .pill.sent      { background: rgba(96,165,250,.16); color: #60a5fa; }
+    .pill.signed    { background: rgba(167,139,250,.18); color: #a78bfa; }
+    .pill.paying    { background: rgba(245,158,11,.18); color: #f59e0b; }
+    .pill.paid      { background: rgba(74,222,128,.14); color: #4ade80; }
+    .pill.done      { background: rgba(224,117,50,.16); color: var(--orange-2); }
+    :root[data-theme="light"] .pill.draft { background: rgba(31,31,31,.06); color: var(--text-muted); }
+
+    /* ===== Projects（5 階段 kanban）===== */
+    .proj-kanban {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 14px; margin-bottom: 26px;
+    }
+    .proj-col {
+      background: var(--bg-2); border: 1px solid var(--line);
+      border-radius: var(--radius-sm); padding: 14px;
+      min-height: 460px;
+      display: flex; flex-direction: column;
+    }
+    .proj-col-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 4px 6px 12px; margin-bottom: 10px;
+      border-bottom: 1px dashed var(--line);
+    }
+    .proj-col-head .step {
+      font-family: "Inter", sans-serif;
+      font-size: 10px; letter-spacing: .22em;
+      color: var(--orange-2); font-weight: 700; margin-bottom: 4px;
+    }
+    .proj-col-head h4 {
+      font-size: 13px; letter-spacing: .14em;
+      font-weight: 700; color: var(--text);
+    }
+    .proj-col-head .cnt {
+      width: 22px; height: 22px; border-radius: 6px;
+      background: rgba(224,117,50,.14); color: var(--orange-2);
+      display: grid; place-items: center;
+      font-size: 11px; font-weight: 700;
+      font-family: "Inter", sans-serif;
+    }
+    .proj-col-list { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+
+    .proj-mini {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: 12px; padding: 14px 14px 12px;
+      transition: all .2s; cursor: pointer;
+    }
+    .proj-mini:hover { border-color: rgba(224,117,50,.5); transform: translateY(-2px); }
+    .proj-mini[data-state="urgent"] { border-color: rgba(239,68,68,.4); }
+    .proj-mini .industry {
+      display: inline-flex; padding: 2px 7px; border-radius: 999px;
+      font-size: 9px; letter-spacing: .18em; font-weight: 700;
+      background: rgba(224,117,50,.14); color: var(--orange-2);
+      margin-bottom: 8px;
+    }
+    .proj-mini h5 {
+      font-family: "Noto Serif TC", serif;
+      font-size: 14px; letter-spacing: .08em;
+      color: var(--text); font-weight: 700; line-height: 1.4;
+      margin-bottom: 4px;
+    }
+    .proj-mini .client {
+      font-size: 11px; color: var(--text-muted);
+      letter-spacing: .06em; margin-bottom: 10px;
+    }
+    .proj-bar {
+      height: 4px; border-radius: 999px;
+      background: var(--line); overflow: hidden; margin-bottom: 10px;
+    }
+    .proj-bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--orange-2), var(--orange)); border-radius: 999px; }
+    .proj-mini .meta-row {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 10.5px; color: var(--text-soft); letter-spacing: .04em;
+    }
+    .proj-mini .pm-mini {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-weight: 600; color: var(--text);
+    }
+    .proj-mini .pm-mini .av {
+      width: 18px; height: 18px; border-radius: 50%;
+      background: linear-gradient(135deg, #f08a43, #d55d24);
+      color: #fff; font-size: 8px; font-weight: 700;
+      display: grid; place-items: center;
+    }
+    .proj-mini .next {
+      font-size: 10px; color: var(--text-muted);
+      letter-spacing: .06em; margin-top: 6px;
+      padding-top: 8px; border-top: 1px dashed var(--line);
+      line-height: 1.6;
+    }
+    .proj-mini .next b { color: var(--orange-2); font-weight: 700; letter-spacing: .1em; }
+
+    /* ===== Contracts/Payments ===== */
+    .pay-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 26px; }
+    .pay-mini {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 22px 24px;
+    }
+    .pay-mini.urgent {
+      background: linear-gradient(135deg, rgba(239,68,68,.18), rgba(239,68,68,.04));
+      border-color: rgba(239,68,68,.42);
+    }
+    .pay-mini .label { font-size: 11px; letter-spacing: .22em; font-weight: 600; color: var(--text-muted); margin-bottom: 10px; }
+    .pay-mini.urgent .label { color: #ef4444; }
+    .pay-mini .amount {
+      font-family: "Noto Serif TC", serif;
+      font-size: 26px; font-weight: 700; color: var(--text);
+      letter-spacing: .04em; margin-bottom: 6px;
+    }
+    .pay-mini p { font-size: 12px; color: var(--text-soft); letter-spacing: .06em; }
+    .contract-row { grid-template-columns: 1.5fr 1fr 130px 130px 130px 110px 100px; }
+
+    /* ===== Assets ===== */
+    .upload-card {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 22px;
+      margin-bottom: 24px;
+      display: grid; grid-template-columns: 1.4fr 1fr; gap: 22px;
+      align-items: stretch;
+    }
+    .upload-zone {
+      border: 2px dashed rgba(224,117,50,.32);
+      border-radius: var(--radius-sm);
+      background: rgba(224,117,50,.04);
+      padding: 32px 24px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; gap: 10px;
+      cursor: pointer; transition: all .2s;
+    }
+    .upload-zone:hover {
+      border-color: var(--orange);
+      background: rgba(224,117,50,.08);
+    }
+    .upload-zone .up-ico {
+      width: 56px; height: 56px; border-radius: 16px;
+      background: rgba(224,117,50,.16); color: var(--orange);
+      display: grid; place-items: center; font-size: 26px;
+      margin-bottom: 6px;
+    }
+    .upload-zone b {
+      font-size: 15px; letter-spacing: .08em; color: var(--text);
+      font-weight: 700;
+    }
+    .upload-zone span {
+      font-size: 11.5px; color: var(--text-muted); letter-spacing: .08em;
+      line-height: 1.7;
+    }
+    .upload-zone .up-btn {
+      margin-top: 8px;
+      padding: 10px 22px; border-radius: 10px; border: none;
+      background: var(--orange); color: #fff; cursor: pointer;
+      font-family: inherit; font-size: 12px; font-weight: 700;
+      letter-spacing: .14em; transition: all .2s;
+    }
+    .upload-zone .up-btn:hover { background: var(--orange-deep); }
+
+    .upload-meta { display: flex; flex-direction: column; gap: 14px; }
+    .upload-row { display: flex; flex-direction: column; gap: 6px; }
+    .upload-row label {
+      font-size: 11px; letter-spacing: .18em; font-weight: 600;
+      color: var(--text-muted);
+    }
+    .upload-row select, .upload-row input {
+      height: 38px; padding: 0 14px;
+      border-radius: 10px; border: 1px solid var(--line-strong);
+      background: var(--bg-2); color: var(--text);
+      font-family: inherit; font-size: 13px; letter-spacing: .04em;
+      outline: none; cursor: pointer;
+    }
+    .upload-row select:focus, .upload-row input:focus { border-color: var(--orange); }
+    .upload-sync {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px; border-radius: 10px;
+      background: rgba(74,222,128,.08);
+      border: 1px solid rgba(74,222,128,.22);
+      font-size: 12px; color: var(--text-soft); letter-spacing: .04em;
+      line-height: 1.6;
+    }
+    .upload-sync input[type="checkbox"] {
+      width: 16px; height: 16px; accent-color: var(--orange);
+    }
+    .upload-sync b { color: var(--text); font-weight: 700; }
+
+    .recent-uploads {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 18px 22px;
+      margin-bottom: 26px;
+    }
+    .recent-uploads-h {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .recent-uploads-h h3 {
+      font-size: 13px; letter-spacing: .14em; font-weight: 700;
+    }
+    .recent-uploads-h span {
+      font-size: 11px; color: var(--text-muted); letter-spacing: .1em;
+    }
+    .recent-row {
+      display: grid; grid-template-columns: 36px 1fr 110px 100px 100px 80px;
+      gap: 14px; align-items: center;
+      padding: 10px 4px;
+      border-top: 1px dashed var(--line);
+      font-size: 12.5px;
+    }
+    .recent-row .r-ico {
+      width: 30px; height: 30px; border-radius: 8px;
+      background: rgba(224,117,50,.12); color: var(--orange-2);
+      display: grid; place-items: center; font-size: 13px;
+    }
+    .recent-row .r-name b {
+      display: block; font-size: 12.5px; color: var(--text);
+      letter-spacing: .04em; margin-bottom: 2px;
+    }
+    .recent-row .r-name span {
+      font-size: 10.5px; color: var(--text-muted); letter-spacing: .06em;
+    }
+    .recent-row .r-meta {
+      font-size: 11px; color: var(--text-soft); letter-spacing: .04em;
+    }
+    .recent-row .r-sync {
+      font-size: 11px; font-weight: 700;
+    }
+    .recent-row .r-sync.on { color: #4ade80; }
+    .recent-row .r-sync.off { color: var(--text-muted); }
+
+    .asset-toolbar {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 24px; flex-wrap: wrap;
+    }
+    .asset-stats {
+      display: flex; gap: 14px;
+    }
+    .asset-stat {
+      padding: 10px 18px; border-radius: 12px;
+      background: var(--card); border: 1px solid var(--line);
+      font-size: 11px; letter-spacing: .14em; color: var(--text-muted);
+      font-weight: 600;
+    }
+    .asset-stat b {
+      display: block; font-family: "Inter", sans-serif;
+      font-size: 18px; color: var(--text); font-weight: 700;
+      letter-spacing: 0; margin-bottom: 2px;
+    }
+    .asset-search {
+      margin-left: auto; min-width: 240px;
+      height: 38px; padding: 0 14px;
+      border-radius: 999px; border: 1px solid var(--line);
+      background: var(--bg-2); color: var(--text);
+      font-family: inherit; font-size: 12.5px; outline: none;
+    }
+    .asset-search:focus { border-color: var(--orange); }
+
+    .brand-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .brand-card {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--radius); overflow: hidden;
+      transition: all .2s; cursor: pointer;
+    }
+    .brand-card:hover { transform: translateY(-3px); border-color: rgba(224,117,50,.4); }
+    .brand-thumb {
+      aspect-ratio: 4 / 3;
+      background-size: cover; background-position: center;
+      background-color: var(--bg-2);
+      position: relative;
+    }
+    .brand-thumb .count {
+      position: absolute; top: 12px; right: 12px;
+      padding: 4px 10px; border-radius: 999px;
+      background: rgba(7,11,16,.78); backdrop-filter: blur(8px);
+      color: var(--text); font-size: 11px; letter-spacing: .1em; font-weight: 700;
+    }
+    .brand-body { padding: 14px 18px 16px; }
+    .brand-body b {
+      display: block; font-size: 14px; font-weight: 700;
+      letter-spacing: .08em; color: var(--text); margin-bottom: 3px;
+    }
+    .brand-body span {
+      font-size: 11px; color: var(--text-muted); letter-spacing: .08em;
+    }
+
+    @media (max-width: 1080px) {
+      .admin-shell { grid-template-columns: 1fr; }
+      .admin-sidebar { position: relative; height: auto; flex-direction: row; flex-wrap: wrap; }
+      .admin-nav { flex-direction: row; flex-wrap: wrap; }
+      .metric-grid { grid-template-columns: repeat(2, 1fr); }
+      .panel-row { grid-template-columns: 1fr; }
+      .funnel-bar { grid-template-columns: repeat(2, 1fr); }
+      .funnel-step::after { display: none; }
+      .proj-kanban { grid-template-columns: 1fr; }
+      .proj-col { min-height: auto; }
+      .pay-summary { grid-template-columns: 1fr; }
+      .brand-grid { grid-template-columns: repeat(2, 1fr); }
+      .lead-row, .contract-row { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-shell">
+    <!-- ============ Sidebar ============ -->
+    <aside class="admin-sidebar">
+      <a class="admin-brand" href="index.html">
+        <img src="assets/spark-logo.png" alt="火花 logo">
+        <span class="admin-brand-text">
+          <strong>火花管理後台</strong>
+          <span>SPARK ADMIN</span>
+        </span>
+      </a>
+
+      <nav class="admin-nav">
+        <div class="admin-nav-item is-active" data-view="dashboard">
+          <span class="icon">⌂</span><span>總覽</span>
+        </div>
+        <div class="admin-nav-item" data-view="crm">
+          <span class="icon">◑</span><span>客戶與名單</span><span class="badge">3</span>
+        </div>
+        <div class="admin-nav-item" data-view="contracts">
+          <span class="icon">$</span><span>合約與收款</span>
+        </div>
+        <div class="admin-nav-item" data-view="projects">
+          <span class="icon">◐</span><span>專案與管理</span>
+        </div>
+        <div class="admin-nav-item" data-view="assets">
+          <span class="icon">◇</span><span>內容與素材</span>
+        </div>
+      </nav>
+
+      <div class="admin-user">
+        <div class="avatar">K</div>
+        <div class="meta">
+          <b>Kevin・專案總監</b>
+          <span>kevin@spark.tw</span>
+        </div>
+        <span class="logout" title="登出">⏻</span>
+      </div>
+    </aside>
+
+    <!-- ============ Main ============ -->
+    <main class="admin-main">
+      <!-- ===== Dashboard ===== -->
+      <div class="admin-view is-active" data-view="dashboard">
+        <div class="admin-topbar">
+          <div>
+            <div class="crumbs">SPARK ADMIN ／ DASHBOARD</div>
+            <h1>總覽</h1>
+          </div>
+          <a class="back" href="index.html">← 回火花官網</a>
+        </div>
+
+        <div class="welcome">
+          <div>
+            <h2>火花團隊・今日工作摘要 ☀</h2>
+            <p>今日 5 件團隊待辦、3 個專案進入交付週、本月應收 NT$ 624,000。</p>
+          </div>
+          <div class="welcome-status">
+            <span class="pill info">● 系統運行正常</span>
+            <span style="font-size:11px;letter-spacing:.14em;color:var(--text-muted);">2026/11/13 週四 · 09:24</span>
+          </div>
+        </div>
+
+        <div class="metric-grid">
+          <div class="metric">
+            <div class="icon">✉</div>
+            <div class="label">NEW LEADS · 本週新詢問</div>
+            <div class="value">12<span class="unit">件</span></div>
+            <div class="desc">較上週 ▲ 3 件｜AI 諮詢 8 ／ 表單 4</div>
+          </div>
+          <div class="metric">
+            <div class="icon">◐</div>
+            <div class="label">ACTIVE PROJECTS · 進行中專案</div>
+            <div class="value">8<span class="unit">個</span></div>
+            <div class="desc">本週有 3 個進入交付週</div>
+          </div>
+          <div class="metric">
+            <div class="icon">$</div>
+            <div class="label">RECEIVABLE · 本月應收</div>
+            <div class="value">624,000<span class="unit">NT$</span></div>
+            <div class="desc">已收 412,000 ／ 待收 212,000</div>
+          </div>
+          <div class="metric">
+            <div class="icon">▦</div>
+            <div class="label">TEAM CAPACITY · 團隊產能</div>
+            <div class="value">86<span class="unit">%</span></div>
+            <div class="desc">超過 80% 安全線・建議暫緩新案排入</div>
+          </div>
+        </div>
+
+        <div class="panel-row">
+          <div class="card">
+            <div class="card-h">
+              <h3>團隊待辦事項</h3>
+              <span class="more">+ 新增待辦</span>
+            </div>
+            <div class="todo-list">
+              <div class="todo-item">
+                <div class="check"></div>
+                <div class="text">
+                  <b>審核「美業品牌起飛包」第 3 支 Reels 腳本</b>
+                  <small>負責：Kevin｜客戶：植萃日常・林小姐｜截止：今日 18:00</small>
+                </div>
+                <span class="pill danger">急</span>
+              </div>
+              <div class="todo-item">
+                <div class="check"></div>
+                <div class="text">
+                  <b>回覆昨日 AI 諮詢新名單 3 件</b>
+                  <small>負責：業務組｜來源：首頁 AI 諮詢｜建議今日內聯繫</small>
+                </div>
+                <span class="pill warning">今日</span>
+              </div>
+              <div class="todo-item">
+                <div class="check"></div>
+                <div class="text">
+                  <b>準備「老饕鍋物」11/15 月度成效會議簡報</b>
+                  <small>負責：Diana｜客戶：王老闆｜會議：11/15 14:00</small>
+                </div>
+                <span class="pill info">本週</span>
+              </div>
+              <div class="todo-item">
+                <div class="check"></div>
+                <div class="text">
+                  <b>覆核「植萃日常」KOL 合作 3 位名單與報價</b>
+                  <small>負責：Amy｜總預算 NT$ 48,000</small>
+                </div>
+                <span class="pill info">本週</span>
+              </div>
+              <div class="todo-item">
+                <div class="check"></div>
+                <div class="text">
+                  <b>追蹤「柔光美學」逾期應收款 NT$ 65,000</b>
+                  <small>負責：財務組｜逾期 6 天｜建議今日電話聯繫</small>
+                </div>
+                <span class="pill danger">逾期</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-h">
+              <h3>本週交付看板</h3>
+              <span class="more">完整甘特圖 →</span>
+            </div>
+            <div class="deliver-week">
+              <div class="deliver-col">
+                <h4>今日 11/13</h4>
+                <div class="deliver-card">
+                  <b>美業・Reels 第 3 支</b>
+                  <span>腳本審稿截止</span>
+                </div>
+                <div class="deliver-card">
+                  <b>植萃・月報</b>
+                  <span>10 月成效</span>
+                </div>
+              </div>
+              <div class="deliver-col">
+                <h4>明日 11/14</h4>
+                <div class="deliver-card">
+                  <b>老饕・社群素材</b>
+                  <span>12 篇貼文交付</span>
+                </div>
+              </div>
+              <div class="deliver-col">
+                <h4>本週後段</h4>
+                <div class="deliver-card">
+                  <b>小島・CIS v3</b>
+                  <span>11/15 終稿確認</span>
+                </div>
+                <div class="deliver-card">
+                  <b>柔光・LP 改版</b>
+                  <span>11/16 部署上線</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== CRM ===== -->
+      <div class="admin-view" data-view="crm">
+        <div class="admin-topbar">
+          <div>
+            <div class="crumbs">SPARK ADMIN ／ CRM</div>
+            <h1>客戶與名單</h1>
+          </div>
+          <a class="back" href="index.html">← 回火花官網</a>
+        </div>
+
+        <div class="funnel-bar">
+          <div class="funnel-step">
+            <div class="label">NEW LEADS · 新進名單</div>
+            <div class="num">24</div>
+            <div class="delta">本月 ▲ 7</div>
+          </div>
+          <div class="funnel-step">
+            <div class="label">CONTACTED · 已聯繫</div>
+            <div class="num">18</div>
+            <div class="delta">轉換率 75%</div>
+          </div>
+          <div class="funnel-step">
+            <div class="label">PROPOSED · 已提案</div>
+            <div class="num">9</div>
+            <div class="delta">轉換率 50%</div>
+          </div>
+          <div class="funnel-step">
+            <div class="label">SIGNED · 已簽約</div>
+            <div class="num">5</div>
+            <div class="delta">總額 NT$ 1.84M</div>
+          </div>
+        </div>
+
+        <div class="table">
+          <div class="table-row is-head lead-row">
+            <span></span><span>公司／聯絡人</span><span>產業</span><span>來源</span><span>狀態</span><span>負責業務</span><span>預期金額</span><span></span>
+          </div>
+          <div class="table-row lead-row">
+            <div class="ico-cell"><div class="ic">🛍</div></div>
+            <div class="who"><b>柔光美學</b><span>陳總監・jenny@softbeauty.tw</span></div>
+            <span>電商零售</span>
+            <span><span class="src ai">AI 諮詢</span></span>
+            <span><span class="pill info">已提案</span></span>
+            <span class="pm"><span class="av">K</span>Kevin</span>
+            <span class="amt">NT$ 240,000</span>
+            <span class="more">查看 →</span>
+          </div>
+          <div class="table-row lead-row">
+            <div class="ico-cell"><div class="ic">☕</div></div>
+            <div class="who"><b>老饕鍋物</b><span>王老闆・boss@laotao.tw</span></div>
+            <span>餐飲</span>
+            <span><span class="src form">表單</span></span>
+            <span><span class="pill success">已簽約</span></span>
+            <span class="pm"><span class="av">D</span>Diana</span>
+            <span class="amt">NT$ 516,000</span>
+            <span class="more">查看 →</span>
+          </div>
+          <div class="table-row lead-row">
+            <div class="ico-cell"><div class="ic">◇</div></div>
+            <div class="who"><b>植萃日常</b><span>林小姐・lin@botanic.tw</span></div>
+            <span>美業</span>
+            <span><span class="src ai">AI 諮詢</span></span>
+            <span><span class="pill success">已簽約</span></span>
+            <span class="pm"><span class="av">K</span>Kevin</span>
+            <span class="amt">NT$ 516,000</span>
+            <span class="more">查看 →</span>
+          </div>
+          <div class="table-row lead-row">
+            <div class="ico-cell"><div class="ic">⌖</div></div>
+            <div class="who"><b>小島製作</b><span>劉設計師・island@local.tw</span></div>
+            <span>地方品牌</span>
+            <span><span class="src refer">推薦</span></span>
+            <span><span class="pill info">已提案</span></span>
+            <span class="pm"><span class="av">D</span>Diana</span>
+            <span class="amt">NT$ 380,000</span>
+            <span class="more">查看 →</span>
+          </div>
+          <div class="table-row lead-row">
+            <div class="ico-cell"><div class="ic">☕</div></div>
+            <div class="who"><b>日初咖啡</b><span>陳店長・sunrise@cafe.tw</span></div>
+            <span>餐飲</span>
+            <span><span class="src ai">AI 諮詢</span></span>
+            <span><span class="pill warning">已聯繫</span></span>
+            <span class="pm"><span class="av">K</span>Kevin</span>
+            <span class="amt">NT$ 180,000</span>
+            <span class="more">查看 →</span>
+          </div>
+          <div class="table-row lead-row">
+            <div class="ico-cell"><div class="ic">◇</div></div>
+            <div class="who"><b>Velireo Skin</b><span>Anne・hi@velireo.com</span></div>
+            <span>美業</span>
+            <span><span class="src partner">夥伴轉介</span></span>
+            <span><span class="pill warning">已聯繫</span></span>
+            <span class="pm"><span class="av">K</span>Kevin</span>
+            <span class="amt">NT$ 320,000</span>
+            <span class="more">查看 →</span>
+          </div>
+          <div class="table-row lead-row">
+            <div class="ico-cell"><div class="ic">🛍</div></div>
+            <div class="who"><b>Studio Lab</b><span>Tony・tony@studiolab.tw</span></div>
+            <span>創意服務</span>
+            <span><span class="src form">表單</span></span>
+            <span><span class="pill muted">新名單</span></span>
+            <span class="pm"><span class="av">+</span>未指派</span>
+            <span class="amt">— —</span>
+            <span class="more">指派 →</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== Projects ===== -->
+      <div class="admin-view" data-view="projects">
+        <div class="admin-topbar">
+          <div>
+            <div class="crumbs">SPARK ADMIN ／ PROJECTS</div>
+            <h1>專案與管理</h1>
+          </div>
+          <a class="back" href="index.html">← 回火花官網</a>
+        </div>
+
+        <!-- 上方 sub-tab -->
+        <div class="action-bar">
+          <div class="left">
+            <span class="filter-pill is-on" data-tab="overview">總覽</span>
+            <span class="filter-pill" data-tab="list">列表</span>
+            <span class="filter-pill" data-tab="templates">範本庫</span>
+          </div>
+          <button class="cta-btn" onclick="document.querySelector('.admin-view[data-view=&quot;projects&quot;] .filter-pill[data-tab=&quot;templates&quot;]').click()">＋ 新增專案</button>
+        </div>
+
+        <!-- 總覽 pane（5 階段看板＋本週風險）-->
+        <div class="sub-pane is-active" data-pane="overview">
+          <div class="proj-kanban">
+            <div class="proj-col">
+              <div class="proj-col-head">
+                <div>
+                  <div class="step">STEP 01</div>
+                  <h4>初步諮詢</h4>
+                </div>
+                <span class="cnt">1</span>
+              </div>
+              <div class="proj-col-list">
+                <div class="proj-mini">
+                  <span class="industry">美業</span>
+                  <h5>Velireo Skin・新諮詢評估</h5>
+                  <div class="client">Anne・hi@velireo.com</div>
+                  <div class="proj-bar"><i style="width:18%"></i></div>
+                  <div class="meta-row">
+                    <span class="pm-mini"><span class="av">K</span>Kevin</span>
+                    <span>18%</span>
+                  </div>
+                  <div class="next">下一步 <b>›</b> 需求釐清會議（本週五）</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-col">
+              <div class="proj-col-head">
+                <div>
+                  <div class="step">STEP 02</div>
+                  <h4>問題診斷</h4>
+                </div>
+                <span class="cnt">1</span>
+              </div>
+              <div class="proj-col-list">
+                <div class="proj-mini">
+                  <span class="industry">餐飲</span>
+                  <h5>日初咖啡・社群現況診斷</h5>
+                  <div class="client">陳店長・sunrise@cafe.tw</div>
+                  <div class="proj-bar"><i style="width:32%"></i></div>
+                  <div class="meta-row">
+                    <span class="pm-mini"><span class="av">K</span>Kevin</span>
+                    <span>32%</span>
+                  </div>
+                  <div class="next">下一步 <b>›</b> 提案簡報送出（11/18）</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-col">
+              <div class="proj-col-head">
+                <div>
+                  <div class="step">STEP 03</div>
+                  <h4>策略規劃</h4>
+                </div>
+                <span class="cnt">1</span>
+              </div>
+              <div class="proj-col-list">
+                <div class="proj-mini">
+                  <span class="industry">餐飲</span>
+                  <h5>餐飲連鎖整合行銷</h5>
+                  <div class="client">老饕鍋物・王老闆</div>
+                  <div class="proj-bar"><i style="width:42%"></i></div>
+                  <div class="meta-row">
+                    <span class="pm-mini"><span class="av">D</span>Diana</span>
+                    <span>42%</span>
+                  </div>
+                  <div class="next">下一步 <b>›</b> 12 篇社群貼文交付（明日）</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-col">
+              <div class="proj-col-head">
+                <div>
+                  <div class="step">STEP 04</div>
+                  <h4>創意執行</h4>
+                </div>
+                <span class="cnt">3</span>
+              </div>
+              <div class="proj-col-list">
+                <div class="proj-mini">
+                  <span class="industry">美業</span>
+                  <h5>美業品牌起飛包</h5>
+                  <div class="client">植萃日常・林小姐</div>
+                  <div class="proj-bar"><i style="width:68%"></i></div>
+                  <div class="meta-row">
+                    <span class="pm-mini"><span class="av">K</span>Kevin</span>
+                    <span>68%</span>
+                  </div>
+                  <div class="next">下一步 <b>›</b> Reels 第 3 支腳本（今日 18:00）</div>
+                </div>
+                <div class="proj-mini">
+                  <span class="industry">美業</span>
+                  <h5>新品 KOL 媒合</h5>
+                  <div class="client">植萃日常・林小姐</div>
+                  <div class="proj-bar"><i style="width:56%"></i></div>
+                  <div class="meta-row">
+                    <span class="pm-mini"><span class="av">A</span>Amy</span>
+                    <span>56%</span>
+                  </div>
+                  <div class="next">下一步 <b>›</b> 3 位 KOL 報價單（本週）</div>
+                </div>
+                <div class="proj-mini" data-state="urgent">
+                  <span class="industry">電商</span>
+                  <h5>電商廣告優化</h5>
+                  <div class="client">柔光美學・陳總監</div>
+                  <div class="proj-bar"><i style="width:35%"></i></div>
+                  <div class="meta-row">
+                    <span class="pm-mini"><span class="av">K</span>Kevin</span>
+                    <span>35%</span>
+                  </div>
+                  <div class="next" style="color:#ef4444;">⚠ <b>應收逾期</b> 6 天｜NT$ 65,000</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="proj-col">
+              <div class="proj-col-head">
+                <div>
+                  <div class="step">STEP 05</div>
+                  <h4>上線優化</h4>
+                </div>
+                <span class="cnt">2</span>
+              </div>
+              <div class="proj-col-list">
+                <div class="proj-mini">
+                  <span class="industry">地方</span>
+                  <h5>地方品牌煥新計畫</h5>
+                  <div class="client">小島製作・劉設計師</div>
+                  <div class="proj-bar"><i style="width:88%"></i></div>
+                  <div class="meta-row">
+                    <span class="pm-mini"><span class="av">D</span>Diana</span>
+                    <span>88%</span>
+                  </div>
+                  <div class="next">下一步 <b>›</b> CIS v3 終稿（11/15）</div>
+                </div>
+                <div class="proj-mini">
+                  <span class="industry">內部</span>
+                  <h5>火花網站改版</h5>
+                  <div class="client">內部專案</div>
+                  <div class="proj-bar"><i style="width:95%"></i></div>
+                  <div class="meta-row">
+                    <span class="pm-mini"><span class="av">K</span>Kevin</span>
+                    <span>95%</span>
+                  </div>
+                  <div class="next" style="color:#4ade80;">✓ 11/18 正式上線</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:24px;">
+            <div class="card-h">
+              <h3>本週需注意的專案風險</h3>
+              <span class="more">查看全部 →</span>
+            </div>
+            <div class="todo-list">
+              <div class="todo-item">
+                <div class="check" style="border-color:#ef4444;"></div>
+                <div class="text">
+                  <b>柔光美學・電商廣告優化｜應收款逾期 6 天</b>
+                  <small>建議今日電話聯繫｜逾期金額 NT$ 65,000</small>
+                </div>
+                <span class="pill danger">逾期</span>
+              </div>
+              <div class="todo-item">
+                <div class="check" style="border-color:#f59e0b;"></div>
+                <div class="text">
+                  <b>美業品牌起飛包｜Reels 腳本進度落後 2 天</b>
+                  <small>原訂 11/11 完成審稿，需追蹤客戶確認</small>
+                </div>
+                <span class="pill warning">延期</span>
+              </div>
+              <div class="todo-item">
+                <div class="check" style="border-color:#f59e0b;"></div>
+                <div class="text">
+                  <b>火花團隊產能 86%｜下週建議暫緩新案排入</b>
+                  <small>當前 8 個進行中專案，3 個進入交付週</small>
+                </div>
+                <span class="pill warning">產能</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /總覽 pane -->
+
+        <!-- 列表 pane -->
+        <div class="sub-pane" data-pane="list">
+          <div class="action-bar">
+            <div class="left">
+              <span class="filter-pill is-on">全部</span>
+              <span class="filter-pill">進行中</span>
+              <span class="filter-pill">待啟動</span>
+              <span class="filter-pill">已結案</span>
+            </div>
+            <input type="text" placeholder="🔍 搜尋客戶或專案⋯" style="height:38px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--bg-2);color:var(--text);font-family:inherit;font-size:12.5px;outline:none;min-width:240px;">
+          </div>
+
+          <div class="table">
+            <div class="table-row is-head proj-list-row">
+              <span></span><span>客戶／專案</span><span>產業</span><span>階段</span><span>負責 PM</span><span>下次交付</span><span></span>
+            </div>
+            <div class="table-row proj-list-row">
+              <div class="ico-cell"><div class="ic">🎬</div></div>
+              <div class="who"><b>美業品牌起飛包</b><span>植萃日常・林小姐</span></div>
+              <span>美業</span>
+              <span><span class="stage-pill s4">創意執行 68%</span></span>
+              <span class="pm"><span class="av">K</span>Kevin</span>
+              <span style="font-size:12px;color:var(--text-soft);">Reels 第 3 支腳本<br><small style="color:var(--orange-2);">今日 18:00</small></span>
+              <span class="more">查看 →</span>
+            </div>
+            <div class="table-row proj-list-row">
+              <div class="ico-cell"><div class="ic">☕</div></div>
+              <div class="who"><b>餐飲連鎖整合行銷</b><span>老饕鍋物・王老闆</span></div>
+              <span>餐飲</span>
+              <span><span class="stage-pill s3">策略規劃 42%</span></span>
+              <span class="pm"><span class="av">D</span>Diana</span>
+              <span style="font-size:12px;color:var(--text-soft);">12 篇社群貼文<br><small style="color:var(--text-muted);">明日</small></span>
+              <span class="more">查看 →</span>
+            </div>
+            <div class="table-row proj-list-row">
+              <div class="ico-cell"><div class="ic">⌖</div></div>
+              <div class="who"><b>地方品牌煥新計畫</b><span>小島製作・劉設計師</span></div>
+              <span>地方</span>
+              <span><span class="stage-pill s5">上線優化 88%</span></span>
+              <span class="pm"><span class="av">D</span>Diana</span>
+              <span style="font-size:12px;color:var(--text-soft);">CIS v3 終稿<br><small style="color:var(--text-muted);">11/15</small></span>
+              <span class="more">查看 →</span>
+            </div>
+            <div class="table-row proj-list-row">
+              <div class="ico-cell"><div class="ic">🛍</div></div>
+              <div class="who"><b>電商廣告優化</b><span>柔光美學・陳總監</span></div>
+              <span>電商</span>
+              <span><span class="stage-pill s4">創意執行 35%</span></span>
+              <span class="pm"><span class="av">K</span>Kevin</span>
+              <span style="font-size:12px;color:#ef4444;">應收逾期 6 天<br><small>NT$ 65,000</small></span>
+              <span class="more">查看 →</span>
+            </div>
+            <div class="table-row proj-list-row">
+              <div class="ico-cell"><div class="ic">★</div></div>
+              <div class="who"><b>新品 KOL 媒合</b><span>植萃日常・林小姐</span></div>
+              <span>美業</span>
+              <span><span class="stage-pill s4">創意執行 56%</span></span>
+              <span class="pm"><span class="av">A</span>Amy</span>
+              <span style="font-size:12px;color:var(--text-soft);">3 位 KOL 報價單<br><small style="color:var(--text-muted);">本週</small></span>
+              <span class="more">查看 →</span>
+            </div>
+            <div class="table-row proj-list-row">
+              <div class="ico-cell"><div class="ic">◎</div></div>
+              <div class="who"><b>Velireo Skin・新諮詢評估</b><span>Anne・hi@velireo.com</span></div>
+              <span>美業</span>
+              <span><span class="stage-pill s1">初步諮詢 18%</span></span>
+              <span class="pm"><span class="av">K</span>Kevin</span>
+              <span style="font-size:12px;color:var(--text-soft);">需求釐清會議<br><small style="color:var(--text-muted);">本週五</small></span>
+              <span class="more">查看 →</span>
+            </div>
+            <div class="table-row proj-list-row">
+              <div class="ico-cell"><div class="ic">☕</div></div>
+              <div class="who"><b>日初咖啡・社群現況診斷</b><span>陳店長・sunrise@cafe.tw</span></div>
+              <span>餐飲</span>
+              <span><span class="stage-pill s2">問題診斷 32%</span></span>
+              <span class="pm"><span class="av">K</span>Kevin</span>
+              <span style="font-size:12px;color:var(--text-soft);">提案簡報送出<br><small style="color:var(--text-muted);">11/18</small></span>
+              <span class="more">查看 →</span>
+            </div>
+            <div class="table-row proj-list-row">
+              <div class="ico-cell"><div class="ic">✦</div></div>
+              <div class="who"><b>火花網站改版</b><span>內部專案</span></div>
+              <span>內部</span>
+              <span><span class="stage-pill s5">上線優化 95%</span></span>
+              <span class="pm"><span class="av">K</span>Kevin</span>
+              <span style="font-size:12px;color:#4ade80;">11/18 正式上線</span>
+              <span class="more">查看 →</span>
+            </div>
+          </div>
+        </div>
+        <!-- /列表 pane -->
+
+        <!-- 範本庫 pane -->
+        <div class="sub-pane" data-pane="templates">
+          <div class="template-lib" id="newProjLib">
+            <div class="template-lib-h">
+              <h3>專案範本庫 <small>選擇範本可一鍵套用整套排程與交付節奏</small></h3>
+              <span class="more">管理範本 →</span>
+            </div>
+            <div class="template-grid">
+              <div class="tpl-card">
+                <div class="ic">🎬</div>
+                <b>短影音月更包</b>
+                <p>4 支 Reels + 月報，30 天節奏自動排好（拍攝 / 剪輯 / 上架 / 推播）</p>
+                <span class="use">＋ 使用此範本</span>
+              </div>
+              <div class="tpl-card">
+                <div class="ic">📷</div>
+                <b>商品攝影專案</b>
+                <p>情境照 + 白底照分批拍攝交付，含選片、修圖、客戶確認 3 階段</p>
+                <span class="use">＋ 使用此範本</span>
+              </div>
+              <div class="tpl-card">
+                <div class="ic">📊</div>
+                <b>廣告投放啟動</b>
+                <p>素材測試矩陣、Day 0 上線、第 1 週 / 月報自動推播</p>
+                <span class="use">＋ 使用此範本</span>
+              </div>
+              <div class="tpl-card custom">
+                <div class="ic">＋</div>
+                <b>自訂專案</b>
+                <p>從零開始建立一個沒有預設排程的專案</p>
+                <span class="use">＋ 開始建立</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /範本庫 pane -->
+      </div>
+
+      <!-- ===== Contracts ===== -->
+      <div class="admin-view" data-view="contracts">
+        <div class="admin-topbar">
+          <div>
+            <div class="crumbs">SPARK ADMIN ／ CONTRACTS & PAYMENTS</div>
+            <h1>合約與收款</h1>
+          </div>
+          <a class="back" href="index.html">← 回火花官網</a>
+        </div>
+
+        <!-- 上方 sub-tab -->
+        <div class="action-bar">
+          <div class="left">
+            <span class="filter-pill is-on" data-tab="list">合約列表</span>
+            <span class="filter-pill" data-tab="templates">合約範本庫</span>
+          </div>
+          <button class="cta-btn" onclick="document.querySelector('.admin-view[data-view=&quot;contracts&quot;] .filter-pill[data-tab=&quot;templates&quot;]').click()">＋ 新增合約</button>
+        </div>
+
+        <!-- 合約列表 pane -->
+        <div class="sub-pane is-active" data-pane="list">
+          <div class="action-bar" style="margin-bottom:24px;">
+            <div class="left" style="flex-wrap:wrap;">
+              <span class="filter-pill is-on">全部</span>
+              <span class="filter-pill">草稿</span>
+              <span class="filter-pill">已寄出</span>
+              <span class="filter-pill">已收到簽署</span>
+              <span class="filter-pill">已上傳付款</span>
+              <span class="filter-pill">已確認付款</span>
+              <span class="filter-pill">完成</span>
+            </div>
+          </div>
+
+          <!-- 收款狀態摘要 -->
+          <div class="pay-summary">
+          <div class="pay-mini">
+            <div class="label">本月應收 · RECEIVABLE</div>
+            <div class="amount">624,000</div>
+            <p>含 4 筆款項｜其中 3 筆已收</p>
+          </div>
+          <div class="pay-mini">
+            <div class="label">本月已收 · COLLECTED</div>
+            <div class="amount">412,000</div>
+            <p>達標 66%｜距離月底 17 天</p>
+          </div>
+          <div class="pay-mini urgent">
+            <div class="label">逾期金額 · OVERDUE</div>
+            <div class="amount">65,000</div>
+            <p>柔光美學・逾期 6 天｜需即刻處理</p>
+          </div>
+        </div>
+
+        <!-- 合約列表（6 狀態） -->
+        <div class="table">
+          <div class="table-row is-head contract-row">
+            <span>合約編號／客戶</span><span>合約範本</span><span>簽約日</span><span>合約金額</span><span>已收／待收</span><span>狀態</span><span></span>
+          </div>
+          <div class="table-row contract-row">
+            <div class="who"><b>SPK-2026-001｜植萃日常</b><span>美業品牌起飛包・林小姐</span></div>
+            <span style="font-size:12px;color:var(--text-soft);">短影音月更包</span>
+            <span class="amt" style="font-size:12px;color:var(--text-soft);">2026/09/15</span>
+            <span class="amt">NT$ 516,000</span>
+            <span class="amt" style="font-size:12px;color:var(--text-soft);">172,000 / 344,000</span>
+            <span><span class="pill paid">已確認付款</span></span>
+            <span class="more">查看 →</span>
+          </div>
+          <div class="table-row contract-row">
+            <div class="who"><b>SPK-2026-002｜老饕鍋物</b><span>餐飲整合行銷・王老闆</span></div>
+            <span style="font-size:12px;color:var(--text-soft);">品牌社群經營</span>
+            <span class="amt" style="font-size:12px;color:var(--text-soft);">2026/10/01</span>
+            <span class="amt">NT$ 516,000</span>
+            <span class="amt" style="font-size:12px;color:var(--text-soft);">172,000 / 344,000</span>
+            <span><span class="pill paid">已確認付款</span></span>
+            <span class="more">查看 →</span>
+          </div>
+          <div class="table-row contract-row">
+            <div class="who"><b>SPK-2026-003｜柔光美學</b><span>電商廣告優化・陳總監</span></div>
+            <span style="font-size:12px;color:var(--text-soft);">廣告投放策略</span>
+            <span class="amt" style="font-size:12px;color:var(--text-soft);">2026/08/15</span>
+            <span class="amt">NT$ 390,000</span>
+            <span class="amt" style="font-size:12px;color:#ef4444;">130,000 / 260,000</span>
+            <span><span class="pill danger">逾期</span></span>
+            <span class="more">追款 →</span>
+          </div>
+          <div class="table-row contract-row">
+            <div class="who"><b>SPK-2026-004｜小島製作</b><span>CIS 優化＋官網・劉設計師</span></div>
+            <span style="font-size:12px;color:var(--text-soft);">品牌設計 & CIS</span>
+            <span class="amt" style="font-size:12px;color:var(--text-soft);">2026/07/01</span>
+            <span class="amt">NT$ 380,000</span>
+            <span class="amt" style="font-size:12px;color:var(--text-soft);">340,000 / 40,000</span>
+            <span><span class="pill paying">已上傳付款</span></span>
+            <span class="more">對帳 →</span>
+          </div>
+          <div class="table-row contract-row">
+            <div class="who"><b>SPK-2026-005｜Velireo Skin</b><span>新諮詢評估・Anne</span></div>
+            <span style="font-size:12px;color:var(--text-soft);">品牌設計 & CIS</span>
+            <span class="amt" style="font-size:12px;color:var(--text-soft);">2026/11/08</span>
+            <span class="amt">NT$ 320,000</span>
+            <span class="amt" style="font-size:12px;color:var(--text-soft);">0 / 320,000</span>
+            <span><span class="pill signed">已收到簽署</span></span>
+            <span class="more">通知付款 →</span>
+          </div>
+          <div class="table-row contract-row">
+            <div class="who"><b>SPK-2026-006｜日初咖啡</b><span>社群經營・陳店長</span></div>
+            <span style="font-size:12px;color:var(--text-soft);">品牌社群經營</span>
+            <span class="amt" style="font-size:12px;color:var(--text-soft);">2026/11/10</span>
+            <span class="amt">NT$ 180,000</span>
+            <span class="amt" style="font-size:12px;color:var(--text-soft);">0 / 180,000</span>
+            <span><span class="pill sent">已寄出</span></span>
+            <span class="more">追蹤 →</span>
+          </div>
+          <div class="table-row contract-row">
+            <div class="who"><b>SPK-2026-007｜Studio Lab</b><span>提案中・Tony</span></div>
+            <span style="font-size:12px;color:var(--text-soft);">自訂合約</span>
+            <span class="amt" style="font-size:12px;color:var(--text-soft);">— —</span>
+            <span class="amt">NT$ 240,000</span>
+            <span class="amt" style="font-size:12px;color:var(--text-soft);">0 / 240,000</span>
+            <span><span class="pill draft">草稿</span></span>
+            <span class="more">編輯 →</span>
+          </div>
+          <div class="table-row contract-row">
+            <div class="who"><b>SPK-2025-019｜舊客戶 A</b><span>已結案・全部款項收齊</span></div>
+            <span style="font-size:12px;color:var(--text-soft);">商品攝影</span>
+            <span class="amt" style="font-size:12px;color:var(--text-soft);">2025/03/01</span>
+            <span class="amt">NT$ 120,000</span>
+            <span class="amt" style="font-size:12px;color:var(--text-soft);">120,000 / 0</span>
+            <span><span class="pill done">完成</span></span>
+            <span class="more">歸檔 →</span>
+          </div>
+        </div>
+        </div>
+        <!-- /list pane -->
+
+        <!-- 合約範本庫 pane -->
+        <div class="sub-pane" data-pane="templates">
+          <div class="template-lib" id="newContractLib">
+            <div class="template-lib-h">
+              <h3>合約範本庫 <small>對應七大服務，挑選後自動帶入客戶資料、條款與金額並產 PDF</small></h3>
+              <span class="more">管理範本 →</span>
+            </div>
+            <div class="template-grid" style="grid-template-columns: repeat(4, 1fr);">
+              <div class="tpl-card">
+                <div class="ic">✦</div>
+                <b>品牌設計 & CIS</b>
+                <p>含 logo / VI / 品牌手冊條款、3 輪修改限制、智財權歸屬</p>
+                <span class="use">＋ 使用此範本</span>
+              </div>
+              <div class="tpl-card">
+                <div class="ic">◇</div>
+                <b>網站架設</b>
+                <p>含維運費、SLA、原始碼交付、域名與主機歸屬條款</p>
+                <span class="use">＋ 使用此範本</span>
+              </div>
+              <div class="tpl-card">
+                <div class="ic">📷</div>
+                <b>商品攝影</b>
+                <p>含拍攝張數、肖像權、修圖輪次、檔案授權範圍</p>
+                <span class="use">＋ 使用此範本</span>
+              </div>
+              <div class="tpl-card">
+                <div class="ic">🎬</div>
+                <b>短影音製作</b>
+                <p>含支數、長度、版本控管、音樂授權與字幕條款</p>
+                <span class="use">＋ 使用此範本</span>
+              </div>
+              <div class="tpl-card">
+                <div class="ic">📱</div>
+                <b>品牌社群經營</b>
+                <p>含貼文 / 限動 / 直播配比、互動回覆 SLA、月報項目</p>
+                <span class="use">＋ 使用此範本</span>
+              </div>
+              <div class="tpl-card">
+                <div class="ic">★</div>
+                <b>KOL / KOC 行銷</b>
+                <p>含媒合費、佣金結構、發文時程、成效報表交付</p>
+                <span class="use">＋ 使用此範本</span>
+              </div>
+              <div class="tpl-card">
+                <div class="ic">📊</div>
+                <b>廣告投放策略</b>
+                <p>含投放預算、服務費比例、ROAS 目標、停損機制</p>
+                <span class="use">＋ 使用此範本</span>
+              </div>
+              <div class="tpl-card custom">
+                <div class="ic">＋</div>
+                <b>自訂合約</b>
+                <p>從空白文件開始，自行擬定條款與付款方式</p>
+                <span class="use">＋ 開始建立</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /templates pane -->
+      </div>
+
+      <!-- ===== Assets ===== -->
+      <div class="admin-view" data-view="assets">
+        <div class="admin-topbar">
+          <div>
+            <div class="crumbs">SPARK ADMIN ／ ASSET LIBRARY</div>
+            <h1>內容與素材</h1>
+          </div>
+          <a class="back" href="index.html">← 回火花官網</a>
+        </div>
+
+        <!-- 上方 sub-tab -->
+        <div class="action-bar">
+          <div class="left">
+            <span class="filter-pill is-on" data-tab="brands">品牌素材</span>
+            <span class="filter-pill" data-tab="upload">上傳素材</span>
+          </div>
+          <button class="cta-btn" onclick="document.querySelector('.admin-view[data-view=&quot;assets&quot;] .filter-pill[data-tab=&quot;upload&quot;]').click()">＋ 新增上傳</button>
+        </div>
+
+        <!-- 品牌素材 pane -->
+        <div class="sub-pane is-active" data-pane="brands">
+          <div class="asset-toolbar">
+            <div class="asset-stats">
+              <div class="asset-stat"><b>1,248</b>總資產數</div>
+              <div class="asset-stat"><b>47</b>本週新增</div>
+              <div class="asset-stat"><b>64%</b>儲存空間</div>
+            </div>
+            <input class="asset-search" type="text" placeholder="🔍 搜尋品牌或素材⋯">
+          </div>
+
+          <div class="brand-grid">
+            <div class="brand-card">
+              <div class="brand-thumb" style="background-image:url('assets/cases/social-1.jpg');">
+                <span class="count">328 件</span>
+              </div>
+              <div class="brand-body">
+                <b>植萃日常 ╱ Botanic</b>
+                <span>美業 ・ 進行中專案</span>
+              </div>
+            </div>
+            <div class="brand-card">
+              <div class="brand-thumb" style="background-image:url('assets/cases/social-2.jpg');">
+                <span class="count">246 件</span>
+              </div>
+              <div class="brand-body">
+                <b>老饕鍋物 ╱ Gourmet</b>
+                <span>餐飲 ・ 進行中專案</span>
+              </div>
+            </div>
+            <div class="brand-card">
+              <div class="brand-thumb" style="background-image:url('assets/cases/social-3.jpg');">
+                <span class="count">184 件</span>
+              </div>
+              <div class="brand-body">
+                <b>柔光美學 ╱ Soft Beauty</b>
+                <span>電商零售 ・ 進行中專案</span>
+              </div>
+            </div>
+            <div class="brand-card">
+              <div class="brand-thumb" style="background-image:url('assets/cases/social-4.jpg');">
+                <span class="count">192 件</span>
+              </div>
+              <div class="brand-body">
+                <b>小島製作 ╱ Island Co.</b>
+                <span>地方品牌 ・ 待收尾款</span>
+              </div>
+            </div>
+            <div class="brand-card">
+              <div class="brand-thumb" style="background-image:url('assets/cases/social-5.jpg');">
+                <span class="count">128 件</span>
+              </div>
+              <div class="brand-body">
+                <b>日初咖啡 ╱ Sunrise Café</b>
+                <span>餐飲 ・ 提案中</span>
+              </div>
+            </div>
+            <div class="brand-card">
+              <div class="brand-thumb" style="background-image:url('assets/cases/social-6.jpg');">
+                <span class="count">96 件</span>
+              </div>
+              <div class="brand-body">
+                <b>Velireo Skin</b>
+                <span>美業 ・ 待簽約</span>
+              </div>
+            </div>
+            <div class="brand-card">
+              <div class="brand-thumb" style="background-image:url('assets/cases/social-7.jpg');">
+                <span class="count">54 件</span>
+              </div>
+              <div class="brand-body">
+                <b>Studio Lab</b>
+                <span>創意服務 ・ 新名單</span>
+              </div>
+            </div>
+            <div class="brand-card">
+              <div class="brand-thumb" style="background: linear-gradient(135deg, rgba(224,117,50,.2), rgba(224,117,50,.06)); display:grid; place-items:center;">
+                <span style="font-size:38px;color:var(--orange-2);">+</span>
+              </div>
+              <div class="brand-body">
+                <b>新增品牌專案</b>
+                <span>建立新的素材夾</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /品牌素材 pane -->
+
+        <!-- 上傳素材 pane -->
+        <div class="sub-pane" data-pane="upload">
+          <div class="upload-card">
+            <div class="upload-zone">
+              <div class="up-ico">↑</div>
+              <b>拖曳檔案到此或點擊上傳</b>
+              <span>支援 JPG、PNG、MP4、PDF、ZIP・單檔最大 500 MB<br>多檔可一次拖入，自動依分類存放</span>
+              <button class="up-btn">＋ 選擇檔案</button>
+            </div>
+            <div class="upload-meta">
+              <div class="upload-row">
+                <label>上傳至品牌</label>
+                <select>
+                  <option>植萃日常 ╱ Botanic</option>
+                  <option>老饕鍋物 ╱ Gourmet</option>
+                  <option>柔光美學 ╱ Soft Beauty</option>
+                  <option>小島製作 ╱ Island Co.</option>
+                  <option>日初咖啡 ╱ Sunrise Café</option>
+                  <option>Velireo Skin</option>
+                  <option>Studio Lab</option>
+                </select>
+              </div>
+              <div class="upload-row">
+                <label>分類</label>
+                <select>
+                  <option>設計稿</option>
+                  <option>商品攝影</option>
+                  <option>短影音</option>
+                  <option>月度報表</option>
+                  <option>合約文件</option>
+                  <option>其他</option>
+                </select>
+              </div>
+              <div class="upload-row">
+                <label>標籤（可選填）</label>
+                <input type="text" placeholder="例如：11月新品、KV、Reels">
+              </div>
+              <div class="upload-sync">
+                <input type="checkbox" id="syncPortal" checked>
+                <label for="syncPortal"><b>同步到客戶專區</b>｜上傳完成後自動推播給客戶</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="recent-uploads">
+            <div class="recent-uploads-h">
+              <h3>最近上傳</h3>
+              <span>顯示最近 5 筆・<span style="color:var(--orange-2);cursor:pointer;">查看全部 →</span></span>
+            </div>
+            <div class="recent-row">
+              <div class="r-ico">🎬</div>
+              <div class="r-name"><b>Reels 第 2 支_終版.mp4</b><span>Kevin 上傳・植萃日常</span></div>
+              <span class="r-meta">短影音</span>
+              <span class="r-meta">84 MB</span>
+              <span class="r-meta">11/12 18:24</span>
+              <span class="r-sync on">● 已同步</span>
+            </div>
+            <div class="recent-row">
+              <div class="r-ico">📷</div>
+              <div class="r-name"><b>商品攝影第 2 批（8 組情境）.zip</b><span>Diana 上傳・植萃日常</span></div>
+              <span class="r-meta">攝影</span>
+              <span class="r-meta">1.2 GB</span>
+              <span class="r-meta">11/10 14:08</span>
+              <span class="r-sync on">● 已同步</span>
+            </div>
+            <div class="recent-row">
+              <div class="r-ico">📑</div>
+              <div class="r-name"><b>10 月成效月報_老饕鍋物.pdf</b><span>Diana 上傳・老饕鍋物</span></div>
+              <span class="r-meta">月報</span>
+              <span class="r-meta">2.4 MB</span>
+              <span class="r-meta">11/05 11:32</span>
+              <span class="r-sync on">● 已同步</span>
+            </div>
+            <div class="recent-row">
+              <div class="r-ico">🎨</div>
+              <div class="r-name"><b>CIS v3_工作稿.fig</b><span>Diana 上傳・小島製作</span></div>
+              <span class="r-meta">設計稿</span>
+              <span class="r-meta">48 MB</span>
+              <span class="r-meta">11/04 16:55</span>
+              <span class="r-sync off">○ 內部用</span>
+            </div>
+            <div class="recent-row">
+              <div class="r-ico">📄</div>
+              <div class="r-name"><b>KOL 報價單_v1.xlsx</b><span>Amy 上傳・植萃日常</span></div>
+              <span class="r-meta">其他</span>
+              <span class="r-meta">128 KB</span>
+              <span class="r-meta">11/03 10:14</span>
+              <span class="r-sync off">○ 內部用</span>
+            </div>
+          </div>
+        </div>
+        <!-- /上傳素材 pane -->
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // ===== Nav switching =====
+    const navItems = document.querySelectorAll('.admin-nav-item');
+    const views = document.querySelectorAll('.admin-view');
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const target = item.dataset.view;
+        navItems.forEach(n => n.classList.toggle('is-active', n === item));
+        views.forEach(v => v.classList.toggle('is-active', v.dataset.view === target));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    // ===== Sub-tab switching（view 內的 總覽/列表）=====
+    document.querySelectorAll('.admin-view').forEach(view => {
+      const tabs = view.querySelectorAll('.filter-pill[data-tab]');
+      const panes = view.querySelectorAll('.sub-pane[data-pane]');
+      if (!tabs.length || !panes.length) return;
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const target = tab.dataset.tab;
+          tabs.forEach(t => t.classList.toggle('is-on', t === tab));
+          panes.forEach(p => p.classList.toggle('is-active', p.dataset.pane === target));
+        });
+      });
+    });
+  </script>
+  <script src="assets/chat-widget.js"></script>
+</body>
+</html>

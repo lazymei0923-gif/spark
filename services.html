@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>服務項目｜SPARK Brand Marketing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070b10; --bg-2: #0b1017;
+      --card: rgba(18,23,31,.78); --card-2: rgba(21,27,36,.72);
+      --line: rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.16);
+      --text: #f6f0e8; --text-soft: rgba(246,240,232,.72); --text-muted: rgba(246,240,232,.48);
+      --orange: #e07532; --orange-2: #f08c4a; --orange-deep: #b94f1f;
+      --radius: 20px; --radius-sm: 14px;
+      --container: 1280px;
+      --body-bg: radial-gradient(circle at 72% 13%, rgba(224,117,50,.16), transparent 28%),
+        linear-gradient(180deg, #06090e 0%, #080d13 52%, #06090e 100%);
+    }
+    :root[data-theme="light"] {
+      --bg: #FFF8EF; --bg-2: #F7F0E7;
+      --card: #FFFFFF; --card-2: #FFF4E8;
+      --line: #E7DDD4; --line-strong: #D8C8BA;
+      --text: #1F1F1F; --text-soft: #5F5750; --text-muted: #8B8178;
+      --orange: #E07532; --orange-2: #C65F2B; --orange-deep: #B85A20;
+      --body-bg: linear-gradient(180deg, #FFF8EF 0%, #F7F0E7 60%, #F2EAE0 100%);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{min-height:100%;background:var(--bg);color:var(--text);font-family:"Noto Sans TC","Inter",sans-serif;transition:background .4s,color .4s}
+    body{background:var(--body-bg)}
+    a{color:inherit;text-decoration:none}
+    ul,ol{list-style:none}
+    .container{width:min(calc(100% - 80px), var(--container)); margin:0 auto}
+
+    /* Theme toggle */
+    .theme-toggle{position:fixed;top:22px;right:28px;z-index:200;width:44px;height:44px;border-radius:50%;border:1px solid var(--line-strong);background:var(--card);color:var(--text);cursor:pointer;display:grid;place-items:center;font-size:18px;transition:.25s;backdrop-filter:blur(10px)}
+    .theme-toggle:hover{border-color:var(--orange);color:var(--orange);transform:rotate(15deg)}
+
+    /* Header */
+    .header{height:76px;padding:0 40px;display:flex;align-items:center;justify-content:space-between;gap:32px;position:sticky;top:0;z-index:100;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:color-mix(in srgb, var(--bg) 75%, transparent);border-bottom:1px solid var(--line)}
+    .header .brand{display:flex;align-items:center;gap:12px;min-width:260px;text-decoration:none;color:inherit}
+    .header .brand img{width:40px;height:40px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(224,117,50,.22))}
+    .header .brand-text strong{display:block;font-size:15px;letter-spacing:.12em;color:var(--text);font-weight:700;line-height:1.15}
+    .header .brand-text span{display:block;font-size:10px;letter-spacing:.25em;color:var(--orange);font-weight:600;margin-top:3px}
+    .header .nav{display:flex;align-items:center;gap:42px;color:var(--text-soft);font-size:14px;letter-spacing:.14em;font-weight:500}
+    .header .nav a{color:inherit;text-decoration:none;white-space:nowrap;transition:color .2s;position:relative}
+    .header .nav a:hover{color:var(--orange-2)}
+    .header .nav a.active{color:var(--orange-2)}
+    .header .nav a.active::after{content:"";position:absolute;left:0;right:0;bottom:-22px;height:2px;background:var(--orange)}
+    .header-cta{display:flex;align-items:center;gap:18px;min-width:240px;justify-content:flex-end}
+    .portal-link{color:var(--text-soft);text-decoration:none;font-size:12.5px;letter-spacing:.14em;font-weight:500;display:inline-flex;align-items:center;gap:6px;transition:color .2s}
+    .portal-link::before{content:"";width:11px;height:11px;border:1px solid currentColor;border-radius:50%}
+    .portal-link:hover{color:var(--orange-2)}
+    .btn-cta-sm{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:10px;background:linear-gradient(135deg, var(--orange-2), var(--orange));color:#fff;font-weight:700;font-size:12.5px;letter-spacing:.14em;text-decoration:none;box-shadow:0 6px 18px rgba(224,117,50,.32);transition:.2s}
+    .btn-cta-sm:hover{transform:translateY(-1px)}
+    @media (max-width:1080px){
+      .header .nav{display:none}
+      .header .brand{min-width:auto}
+    }
+
+    /* Section helpers */
+    .section-kicker{color:var(--orange);font-size:13px;letter-spacing:.3em;font-weight:700;margin-bottom:14px;text-transform:uppercase}
+    .section-title{font-family:"Noto Serif TC",serif;font-size:42px;letter-spacing:.12em;line-height:1.4;color:var(--text);margin-bottom:14px;font-weight:700}
+    .section-lead{font-size:16px;line-height:1.95;letter-spacing:.06em;color:var(--text-soft);max-width:720px}
+
+    /* Hero — 橘色光流 banner */
+    .hero{position:relative;padding:90px 40px 110px;overflow:hidden;
+      background:
+        linear-gradient(180deg, rgba(7,11,16,.55) 0%, rgba(7,11,16,.25) 50%, rgba(7,11,16,.65) 100%),
+        url('assets/hero-banner-dark.png') center/cover no-repeat,
+        #0a0d14;
+    }
+    :root[data-theme="light"] .hero{
+      background:
+        linear-gradient(180deg, rgba(255,248,239,.4) 0%, rgba(255,248,239,.15) 50%, rgba(255,248,239,.55) 100%),
+        url('assets/hero-banner-dark.png') center/cover no-repeat,
+        #FFF8EF;
+    }
+    .hero-inner{max-width:var(--container);margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+    .hero-tag{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;border:1px solid rgba(224,117,50,.4);background:rgba(224,117,50,.08);color:var(--orange-2);font-size:11.5px;letter-spacing:.22em;font-weight:700;margin-bottom:22px}
+    .hero-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--orange);box-shadow:0 0 8px var(--orange)}
+    .hero-title{font-family:"Noto Serif TC",serif;font-size:clamp(38px, 4.4vw, 56px);letter-spacing:.08em;line-height:1.32;color:var(--text);font-weight:700;margin-bottom:22px}
+    .hero-title em{font-style:normal;color:var(--orange);background:linear-gradient(120deg, transparent 60%, rgba(224,117,50,.22) 60%);padding:0 4px}
+    .hero-sub{font-size:16px;line-height:1.95;letter-spacing:.08em;color:var(--text-soft);margin-bottom:28px}
+    .hero-cta{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .hero-stats{display:flex;gap:32px;padding-top:22px;border-top:1px solid var(--line);margin-top:28px}
+    .hero-stat .num{font-family:"Noto Serif TC",serif;font-size:26px;font-weight:700;letter-spacing:.04em;color:var(--orange-2)}
+    .hero-stat .label{font-size:11px;letter-spacing:.18em;color:var(--text-muted);margin-top:4px}
+
+    /* Hero 右側 — 4 階段視覺（無外框） */
+    .hero-visual{
+      position:relative;
+      display:flex;flex-direction:column;justify-content:center;gap:14px;
+      padding:0;
+    }
+    .hv-step{
+      display:grid; grid-template-columns:48px 1fr; gap:14px;
+      align-items:center;
+      padding:14px 4px;
+      position:relative; z-index:1;
+    }
+    .hv-step + .hv-step{ border-top:1px solid var(--line); }
+    .hv-step .n{
+      width:44px;height:44px;border-radius:50%;
+      background:linear-gradient(135deg, var(--orange-2), var(--orange));
+      color:#fff; display:grid; place-items:center;
+      font-family:"Noto Serif TC",serif; font-size:18px; font-weight:700;
+      box-shadow:0 6px 16px rgba(224,117,50,.4);
+    }
+    .hv-step b{
+      display:block; font-family:"Noto Serif TC",serif;
+      font-size:17px; letter-spacing:.14em; color:var(--text); font-weight:700;
+      margin-bottom:3px;
+    }
+    .hv-step span{
+      display:block; font-size:11.5px; color:var(--text-muted);
+      letter-spacing:.06em;
+    }
+    .hv-step .en{
+      font-family:"Inter",sans-serif; font-size:9.5px;
+      letter-spacing:.28em; color:var(--orange-2);
+      font-weight:700; margin-bottom:2px;
+    }
+
+    .btn-hero-primary{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:14px 28px;border-radius:12px;
+      background:linear-gradient(135deg, var(--orange-2), var(--orange));
+      color:#fff;font-weight:700;font-size:14px;letter-spacing:.14em;text-decoration:none;
+      box-shadow:0 12px 32px rgba(224,117,50,.4);transition:.25s;
+    }
+    .btn-hero-primary:hover{transform:translateY(-2px)}
+    .btn-hero-ghost{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:14px 22px;border-radius:12px;
+      border:1px solid var(--line-strong);color:var(--text);
+      font-weight:600;font-size:13px;letter-spacing:.14em;text-decoration:none;
+      transition:.25s;
+    }
+    .btn-hero-ghost:hover{border-color:var(--orange);color:var(--orange-2)}
+
+    /* Section block */
+    .section{padding:90px 40px}
+    .section-head{max-width:var(--container);margin:0 auto 56px;text-align:center}
+    .section-head .section-lead{margin:0 auto}
+
+    /* 4 階段一條龍流程 */
+    .stages-section{background:radial-gradient(circle at 50% 0%, rgba(224,117,50,.10), transparent 32%)}
+    .stage-flow{
+      max-width:var(--container); margin:0 auto;
+      display:grid; grid-template-columns:repeat(4,1fr); gap:16px;
+      position:relative;
+    }
+    .stage-flow::before{
+      content:""; position:absolute; top:50px; left:6%; right:6%; height:2px;
+      background:linear-gradient(90deg, transparent, rgba(224,117,50,.5) 8%, rgba(224,117,50,.5) 92%, transparent);
+      z-index:0;
+    }
+    .stage-col{
+      background:var(--card); border:1px solid var(--line);
+      border-radius:var(--radius); padding:32px 24px;
+      text-align:center; position:relative; z-index:1;
+    }
+    .stage-col .num{
+      width:60px; height:60px; border-radius:50%;
+      background:linear-gradient(135deg, var(--orange-2), var(--orange));
+      color:#fff; display:grid; place-items:center;
+      font-family:"Noto Serif TC", serif; font-size:22px; font-weight:700;
+      margin:-50px auto 18px; box-shadow:0 8px 22px rgba(224,117,50,.4);
+    }
+    .stage-col .en{
+      font-family:"Inter",sans-serif; font-size:10.5px; letter-spacing:.28em;
+      color:var(--orange-2); font-weight:700; margin-bottom:8px;
+    }
+    .stage-col h3{
+      font-family:"Noto Serif TC",serif; font-size:22px; letter-spacing:.14em;
+      color:var(--text); margin-bottom:14px;
+    }
+    .stage-col p{
+      font-size:13px; line-height:1.85; letter-spacing:.06em;
+      color:var(--text-soft); margin-bottom:18px;
+    }
+    .stage-col ul{display:flex;flex-direction:column;gap:6px;text-align:left;padding-top:14px;border-top:1px dashed var(--line)}
+    .stage-col ul li{
+      font-size:12.5px; color:var(--text); letter-spacing:.06em;
+      display:flex; align-items:center; gap:8px;
+    }
+    .stage-col ul li::before{
+      content:"›"; color:var(--orange); font-weight:700;
+    }
+
+    /* 7 服務細項 */
+    .services-grid{
+      max-width:var(--container); margin:0 auto;
+      display:grid; grid-template-columns:repeat(3,1fr); gap:18px;
+    }
+    .service-card{
+      background:var(--card); border:1px solid var(--line);
+      border-radius:var(--radius); padding:30px 28px;
+      transition:all .3s ease; position:relative; overflow:hidden;
+    }
+    .service-card:hover{
+      transform:translateY(-4px);
+      border-color:rgba(224,117,50,.45);
+      box-shadow:0 18px 44px rgba(224,117,50,.12);
+    }
+    .service-card .num{
+      font-family:"Inter",sans-serif; font-size:11px;
+      letter-spacing:.25em; color:var(--orange-2);
+      font-weight:700; margin-bottom:14px;
+    }
+    .service-card .icon-box{
+      width:52px; height:52px; border-radius:14px;
+      background:rgba(224,117,50,.12); color:var(--orange);
+      display:grid; place-items:center;
+      font-size:22px; margin-bottom:18px;
+    }
+    .service-card h3{
+      font-family:"Noto Serif TC",serif;
+      font-size:21px; letter-spacing:.12em;
+      color:var(--text); margin-bottom:8px;
+    }
+    .service-card .sub{
+      font-size:11.5px; letter-spacing:.18em; color:var(--orange-2);
+      font-weight:600; margin-bottom:14px;
+    }
+    .service-card p{
+      font-size:13px; line-height:1.95; letter-spacing:.06em;
+      color:var(--text-soft); margin-bottom:14px;
+    }
+    .service-card ul{display:flex;flex-direction:column;gap:5px;padding-top:14px;border-top:1px dashed var(--line)}
+    .service-card ul li{
+      font-size:12px; color:var(--text); letter-spacing:.05em;
+      display:flex; align-items:center; gap:8px;
+    }
+    .service-card ul li::before{
+      content:"✓"; color:var(--orange-2); font-weight:700; font-size:11px;
+    }
+
+    /* 套裝包 */
+    .combo-section{
+      background:radial-gradient(circle at 50% 0%, rgba(224,117,50,.14), transparent 38%),
+        linear-gradient(135deg, #07101c 0%, #0a0b10 45%, #120c0c 100%);
+      padding:100px 40px;
+    }
+    :root[data-theme="light"] .combo-section{
+      background:radial-gradient(circle at 50% 0%, rgba(224,117,50,.10), transparent 38%),
+        linear-gradient(135deg, #FFF8EF 0%, #F7F0E7 100%);
+    }
+    .combo-section .section-head .section-title{color:#fff}
+    :root[data-theme="light"] .combo-section .section-head .section-title{color:var(--text)}
+    .combo-grid{
+      max-width:var(--container); margin:0 auto;
+      display:grid; grid-template-columns:repeat(3,1fr); gap:22px;
+    }
+    .combo-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.085) 0%, rgba(255,255,255,.025) 100%);
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:var(--radius); padding:36px 32px;
+      backdrop-filter:blur(18px);
+      box-shadow:inset 0 -1px 0 rgba(255,122,52,.65);
+    }
+    :root[data-theme="light"] .combo-card{
+      background:linear-gradient(180deg, #fff 0%, #FFF4E8 100%);
+      border-color:var(--line);
+    }
+    .combo-card.is-featured{
+      border-color:rgba(224,117,50,.5);
+      background:linear-gradient(180deg, rgba(224,117,50,.2) 0%, rgba(224,117,50,.06) 100%);
+      transform:translateY(-12px);
+    }
+    .combo-card.is-featured::before{
+      content:"最受歡迎"; position:absolute;
+      top:14px; right:14px;
+      padding:4px 10px; border-radius:999px;
+      background:var(--orange); color:#fff;
+      font-size:10px; letter-spacing:.18em; font-weight:700;
+    }
+    .combo-card{position:relative}
+    .combo-card .tag{
+      display:inline-flex; padding:5px 12px; border-radius:999px;
+      background:rgba(224,117,50,.18); color:var(--orange-2);
+      font-size:11px; letter-spacing:.18em; font-weight:700;
+      margin-bottom:18px;
+    }
+    .combo-card h3{
+      font-family:"Noto Serif TC",serif;
+      font-size:26px; letter-spacing:.12em; line-height:1.4;
+      color:var(--text); margin-bottom:10px;
+    }
+    .combo-card .price{
+      font-family:"Inter",sans-serif;
+      font-size:14px; color:var(--text-soft);
+      letter-spacing:.08em; margin-bottom:20px;
+    }
+    .combo-card .price b{
+      font-family:"Noto Serif TC",serif;
+      font-size:28px; color:var(--orange-2);
+      font-weight:700; margin-right:6px;
+    }
+    .combo-card ul{
+      display:flex; flex-direction:column; gap:8px;
+      margin-bottom:20px; padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.16);
+    }
+    :root[data-theme="light"] .combo-card ul{ border-top-color:var(--line); }
+    .combo-card ul li{
+      display:flex; align-items:flex-start; gap:8px;
+      font-size:13px; line-height:1.7;
+      color:var(--text); letter-spacing:.04em;
+    }
+    .combo-card ul li::before{
+      content:"✓"; color:var(--orange-2); font-weight:700; flex-shrink:0;
+    }
+    .combo-card .cta{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:11px 22px; border-radius:10px;
+      background:linear-gradient(135deg, var(--orange-2), var(--orange));
+      color:#fff; font-weight:700; font-size:12.5px;
+      letter-spacing:.14em; text-decoration:none;
+      box-shadow:0 8px 22px rgba(224,117,50,.4);
+      transition:.25s;
+    }
+    .combo-card .cta:hover{transform:translateY(-2px)}
+
+    /* CTA */
+    .cta-section{padding:100px 40px;background:radial-gradient(circle at 50% 50%, rgba(224,117,50,.18), transparent 38%),linear-gradient(135deg, #0a0d14 0%, #181214 100%);text-align:center}
+    :root[data-theme="light"] .cta-section{background:radial-gradient(circle at 50% 50%, rgba(224,117,50,.14), transparent 38%),linear-gradient(135deg, #FFF8EF 0%, #FFEFE0 100%)}
+    .cta-wrap{max-width:720px;margin:0 auto}
+    .cta-section h2{font-family:"Noto Serif TC",serif;font-size:36px;letter-spacing:.12em;line-height:1.5;color:var(--text);margin-bottom:18px;font-weight:700}
+    .cta-section p{font-size:15px;line-height:2;letter-spacing:.08em;color:var(--text-soft);margin-bottom:32px}
+    .btn-primary{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;border-radius:12px;background:linear-gradient(135deg, var(--orange-2), var(--orange));color:#fff;font-weight:700;font-size:14.5px;letter-spacing:.14em;text-decoration:none;box-shadow:0 12px 32px rgba(224,117,50,.4);transition:.25s}
+    .btn-primary:hover{transform:translateY(-2px)}
+    .btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:14px 24px;border-radius:12px;border:1px solid var(--line-strong);background:transparent;color:var(--text);font-weight:600;font-size:13px;letter-spacing:.14em;margin-left:14px;transition:.25s}
+    .btn-ghost:hover{border-color:var(--orange);color:var(--orange-2)}
+
+    .footer{padding:40px;text-align:center;border-top:1px solid var(--line);font-size:11.5px;letter-spacing:.14em;color:var(--text-muted)}
+    .footer b{color:var(--text);font-weight:700}
+
+    @media (max-width: 1080px){
+      .stage-flow{grid-template-columns:repeat(2,1fr)}
+      .stage-flow::before{display:none}
+      .stage-col .num{margin-top:-50px}
+      .services-grid{grid-template-columns:repeat(2,1fr)}
+      .combo-grid{grid-template-columns:1fr}
+      .combo-card.is-featured{transform:none}
+    }
+    @media (max-width: 640px){
+      .hero{padding:60px 24px 70px}
+      .section{padding:60px 24px}
+      .stage-flow,.services-grid{grid-template-columns:1fr}
+      .container{width:calc(100% - 32px)}
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle" aria-label="切換主題">☀</button>
+
+  <header class="header">
+    <a class="brand" href="index.html">
+      <img src="assets/spark-logo.png" alt="火花 logo">
+      <span class="brand-text">
+        <strong>火花整合行銷有限公司</strong>
+        <span>SPARK BRAND MARKETING</span>
+      </span>
+    </a>
+    <nav class="nav">
+      <a href="services.html" class="active">服務項目</a>
+      <a href="case-velireo.html">案例作品</a>
+      <a href="index.html#about">關於火花</a>
+      <a href="index.html#blog">洞察觀點</a>
+      <a href="index.html#contact">聯絡我們</a>
+    </nav>
+    <div class="header-cta">
+      <a class="portal-link" href="portal.html">客戶登入</a>
+      <a class="btn-cta-sm" href="index.html#contact">免費諮詢 →</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <span class="hero-tag">SERVICES ・ 一站式整合行銷</span>
+        <h1 class="hero-title">不是七種獨立服務<br>而是一套<em>品牌建立系統</em></h1>
+        <p class="hero-sub">火花的服務依照品牌成長階段排列：立基 → 素材 → 經營 → 放大。<br>你可以從任一階段加入，也可以走完整一條龍——關鍵是每一塊都互相串連，不是零碎執行。</p>
+        <div class="hero-cta">
+          <a class="btn-hero-primary" href="index.html#contact">免費策略諮詢 →</a>
+          <a class="btn-hero-ghost" href="case-velireo.html">看實際案例</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><div class="num">7</div><div class="label">CORE SERVICES 核心服務</div></div>
+          <div class="hero-stat"><div class="num">4</div><div class="label">STAGES 成長階段</div></div>
+          <div class="hero-stat"><div class="num">3</div><div class="label">PACKAGES 套裝方案</div></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hv-step">
+          <div class="n">01</div>
+          <div>
+            <b>立基</b>
+            <span>品牌設計 ・ 網站架設</span>
+          </div>
+        </div>
+        <div class="hv-step">
+          <div class="n">02</div>
+          <div>
+            <b>素材</b>
+            <span>商品攝影 ・ 短影音製作</span>
+          </div>
+        </div>
+        <div class="hv-step">
+          <div class="n">03</div>
+          <div>
+            <b>經營</b>
+            <span>社群經營 ・ KOL 行銷</span>
+          </div>
+        </div>
+        <div class="hv-step">
+          <div class="n">04</div>
+          <div>
+            <b>放大</b>
+            <span>廣告投放 ・ 數據優化</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 階段 -->
+  <section class="section stages-section">
+    <div class="section-head">
+      <div class="section-kicker">ONE-STOP FLOW</div>
+      <h2 class="section-title">四階段一條龍</h2>
+      <p class="section-lead">從品牌起點到流量轉換的完整路徑。</p>
+    </div>
+
+    <div class="stage-flow">
+      <div class="stage-col">
+        <div class="num">01</div>
+        <h3>立基</h3>
+        <p>把品牌的「樣子」與「門面」做出來，讓客戶第一眼相信你是專業品牌。</p>
+        <ul>
+          <li>品牌設計 / CIS</li>
+          <li>網站架設</li>
+        </ul>
+      </div>
+      <div class="stage-col">
+        <div class="num">02</div>
+        <h3>素材</h3>
+        <p>有了門面後，需要可以重複使用的視覺資產：照片、影片、KV。</p>
+        <ul>
+          <li>商品攝影</li>
+          <li>短影音製作</li>
+        </ul>
+      </div>
+      <div class="stage-col">
+        <div class="num">03</div>
+        <h3>經營</h3>
+        <p>素材有了，要在對的通路被看見。社群與 KOL 是品牌的長期經營主場。</p>
+        <ul>
+          <li>品牌社群經營</li>
+          <li>KOL / KOC 行銷</li>
+        </ul>
+      </div>
+      <div class="stage-col">
+        <div class="num">04</div>
+        <h3>放大</h3>
+        <p>當基底穩固，廣告投放可以加速流量與營收，讓品牌規模化成長。</p>
+        <ul>
+          <li>廣告投放策略</li>
+          <li>數據優化</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 服務 -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-kicker">SERVICES</div>
+      <h2 class="section-title">七大服務細項</h2>
+      <p class="section-lead">依合作流程排序。可單獨選用，也可組合成一條龍方案。</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="num">SERVICE 01</div>
+        <div class="icon-box">✦</div>
+        <h3>品牌設計 / CIS</h3>
+        <div class="sub">立基</div>
+        <p>建立品牌識別系統，從 logo、字型、色彩、Pattern 到應用規範手冊，讓品牌一上線就有專業視覺底氣。</p>
+        <ul>
+          <li>Logo / VI 系統</li>
+          <li>品牌色票 + 字型規範</li>
+          <li>28 頁應用規範手冊（PDF）</li>
+          <li>包裝 / 名片 / 出貨配件設計</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="num">SERVICE 02</div>
+        <div class="icon-box">◇</div>
+        <h3>網站架設</h3>
+        <div class="sub">立基</div>
+        <p>客製化品牌官網與電商，含產品頁、會員系統、結帳金流、訂單後台。SSR + SEO 友善架構，能跑廣告也能養 SEO。</p>
+        <ul>
+          <li>形象官網／品牌商城</li>
+          <li>銷售頁 / 預約頁</li>
+          <li>會員系統 + 金流串接</li>
+          <li>後台 CMS 自助更新</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="num">SERVICE 03</div>
+        <div class="icon-box">📷</div>
+        <h3>商品攝影</h3>
+        <div class="sub">素材</div>
+        <p>產品情境照、白底照、創辦人形象照，一次拍齊。為 SEO、廣告素材、社群、電商列表都備好。</p>
+        <ul>
+          <li>產品情境照 × 30 張起</li>
+          <li>白底電商標準照</li>
+          <li>創辦人 / 團隊形象照</li>
+          <li>場景租借 + 道具陳設</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="num">SERVICE 04</div>
+        <div class="icon-box">🎬</div>
+        <h3>短影音製作</h3>
+        <div class="sub">素材</div>
+        <p>Reels / TikTok / YouTube Shorts 一條龍：腳本企劃、拍攝、剪輯、字幕、配樂。每月固定節奏穩定產出。</p>
+        <ul>
+          <li>月更包：每月 4 支 Reels</li>
+          <li>單支客製：產品 demo / 開箱</li>
+          <li>創辦人 IP 影片系列</li>
+          <li>含腳本、字幕、音樂授權</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="num">SERVICE 05</div>
+        <div class="icon-box">📱</div>
+        <h3>品牌社群經營</h3>
+        <div class="sub">經營</div>
+        <p>IG / FB / Threads 內容企劃與排程：產品教育、創辦人故事、QA 三條主線，每週固定更新。</p>
+        <ul>
+          <li>內容主題年規劃</li>
+          <li>貼文 / 限動 / Reels 每週更新</li>
+          <li>留言回覆 + 社群互動</li>
+          <li>月度互動數據報表</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="num">SERVICE 06</div>
+        <div class="icon-box">★</div>
+        <h3>KOL / KOC 行銷</h3>
+        <div class="sub">經營</div>
+        <p>精準媒合適合品牌調性的 KOL / KOC，從報價、腳本、發文時程到成效追蹤一條龍。</p>
+        <ul>
+          <li>KOL 名單篩選與議價</li>
+          <li>合作腳本 + 拍攝 brief</li>
+          <li>發文時程協調</li>
+          <li>互動 / 導流數據追蹤</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="num">SERVICE 07</div>
+        <div class="icon-box">📊</div>
+        <h3>廣告投放策略</h3>
+        <div class="sub">放大</div>
+        <p>Meta / Google / TikTok 廣告投放，從受眾規劃、素材測試矩陣、預算配比、到 ROAS 優化。每日日報自動推播。</p>
+        <ul>
+          <li>多平台廣告投放（Meta / Google / TikTok）</li>
+          <li>素材 A/B 測試矩陣</li>
+          <li>每日 / 每週 / 每月成效報表</li>
+          <li>LINE 自動推播日報</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 套裝包 -->
+  <section class="combo-section">
+    <div class="section-head">
+      <div class="section-kicker">PACKAGES</div>
+      <h2 class="section-title">套裝方案推薦</h2>
+      <p class="section-lead" style="color:rgba(255,255,255,.7);">不確定怎麼搭配？這三個是大多數品牌起步時最有效的組合。</p>
+    </div>
+
+    <div class="combo-grid">
+      <div class="combo-card">
+        <span class="tag">適合 ・ 0 到 1 新品牌</span>
+        <h3>品牌新創包</h3>
+        <div class="price"><b>NT$ 180,000</b>起／單次專案</div>
+        <ul>
+          <li>品牌 CIS 完整視覺系統</li>
+          <li>形象官網（5 頁）</li>
+          <li>商品攝影 20 張</li>
+          <li>3 個月顧問支援</li>
+        </ul>
+        <a class="cta" href="index.html#contact">免費諮詢 →</a>
+      </div>
+
+      <div class="combo-card is-featured">
+        <span class="tag">適合 ・ 想加速電商成長</span>
+        <h3>電商加速包</h3>
+        <div class="price"><b>NT$ 280,000</b>起／單次專案</div>
+        <ul>
+          <li>商品攝影 40+ 張</li>
+          <li>短影音月更包（首 2 月）</li>
+          <li>Meta + Google 廣告開帳投放</li>
+          <li>銷售頁優化＋成效顧問</li>
+        </ul>
+        <a class="cta" href="index.html#contact">免費諮詢 →</a>
+      </div>
+
+      <div class="combo-card">
+        <span class="tag">適合 ・ 需要長期代操</span>
+        <h3>全方位代操包</h3>
+        <div class="price"><b>NT$ 86,000</b>起／月費</div>
+        <ul>
+          <li>社群經營（每週 3 更）</li>
+          <li>短影音月更（每月 4 支）</li>
+          <li>廣告投放 + KOL 媒合</li>
+          <li>月度成效會議 + LINE 客服</li>
+        </ul>
+        <a class="cta" href="index.html#contact">免費諮詢 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-wrap">
+      <div class="section-kicker">NEXT STEP</div>
+      <h2>不確定你的品牌<br>適合哪個服務組合？</h2>
+      <p>30 分鐘免費策略諮詢，火花顧問會依你的階段、目標、預算，給出最適合的服務組合。</p>
+      <a class="btn-primary" href="index.html#contact">免費諮詢 →</a>
+      <a class="btn-ghost" href="case-velireo.html">看實際案例</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    © 2026 <b>SPARK Brand Marketing</b> · 火花整合行銷有限公司 · 統編 00181478
+  </footer>
+
+  <script>
+    const root = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('spark-theme');
+    if (saved === 'light') { root.setAttribute('data-theme', 'light'); toggle.textContent = '☾'; }
+    toggle.addEventListener('click', () => {
+      const cur = root.getAttribute('data-theme');
+      const next = cur === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      toggle.textContent = next === 'dark' ? '☀' : '☾';
+      localStorage.setItem('spark-theme', next);
+    });
+  </script>
+  <script src="assets/chat-widget.js"></script>
+</body>
+</html>

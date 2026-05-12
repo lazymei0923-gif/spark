@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Velireo Skin｜SPARK 案例</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070b10; --bg-2: #0b1017;
+      --card: rgba(18,23,31,.78); --card-2: rgba(21,27,36,.72);
+      --line: rgba(255,255,255,.10); --line-strong: rgba(255,255,255,.16);
+      --text: #f6f0e8; --text-soft: rgba(246,240,232,.72); --text-muted: rgba(246,240,232,.48);
+      --orange: #e07532; --orange-2: #f08c4a; --orange-deep: #b94f1f;
+      --radius: 20px; --radius-sm: 14px;
+      --container: 1240px;
+      --body-bg: radial-gradient(circle at 72% 13%, rgba(224,117,50,.16), transparent 28%),
+        linear-gradient(180deg, #06090e 0%, #080d13 52%, #06090e 100%);
+    }
+    :root[data-theme="light"] {
+      --bg: #FFF8EF; --bg-2: #F7F0E7;
+      --card: #FFFFFF; --card-2: #FFF4E8;
+      --line: #E7DDD4; --line-strong: #D8C8BA;
+      --text: #1F1F1F; --text-soft: #5F5750; --text-muted: #8B8178;
+      --orange: #E07532; --orange-2: #C65F2B; --orange-deep: #B85A20;
+      --body-bg: linear-gradient(180deg, #FFF8EF 0%, #F7F0E7 60%, #F2EAE0 100%);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      min-height: 100%; background: var(--bg); color: var(--text);
+      font-family: "Noto Sans TC", "Inter", sans-serif;
+      transition: background .4s, color .4s;
+    }
+    body { background: var(--body-bg); }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+
+    .container { width: min(calc(100% - 80px), var(--container)); margin: 0 auto; }
+
+    /* ===== Theme toggle ===== */
+    .theme-toggle {
+      position: fixed; top: 22px; right: 28px; z-index: 200;
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1px solid var(--line-strong); background: var(--card);
+      color: var(--text); cursor: pointer;
+      display: grid; place-items: center; font-size: 18px;
+      transition: all .25s; backdrop-filter: blur(10px);
+    }
+    .theme-toggle:hover { border-color: var(--orange); color: var(--orange); transform: rotate(15deg); }
+
+    /* ===== Header ===== */
+    .header {
+      height: 76px; padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between; gap: 32px;
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      background: color-mix(in srgb, var(--bg) 75%, transparent);
+      border-bottom: 1px solid var(--line);
+    }
+    .header .brand {
+      display: flex; align-items: center; gap: 12px;
+      min-width: 260px; text-decoration: none; color: inherit;
+    }
+    .header .brand img {
+      width: 40px; height: 40px; object-fit: contain;
+      filter: drop-shadow(0 0 12px rgba(224,117,50,.22));
+    }
+    .header .brand-text strong {
+      display: block; font-size: 15px; letter-spacing: .12em;
+      color: var(--text); font-weight: 700; line-height: 1.15;
+    }
+    .header .brand-text span {
+      display: block; font-size: 10px; letter-spacing: .25em;
+      color: var(--orange); font-weight: 600; margin-top: 3px;
+    }
+    .header .nav {
+      display: flex; align-items: center; gap: 42px;
+      color: var(--text-soft); font-size: 14px; letter-spacing: .14em; font-weight: 500;
+    }
+    .header .nav a {
+      color: inherit; text-decoration: none; white-space: nowrap;
+      transition: color .2s; position: relative;
+    }
+    .header .nav a:hover { color: var(--orange-2); }
+    .header .nav a.active { color: var(--orange-2); }
+    .header .nav a.active::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: -22px;
+      height: 2px; background: var(--orange);
+    }
+    .header-cta {
+      display: flex; align-items: center; gap: 18px;
+      min-width: 240px; justify-content: flex-end;
+    }
+    .portal-link {
+      color: var(--text-soft); text-decoration: none;
+      font-size: 12.5px; letter-spacing: .14em; font-weight: 500;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: color .2s;
+    }
+    .portal-link::before {
+      content: ""; width: 11px; height: 11px;
+      border: 1px solid currentColor; border-radius: 50%;
+    }
+    .portal-link:hover { color: var(--orange-2); }
+    .btn-cta-sm {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 18px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--orange-2), var(--orange));
+      color: #fff; font-weight: 700; font-size: 12.5px; letter-spacing: .14em;
+      text-decoration: none;
+      box-shadow: 0 6px 18px rgba(224,117,50,.32);
+      transition: .2s;
+    }
+    .btn-cta-sm:hover { transform: translateY(-1px); }
+    @media (max-width: 1080px) {
+      .header .nav { display: none; }
+      .header .brand { min-width: auto; }
+    }
+
+    /* ===== Section helpers ===== */
+    .section-kicker {
+      color: var(--orange); font-size: 13px; letter-spacing: .3em;
+      font-weight: 700; margin-bottom: 14px; text-transform: uppercase;
+    }
+    .section-title {
+      font-family: "Noto Serif TC", serif;
+      font-size: 36px; letter-spacing: .12em; line-height: 1.4;
+      color: var(--text); margin-bottom: 14px; font-weight: 700;
+    }
+    .section-lead {
+      font-size: 15.5px; line-height: 1.95; letter-spacing: .06em;
+      color: var(--text-soft); max-width: 720px;
+    }
+
+    /* ===== Hero — 橘色光流 banner ===== */
+    .hero {
+      position: relative; padding: 90px 40px 110px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(7,11,16,.55) 0%, rgba(7,11,16,.25) 50%, rgba(7,11,16,.65) 100%),
+        url('assets/hero-banner-dark.png') center/cover no-repeat,
+        #0a0d14;
+    }
+    :root[data-theme="light"] .hero {
+      background:
+        linear-gradient(180deg, rgba(255,248,239,.4) 0%, rgba(255,248,239,.15) 50%, rgba(255,248,239,.55) 100%),
+        url('assets/hero-banner-dark.png') center/cover no-repeat,
+        #FFF8EF;
+    }
+    .hero-inner {
+      max-width: var(--container); margin: 0 auto;
+      display: grid; grid-template-columns: 1.1fr .9fr; gap: 56px;
+      align-items: center;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px; border-radius: 999px;
+      border: 1px solid rgba(224,117,50,.4);
+      background: rgba(224,117,50,.08);
+      color: var(--orange-2);
+      font-size: 11.5px; letter-spacing: .22em; font-weight: 700;
+      margin-bottom: 22px;
+    }
+    .hero-tag::before {
+      content: ""; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--orange); box-shadow: 0 0 8px var(--orange);
+    }
+    .hero-title {
+      font-family: "Noto Serif TC", serif;
+      font-size: clamp(38px, 4.4vw, 60px);
+      letter-spacing: .08em; line-height: 1.32;
+      color: var(--text); font-weight: 700; margin-bottom: 22px;
+    }
+    .hero-title em {
+      font-style: normal; color: var(--orange);
+      background: linear-gradient(120deg, transparent 60%, rgba(224,117,50,.22) 60%);
+      padding: 0 4px;
+    }
+    .hero-sub {
+      font-size: 16px; line-height: 2; letter-spacing: .08em;
+      color: var(--text-soft); margin-bottom: 28px;
+    }
+    .hero-stats {
+      display: flex; gap: 32px; padding-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+    .hero-stat .num {
+      font-family: "Noto Serif TC", serif;
+      font-size: 28px; font-weight: 700;
+      letter-spacing: .04em; color: var(--orange-2);
+    }
+    .hero-stat .label {
+      font-size: 11px; letter-spacing: .18em;
+      color: var(--text-muted); margin-top: 4px;
+    }
+    .hero-visual {
+      position: relative;
+      aspect-ratio: 4/5;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      box-shadow: 0 32px 80px rgba(0,0,0,.4);
+      background:
+        linear-gradient(135deg, rgba(244,200,170,.25), rgba(170,140,120,.1)),
+        url('assets/velireo/anne-cover.jpg');
+      background-size: cover; background-position: center;
+    }
+    .hero-visual::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(7,11,16,.55) 100%);
+    }
+    .hero-visual .play {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      z-index: 2;
+    }
+    .hero-visual .play div {
+      width: 76px; height: 76px; border-radius: 50%;
+      background: rgba(255,255,255,.92); color: #1f1f1f;
+      display: grid; place-items: center;
+      font-size: 26px; padding-left: 6px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.4);
+      transition: transform .25s;
+    }
+    .hero-visual:hover .play div { transform: scale(1.05); }
+
+    /* ===== Client card ===== */
+    .client-card-wrap { padding: 0 40px; transform: translateY(-50px); position: relative; z-index: 10; }
+    .client-card {
+      max-width: var(--container); margin: 0 auto;
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 22px 60px rgba(0,0,0,.32);
+      padding: 32px 40px;
+    }
+    :root[data-theme="light"] .client-card {
+      box-shadow: 0 22px 60px rgba(31,31,31,.08);
+    }
+    .client-card .eyebrow {
+      font-size: 12px; letter-spacing: .3em;
+      color: var(--orange); font-weight: 700;
+      margin-bottom: 18px;
+    }
+    .client-row {
+      display: grid; grid-template-columns: 72px 1fr;
+      gap: 22px; align-items: center;
+      padding-bottom: 22px; margin-bottom: 22px;
+      border-bottom: 1px dashed var(--line);
+    }
+    .client-logo {
+      width: 86px; height: 86px;
+      background: transparent url('assets/velireo/velireo-logo-bg.png') center 32% / 92% no-repeat;
+    }
+    /* 深色主題反相讓黑字 logo 變白 */
+    :root[data-theme="dark"] .client-logo { filter: invert(1) brightness(1.05); }
+    .client-main {
+      display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 28px;
+      align-items: center;
+    }
+    .client-main b {
+      display: block; font-family: "Noto Serif TC", serif;
+      font-size: 24px; letter-spacing: .12em; color: var(--text);
+      font-weight: 700; margin-bottom: 4px;
+    }
+    .client-main b + span {
+      font-size: 12.5px; letter-spacing: .1em; color: var(--text-muted);
+    }
+    .client-field .label {
+      display: block; font-size: 10.5px; letter-spacing: .22em;
+      color: var(--text-muted); font-weight: 600; margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+    .client-field .val {
+      display: block; font-size: 13.5px; letter-spacing: .06em;
+      color: var(--text); font-weight: 700;
+    }
+    .client-tags-row {
+      display: grid; grid-template-columns: 110px 1fr; gap: 22px;
+      align-items: center;
+    }
+    .client-tags-row > .label {
+      font-size: 10.5px; letter-spacing: .22em;
+      color: var(--text-muted); font-weight: 600;
+      text-transform: uppercase;
+    }
+    .client-tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .client-tag {
+      padding: 5px 12px; border-radius: 999px;
+      background: rgba(224,117,50,.1);
+      color: var(--orange-2);
+      border: 1px solid rgba(224,117,50,.22);
+      font-size: 11.5px; letter-spacing: .12em; font-weight: 600;
+    }
+
+    /* ===== Section block ===== */
+    .section { padding: 90px 40px; }
+    .section-head { max-width: var(--container); margin: 0 auto 56px; }
+
+    /* ===== Challenge ===== */
+    .challenge-grid {
+      max-width: var(--container); margin: 0 auto;
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px;
+    }
+    .challenge-card {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 32px 36px;
+      position: relative;
+      display: grid; grid-template-columns: 130px 1fr; gap: 26px;
+      align-items: flex-start;
+    }
+    .challenge-card .ch-left {
+      display: flex; align-items: center; gap: 14px;
+      padding-right: 20px;
+      border-right: 1px solid var(--line);
+      min-height: 64px;
+    }
+    .challenge-card .num {
+      font-family: "Noto Serif TC", serif;
+      font-size: 36px; color: var(--orange);
+      letter-spacing: .04em; line-height: 1;
+      opacity: .6; font-weight: 700;
+    }
+    .challenge-card .ch-icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: rgba(224,117,50,.14);
+      color: var(--orange);
+      display: grid; place-items: center;
+      font-size: 30px; flex-shrink: 0;
+    }
+    .challenge-card .ch-body { padding-top: 4px; }
+    .challenge-card h3 {
+      font-size: 17px; font-weight: 700; letter-spacing: .12em;
+      margin-bottom: 12px; color: var(--text);
+    }
+    .challenge-card p {
+      font-size: 14px; line-height: 1.95; letter-spacing: .06em;
+      color: var(--text-soft);
+    }
+    @media (max-width: 960px) {
+      .challenge-card { grid-template-columns: 1fr; gap: 14px; padding: 28px 28px; }
+      .challenge-card .ch-left { border-right: none; padding-right: 0; padding-bottom: 12px; border-bottom: 1px solid var(--line); min-height: auto; }
+    }
+
+    /* ===== Strategy ===== */
+    .strategy-section {
+      background:
+        radial-gradient(circle at 80% 20%, rgba(224,117,50,.08), transparent 38%),
+        linear-gradient(180deg, transparent 0%, rgba(224,117,50,.02) 100%);
+    }
+    .strategy-grid {
+      max-width: var(--container); margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    }
+    .strategy-card {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--radius-sm); padding: 28px 24px;
+      transition: all .3s;
+    }
+    .strategy-card:hover {
+      transform: translateY(-4px); border-color: rgba(224,117,50,.42);
+    }
+    .strategy-card .stage {
+      font-family: "Inter", sans-serif;
+      font-size: 10.5px; letter-spacing: .25em;
+      color: var(--orange-2); font-weight: 700; margin-bottom: 12px;
+    }
+    .strategy-card h3 {
+      font-family: "Noto Serif TC", serif;
+      font-size: 19px; letter-spacing: .1em; line-height: 1.5;
+      color: var(--text); margin-bottom: 14px; font-weight: 700;
+    }
+    .strategy-card p {
+      font-size: 13px; line-height: 1.9; letter-spacing: .05em;
+      color: var(--text-soft);
+    }
+
+    /* ===== Execution showcase ===== */
+    .showcase-grid {
+      max-width: var(--container); margin: 0 auto;
+      display: grid; grid-template-columns: repeat(6, 1fr);
+      gap: 18px;
+    }
+    .show-card {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--radius-sm); overflow: hidden;
+      transition: all .3s;
+    }
+    .show-card:hover { transform: translateY(-4px); border-color: rgba(224,117,50,.42); }
+    .show-card.span2 { grid-column: span 2; }
+    .show-card.span3 { grid-column: span 3; }
+    .show-card.span4 { grid-column: span 4; }
+    .show-thumb {
+      aspect-ratio: 16/10;
+      background-size: cover; background-position: center;
+      position: relative;
+    }
+    .show-thumb::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 55%, rgba(7,11,16,.55) 100%);
+    }
+    /* 直式 Reel 縮圖：完整顯示 + 模糊背景填白邊 */
+    .show-thumb.tone-reel {
+      background-color: #2a1d18;
+      overflow: hidden;
+    }
+    .show-thumb.tone-reel .reel-bg {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      filter: blur(28px) brightness(.55) saturate(.7);
+      transform: scale(1.15);
+    }
+    .show-thumb.tone-reel .reel-pair {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      gap: 14px; padding: 18px;
+      z-index: 1;
+    }
+    .show-thumb.tone-reel .reel-pair .reel-shot {
+      flex: 1; height: 100%;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-radius: 8px;
+      box-shadow: 0 8px 22px rgba(0,0,0,.5);
+    }
+
+    /* CIS / Web 用同樣技巧（橫式 16:9 圖在 16:10 容器內）*/
+    .show-thumb.tone-fit {
+      background-color: #1a1410;
+      overflow: hidden;
+    }
+    .show-thumb.tone-fit .fit-bg,
+    .show-thumb.tone-fit .fit-img {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+    }
+    .show-thumb.tone-fit .fit-bg {
+      filter: blur(24px) brightness(.6) saturate(.85);
+      transform: scale(1.12);
+    }
+    .show-thumb.tone-fit .fit-img {
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    .show-thumb .badge {
+      position: absolute; top: 14px; left: 14px; z-index: 2;
+      padding: 5px 11px; border-radius: 999px;
+      background: rgba(7,11,16,.78); backdrop-filter: blur(8px);
+      font-size: 10.5px; letter-spacing: .18em; font-weight: 700;
+      color: var(--orange-2);
+    }
+    .show-body { padding: 18px 22px 22px; }
+    .show-body b {
+      display: block; font-size: 14.5px; font-weight: 700;
+      letter-spacing: .1em; color: var(--text); margin-bottom: 6px;
+    }
+    .show-body p {
+      font-size: 12.5px; line-height: 1.85; letter-spacing: .04em;
+      color: var(--text-muted);
+    }
+    .show-thumb.tone-cream {
+      background:
+        linear-gradient(180deg, transparent 60%, rgba(7,11,16,.4) 100%),
+        url('assets/velireo/design-system.png');
+      background-size: cover; background-position: center;
+    }
+    .show-thumb.tone-web {
+      background:
+        linear-gradient(180deg, rgba(7,11,16,.1), rgba(7,11,16,.5)),
+        url('assets/velireo/hero-mothers-day.webp');
+      background-size: cover; background-position: center;
+    }
+    .show-thumb.tone-product {
+      background:
+        linear-gradient(180deg, transparent 60%, rgba(7,11,16,.45) 100%),
+        url('assets/velireo/product-1.jpg');
+      background-size: cover;
+      background-position: center 35%;
+    }
+    /* ===== LINE 推播實截圖（3 張並排 + 橘色 hue mask）===== */
+    .show-thumb.tone-line {
+      background-color: #2a1d18;
+      overflow: hidden;
+    }
+    .show-thumb.tone-line .line-bg {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      filter: hue-rotate(40deg) saturate(.55) brightness(.55) blur(28px);
+      transform: scale(1.15);
+    }
+    .show-thumb.tone-line .line-stack {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; padding: 16px;
+      z-index: 1;
+    }
+    .show-thumb.tone-line .line-stack .line-shot {
+      flex: 1; height: 100%;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-radius: 8px;
+      box-shadow: 0 8px 22px rgba(0,0,0,.5);
+      filter: hue-rotate(40deg) saturate(.65) brightness(1.02);
+    }
+    .show-thumb.tone-line .badge { z-index: 2; }
+
+    /* ===== KPI ===== */
+    .kpi-section {
+      background:
+        radial-gradient(circle at 50% 0%, rgba(224,117,50,.18), transparent 30%),
+        linear-gradient(135deg, #07101c 0%, #0a0b10 45%, #120c0c 100%);
+      padding: 100px 40px;
+    }
+    :root[data-theme="light"] .kpi-section {
+      background:
+        radial-gradient(circle at 50% 0%, rgba(224,117,50,.12), transparent 30%),
+        linear-gradient(135deg, #FFF8EF 0%, #F7F0E7 100%);
+    }
+    .kpi-head { max-width: var(--container); margin: 0 auto 50px; text-align: center; }
+    .kpi-head .section-title { color: #fff; }
+    :root[data-theme="light"] .kpi-head .section-title { color: var(--text); }
+    .kpi-grid {
+      max-width: var(--container); margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
+    }
+    .kpi-card {
+      background: linear-gradient(180deg, rgba(255,255,255,.085) 0%, rgba(255,255,255,.025) 100%);
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: var(--radius);
+      padding: 36px 30px; text-align: center;
+      backdrop-filter: blur(18px);
+      box-shadow: inset 0 -1px 0 rgba(255,122,52,.65);
+    }
+    :root[data-theme="light"] .kpi-card {
+      background: linear-gradient(180deg, #fff 0%, #FFF4E8 100%);
+      border: 1px solid var(--line);
+    }
+    .kpi-card .label {
+      font-size: 11px; letter-spacing: .22em; font-weight: 700;
+      color: rgba(255,255,255,.7); margin-bottom: 14px;
+    }
+    :root[data-theme="light"] .kpi-card .label { color: var(--text-muted); }
+    .kpi-card .value {
+      font-family: "Noto Serif TC", serif;
+      font-size: 52px; font-weight: 700;
+      letter-spacing: -.02em; line-height: 1.05;
+      background: linear-gradient(180deg, #ff9b4c 0%, #ff742e 100%);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .kpi-card .value .unit {
+      font-size: 22px; -webkit-text-fill-color: rgba(255,255,255,.72);
+      margin-left: 4px;
+    }
+    :root[data-theme="light"] .kpi-card .value .unit { -webkit-text-fill-color: var(--text-soft); }
+    .kpi-card .delta {
+      margin-top: 10px; font-size: 12px; letter-spacing: .08em;
+      color: rgba(255,255,255,.6);
+    }
+    :root[data-theme="light"] .kpi-card .delta { color: var(--text-soft); }
+    .kpi-card .delta b { color: #4ade80; font-weight: 700; }
+
+    /* ===== Testimonial ===== */
+    .testimonial-section {
+      padding: 110px 40px;
+      background:
+        radial-gradient(circle at 30% 50%, rgba(244,200,170,.08), transparent 40%);
+    }
+    .testimonial-wrap {
+      max-width: var(--container); margin: 0 auto;
+      display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px;
+      align-items: center;
+    }
+    .testimonial-video {
+      position: relative;
+      aspect-ratio: 9 / 16;
+      max-width: 360px;
+      margin: 0 auto;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      box-shadow: 0 28px 70px rgba(0,0,0,.42);
+      background: #000;
+    }
+    :root[data-theme="light"] .testimonial-video {
+      box-shadow: 0 22px 60px rgba(31,31,31,.1);
+    }
+    .testimonial-video video {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block;
+    }
+    .testimonial-quote {
+      font-family: "Noto Serif TC", serif;
+      font-size: 24px; line-height: 1.9; letter-spacing: .08em;
+      color: var(--text); margin-bottom: 26px;
+      position: relative;
+    }
+    .testimonial-quote::before {
+      content: """; position: absolute; left: -10px; top: -34px;
+      font-size: 86px; color: var(--orange); opacity: .28;
+      font-weight: 700;
+    }
+    .testimonial-author {
+      display: flex; align-items: center; gap: 16px;
+      padding-top: 22px; border-top: 1px solid var(--line);
+    }
+    .testimonial-author .ava {
+      width: 56px; height: 56px; border-radius: 50%;
+      background:
+        linear-gradient(135deg, rgba(244,200,170,.4), rgba(170,140,120,.6)),
+        url('assets/velireo/anne-cover.jpg');
+      background-size: cover; background-position: center top;
+      border: 2px solid rgba(224,117,50,.45);
+    }
+    .testimonial-author b {
+      display: block; font-size: 16px; font-weight: 700;
+      letter-spacing: .1em; color: var(--text); margin-bottom: 4px;
+    }
+    .testimonial-author span {
+      font-size: 12px; letter-spacing: .08em; color: var(--text-muted);
+    }
+
+    /* ===== Behind the scenes ===== */
+    .bts-grid {
+      max-width: var(--container); margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+    }
+    .bts-card {
+      aspect-ratio: 3 / 4;
+      border-radius: 14px;
+      background-size: cover; background-position: center;
+      background-color: #FFF4E8;
+      position: relative;
+      overflow: hidden;
+      transition: all .3s;
+      cursor: pointer;
+      border: 1px solid var(--line);
+    }
+    .bts-card video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .bts-card:hover { transform: scale(1.02); }
+    .bts-card::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(7,11,16,.7) 100%);
+    }
+    .bts-card .cap {
+      position: absolute; left: 14px; bottom: 12px; z-index: 2;
+      color: #fff; font-size: 11px; letter-spacing: .14em; font-weight: 600;
+    }
+
+    /* ===== CTA ===== */
+    .cta-section {
+      padding: 120px 40px;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(224,117,50,.18), transparent 38%),
+        linear-gradient(135deg, #0a0d14 0%, #181214 100%);
+      text-align: center;
+    }
+    :root[data-theme="light"] .cta-section {
+      background:
+        radial-gradient(circle at 50% 50%, rgba(224,117,50,.14), transparent 38%),
+        linear-gradient(135deg, #FFF8EF 0%, #FFEFE0 100%);
+    }
+    .cta-wrap { max-width: 720px; margin: 0 auto; }
+    .cta-section h2 {
+      font-family: "Noto Serif TC", serif;
+      font-size: 38px; letter-spacing: .12em; line-height: 1.5;
+      color: var(--text); margin-bottom: 18px; font-weight: 700;
+    }
+    .cta-section p {
+      font-size: 15px; line-height: 2; letter-spacing: .08em;
+      color: var(--text-soft); margin-bottom: 36px;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 30px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--orange-2), var(--orange));
+      color: #fff; font-weight: 700; font-size: 14.5px;
+      letter-spacing: .14em; text-decoration: none;
+      box-shadow: 0 12px 32px rgba(224,117,50,.4);
+      transition: all .25s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(224,117,50,.5); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 24px; border-radius: 12px;
+      border: 1px solid var(--line-strong);
+      background: transparent; color: var(--text);
+      font-weight: 600; font-size: 13px; letter-spacing: .14em;
+      margin-left: 14px;
+      transition: all .25s;
+    }
+    .btn-ghost:hover { border-color: var(--orange); color: var(--orange-2); }
+
+    /* ===== Footer ===== */
+    .footer {
+      padding: 40px; text-align: center;
+      border-top: 1px solid var(--line);
+      font-size: 11.5px; letter-spacing: .14em;
+      color: var(--text-muted);
+    }
+    .footer b { color: var(--text); font-weight: 700; }
+
+    @media (max-width: 1080px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-visual { aspect-ratio: 16/10; }
+      .client-row { grid-template-columns: 1fr; text-align: center; }
+      .client-main { grid-template-columns: 1fr; gap: 16px; }
+      .client-logo { margin: 0 auto; }
+      .client-tags-row { grid-template-columns: 1fr; gap: 10px; }
+      .client-tags { justify-content: center; }
+      .challenge-grid, .strategy-grid, .kpi-grid { grid-template-columns: repeat(2,1fr); }
+      .showcase-grid { grid-template-columns: 1fr; }
+      .show-card.span2, .show-card.span3, .show-card.span4 { grid-column: span 1; }
+      .testimonial-wrap { grid-template-columns: 1fr; }
+      .bts-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 640px) {
+      .hero { padding: 60px 24px 80px; }
+      .hero-title { font-size: 32px; }
+      .section { padding: 64px 24px; }
+      .challenge-grid, .strategy-grid, .kpi-grid { grid-template-columns: 1fr; }
+      .container { width: calc(100% - 32px); }
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle" aria-label="切換主題">☀</button>
+
+  <!-- ===== Header ===== -->
+  <header class="header">
+    <a class="brand" href="index.html">
+      <img src="assets/spark-logo.png" alt="火花 logo">
+      <span class="brand-text">
+        <strong>火花整合行銷有限公司</strong>
+        <span>SPARK BRAND MARKETING</span>
+      </span>
+    </a>
+    <nav class="nav">
+      <a href="services.html">服務項目</a>
+      <a href="case-velireo.html" class="active">案例作品</a>
+      <a href="index.html#about">關於火花</a>
+      <a href="index.html#blog">洞察觀點</a>
+      <a href="index.html#contact">聯絡我們</a>
+    </nav>
+    <div class="header-cta">
+      <a class="portal-link" href="portal.html">客戶登入</a>
+      <a class="btn-cta-sm" href="index.html#contact">免費諮詢 →</a>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <span class="hero-tag">CASE STUDY ・ 美業品牌</span>
+        <h1 class="hero-title">把「<em>懶得保養</em>」做成<br>一個被認真看待的<em>新派品牌</em></h1>
+        <p class="hero-sub">Velireo Skin 是一個只賣一條沐浴油霜的新創品牌。創辦人 Mei 闆從科技業 PM 轉型，相信「不過度清潔、一次到位」的保養哲學。火花從 0 到 1 接下品牌設計、官網、商品攝影、短影音與 LINE 自動化 CRM，幫 Velireo 從一個產品撐起一整套品牌敘事。</p>
+        <div class="hero-stats">
+          <div class="hero-stat"><div class="num">3.2%</div><div class="label">CONVERSION 轉換率</div></div>
+          <div class="hero-stat"><div class="num">4.6x</div><div class="label">ROAS 廣告報酬</div></div>
+          <div class="hero-stat"><div class="num">+1,800</div><div class="label">LINE 訂閱成長</div></div>
+        </div>
+      </div>
+      <a class="hero-visual" href="#testimonial">
+        <div class="play"><div>▶</div></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== Client info card ===== -->
+  <div class="client-card-wrap">
+    <div class="client-card">
+      <div class="eyebrow">CLIENT PROFILE ・ 客戶簡介</div>
+
+      <div class="client-row">
+        <div class="client-logo" aria-label="Velireo Skin"></div>
+        <div class="client-main">
+          <div>
+            <b>Velireo Skin</b>
+            <span>益菌微生態護膚 ・ 高雄品牌</span>
+          </div>
+          <div class="client-field">
+            <span class="label">產業</span>
+            <span class="val">美業 ／ 保養品電商</span>
+          </div>
+          <div class="client-field">
+            <span class="label">創辦人</span>
+            <span class="val">Mei 闆（前科技業 PM）</span>
+          </div>
+          <div class="client-field">
+            <span class="label">合作期間</span>
+            <span class="val">2026/02 — 2026/04（3 個月）</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="client-tags-row">
+        <span class="label">合作項目</span>
+        <div class="client-tags">
+          <span class="client-tag">品牌設計 / CIS</span>
+          <span class="client-tag">網站架設</span>
+          <span class="client-tag">商品攝影</span>
+          <span class="client-tag">短影音製作</span>
+          <span class="client-tag">社群經營</span>
+          <span class="client-tag">LINE CRM 自動化</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Challenge ===== -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-kicker">THE CHALLENGE</div>
+      <h2 class="section-title">當初遇到的問題</h2>
+      <p class="section-lead">Velireo 是一個帶著明確哲學、但所有素材還在零點的新品牌。Mei 闆找上火花時，產品已經做完，但官網、品牌視覺、商品攝影、社群內容、廣告素材⋯⋯這些對外溝通的素材一張都還沒有。</p>
+    </div>
+    <div class="challenge-grid">
+      <div class="challenge-card">
+        <div class="ch-left">
+          <div class="num">01</div>
+          <div class="ch-icon">📦</div>
+        </div>
+        <div class="ch-body">
+          <h3>單一產品要撐起整套品牌敘事</h3>
+          <p>只有「沐浴油霜」一條 SKU，售價 NT$ 990／支，落在沐浴清潔品的高價帶。消費者習慣 200-400 元的選擇，要說服對方「為什麼這條值得多花 2-3 倍」，需要完整的品牌主張、不是只靠產品說明。</p>
+        </div>
+      </div>
+      <div class="challenge-card">
+        <div class="ch-left">
+          <div class="num">02</div>
+          <div class="ch-icon">💬</div>
+        </div>
+        <div class="ch-body">
+          <h3>創辦人故事真實，但難具象化</h3>
+          <p>Mei 闆自己有毛囊角化症（俗稱「雞皮」），是因為找不到能根本解決問題的清潔產品才創業。故事力很強，但要怎麼變成視覺、變成短影音、變成讓人想分享的內容，沒有現成 SOP。</p>
+        </div>
+      </div>
+      <div class="challenge-card">
+        <div class="ch-left">
+          <div class="num">03</div>
+          <div class="ch-icon">👥</div>
+        </div>
+        <div class="ch-body">
+          <h3>沒有官網、沒有素材、社群只有照片</h3>
+          <p>對外只有一個 IG 帳號和產品實拍，沒有獨立官網、沒有商品攝影、沒有 KV、沒有短影音、沒有 SEO 內容。每多賣一條都靠創辦人手動回覆。</p>
+        </div>
+      </div>
+      <div class="challenge-card">
+        <div class="ch-left">
+          <div class="num">04</div>
+          <div class="ch-icon">🎯</div>
+        </div>
+        <div class="ch-body">
+          <h3>清潔品市場既擁擠又疲乏</h3>
+          <p>「3-in-1 保養品」「敏感肌沐浴」「植萃」這些關鍵字一搜全是大牌，預算又有限。需要一個能讓人「停下來看」並且「願意花 990 元試試」的入口。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Strategy ===== -->
+  <section class="section strategy-section">
+    <div class="section-head">
+      <div class="section-kicker">OUR STRATEGY</div>
+      <h2 class="section-title">火花的策略思考</h2>
+      <p class="section-lead">我們把 Velireo 當成一個品牌敘事工程，不是賣產品。核心邏輯：用視覺把它做成「值得擁有」的東西，用內容把它做成「值得思考」的議題，用工具把它做成「會跟著你」的服務。</p>
+    </div>
+    <div class="strategy-grid">
+      <div class="strategy-card">
+        <div class="stage">PILLAR 01</div>
+        <h3>極簡奢侈感的視覺重塑</h3>
+        <p>黑白暖灰、大量留白、產品照如奢侈品而非藥妝。從 logo、字體、色票到包裝照都重做，讓 Velireo 在貨架照與社群上跟 NT$ 200 的沐浴乳明顯區隔。</p>
+      </div>
+      <div class="strategy-card">
+        <div class="stage">PILLAR 02</div>
+        <h3>「縮時保養」的差異敘事</h3>
+        <p>把 3-in-1（卸妝＋清潔＋保濕）翻譯成「懶得保養」這個品牌名背後的真實理由。短影音與 IG 內容全部圍繞「一次到位、拒絕無效流程」的核心訊息。</p>
+      </div>
+      <div class="strategy-card">
+        <div class="stage">PILLAR 03</div>
+        <h3>真實痛點導購</h3>
+        <p>用短影音、貼文、QA 內容直接點名毛囊角化症、背部痘痘、乾癢脫屑等問題，把「我有什麼問題」變成「Velireo 剛好可以幫你」。痛點精準，預算就花在對的位置。</p>
+      </div>
+      <div class="strategy-card">
+        <div class="stage">PILLAR 04</div>
+        <h3>LINE 自動化長期觸達</h3>
+        <p>LINE LIFF 會員、產品 QA／退換貨自動化、廣告日報自動推播、依使用者狀態週期推商品與內容。把一次性購買轉成可累積的關係。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Execution showcase ===== -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-kicker">WHAT WE DELIVERED</div>
+      <h2 class="section-title">執行成果展示</h2>
+      <p class="section-lead">3 個月內，火花為 Velireo 交付完整的品牌系統：從識別、官網、商品攝影、短影音內容到 LINE 自動化 CRM。每一塊都用 Velireo 的視覺語言去做，互相加強。</p>
+    </div>
+    <div class="showcase-grid">
+      <div class="show-card span3">
+        <div class="show-thumb tone-fit">
+          <span class="badge">BRAND ・ CIS</span>
+          <div class="fit-bg" style="background-image: url('assets/velireo/design-system.png');"></div>
+          <div class="fit-img" style="background-image: url('assets/velireo/design-system.png');"></div>
+        </div>
+        <div class="show-body">
+          <b>品牌識別系統重塑</b>
+          <p>Logo、字型、色票、Pattern、應用規範手冊（PDF）。把「懶得保養」這個品牌哲學翻譯成 28 頁完整視覺系統。</p>
+        </div>
+      </div>
+      <div class="show-card span3">
+        <div class="show-thumb tone-fit">
+          <span class="badge">WEB ・ E-COMMERCE</span>
+          <div class="fit-bg" style="background-image: url('assets/velireo/hero-mothers-day.webp');"></div>
+          <div class="fit-img" style="background-image: url('assets/velireo/hero-mothers-day.webp');"></div>
+        </div>
+        <div class="show-body">
+          <b>官網與電商一體化</b>
+          <p>用 Lovable + Supabase 自架的品牌電商，含產品頁、品牌故事、會員系統、結帳金流、訂單後台。SSR + SEO 友善。</p>
+        </div>
+      </div>
+      <div class="show-card span3">
+        <div class="show-thumb tone-product">
+          <span class="badge">PHOTOGRAPHY</span>
+        </div>
+        <div class="show-body">
+          <b>商品與情境攝影</b>
+          <p>40+ 張產品照、12 組情境照、5 組創辦人形象照。為 SEO、廣告素材、社群一次拍齊。</p>
+        </div>
+      </div>
+      <div class="show-card span3">
+        <div class="show-thumb tone-reel">
+          <span class="badge">SHORT VIDEO</span>
+          <div class="reel-bg" style="background-image: url('assets/velireo/reel-color.jpg');"></div>
+          <div class="reel-pair">
+            <div class="reel-shot" style="background-image: url('assets/velireo/reel-color.jpg');"></div>
+            <div class="reel-shot" style="background-image: url('assets/velireo/reel-bubble.jpg');"></div>
+          </div>
+        </div>
+        <div class="show-body">
+          <b>短影音月更包</b>
+          <p>每月 4 支 Reels：產品開箱、創辦人觀點、知識懶人包、客戶問答。一個月節奏自動排好。</p>
+        </div>
+      </div>
+      <div class="show-card span3">
+        <div class="show-thumb tone-reel">
+          <span class="badge">SOCIAL ・ CONTENT</span>
+          <div class="reel-bg" style="background-image: url('assets/velireo/reel-blackmagic.jpg');"></div>
+          <div class="reel-pair">
+            <div class="reel-shot" style="background-image: url('assets/velireo/reel-blackmagic.jpg');"></div>
+            <div class="reel-shot" style="background-image: url('assets/velireo/dm-3.jpg');"></div>
+          </div>
+        </div>
+        <div class="show-body">
+          <b>IG / FB 社群內容</b>
+          <p>30 篇 KV、貼文、限動模板。三條主線：產品教育、創辦人故事、QA。每週 3 更，預埋導購入口。</p>
+        </div>
+      </div>
+      <div class="show-card span3">
+        <div class="show-thumb tone-line">
+          <span class="badge" style="background:rgba(255,255,255,.92);color:var(--orange-deep);">LINE ・ CRM</span>
+          <div class="line-bg" style="background-image: url('assets/velireo/line-report.png');"></div>
+          <div class="line-stack">
+            <div class="line-shot" style="background-image: url('assets/velireo/line-menu.png');"></div>
+            <div class="line-shot" style="background-image: url('assets/velireo/line-report.png');"></div>
+            <div class="line-shot" style="background-image: url('assets/velireo/line-chat.png');"></div>
+          </div>
+        </div>
+        <div class="show-body">
+          <b>LINE 自動化推播 CRM</b>
+          <p>選單導購 + 廣告日報自動推播 + 退換貨流程 QA。一次性購買變長期關係，行銷與客服都在 LINE 一條龍處理。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== KPI ===== -->
+  <section class="kpi-section">
+    <div class="kpi-head">
+      <div class="section-kicker">RESULTS</div>
+      <h2 class="section-title">合作 3 個月後的數據</h2>
+      <p class="section-lead" style="margin: 0 auto;">不是漂亮數字，是真實追蹤。</p>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="label">CONVERSION RATE 轉換率</div>
+        <div class="value">3.2<span class="unit">%</span></div>
+        <div class="delta">較產業均值（1.8%）<b>▲ 78%</b></div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">SHORT VIDEO 短影音完播率</div>
+        <div class="value">68<span class="unit">%</span></div>
+        <div class="delta">產業均 35%｜<b>▲ 1.9x</b></div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">LINE SUBSCRIBERS LINE 訂閱</div>
+        <div class="value">1,800<span class="unit">+</span></div>
+        <div class="delta">3 個月新增｜<b>▲ 4.2x</b></div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">ROAS 廣告報酬</div>
+        <div class="value">4.6<span class="unit">x</span></div>
+        <div class="delta">廣告投放成效｜目標 2.5x</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">REPURCHASE 回購率</div>
+        <div class="value">38<span class="unit">%</span></div>
+        <div class="delta">90 天回購｜行業均 18%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">AOV 平均客單價</div>
+        <div class="value">1,420<span class="unit">NT$</span></div>
+        <div class="delta">產品 990 + 跨品牌搭配組合</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Testimonial ===== -->
+  <section class="testimonial-section" id="testimonial">
+    <div class="testimonial-wrap">
+      <div class="testimonial-video">
+        <video controls preload="metadata" poster="assets/velireo/anne-cover.jpg">
+          <source src="assets/anne-testimonial.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div>
+        <div class="section-kicker" style="margin-bottom:18px;">CLIENT VOICE</div>
+        <p class="testimonial-quote">火花不是「乙方」，是把我們當自己人在做的合作夥伴。<br>我們從只有一個產品、什麼都沒有，到三個月後有完整的品牌系統、會自己跑的 AI 工具、跟客戶有溫度的關係——這不是執行外包能做到的。</p>
+        <div class="testimonial-author">
+          <div class="ava"></div>
+          <div>
+            <b>Mei 闆</b>
+            <span>Velireo Skin 創辦人・前科技業 PM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Behind the scenes ===== -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-kicker">BEHIND THE SCENES</div>
+      <h2 class="section-title">幕後花絮</h2>
+      <p class="section-lead">短影音腳本會議、商品攝影現場、創辦人專訪——3 個月合作的真實過程。</p>
+    </div>
+    <div class="bts-grid">
+      <div class="bts-card" style="background-image: url('assets/velireo/bts-1.jpg');">
+        <span class="cap">創辦人專訪現場・01</span>
+      </div>
+      <div class="bts-card" style="background-image: url('assets/velireo/bts-2.jpg');">
+        <span class="cap">創辦人專訪現場・02</span>
+      </div>
+      <div class="bts-card" style="background-image: url('assets/velireo/bts-3.jpg');">
+        <span class="cap">攝影機後台・拍攝中</span>
+      </div>
+      <div class="bts-card" style="background-image: url('assets/velireo/bts-4.jpg');">
+        <span class="cap">短影音劇情拍攝</span>
+      </div>
+      <div class="bts-card">
+        <video src="assets/anne-testimonial.mp4" poster="assets/velireo/anne-cover.jpg" autoplay loop muted playsinline></video>
+        <span class="cap">創辦人真心話</span>
+      </div>
+      <div class="bts-card">
+        <video src="assets/velireo/reel-color.mp4" poster="assets/velireo/reel-color.jpg" autoplay loop muted playsinline></video>
+        <span class="cap">你見過用顏料洗澡嗎</span>
+      </div>
+      <div class="bts-card">
+        <video src="assets/velireo/reel-blackmagic.mp4" poster="assets/velireo/reel-blackmagic.jpg" autoplay loop muted playsinline></video>
+        <span class="cap">PM 研發的油霜質地</span>
+      </div>
+      <div class="bts-card">
+        <video src="assets/velireo/reel-bubble.mp4" poster="assets/velireo/reel-bubble.jpg" autoplay loop muted playsinline></video>
+        <span class="cap">泡泡越多越乾淨是騙局</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta-section">
+    <div class="cta-wrap">
+      <div class="section-kicker">NEXT STEP</div>
+      <h2>想讓你的品牌<br>也像 Velireo 一樣被看見？</h2>
+      <p>從第一場諮詢到全套品牌系統建好，火花會陪你一步步走。<br>不是「外包執行」，是把你的品牌當成我們自己的事。</p>
+      <a class="btn-primary" href="index.html#contact">免費諮詢 →</a>
+      <a class="btn-ghost" href="index.html#cases">看更多案例</a>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    © 2026 <b>SPARK Brand Marketing</b> · 火花整合行銷有限公司 · 統編 00181478
+  </footer>
+
+  <script>
+    // ===== Theme toggle =====
+    const root = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('spark-theme');
+    if (saved === 'light') { root.setAttribute('data-theme', 'light'); toggle.textContent = '☾'; }
+    toggle.addEventListener('click', () => {
+      const cur = root.getAttribute('data-theme');
+      const next = cur === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      toggle.textContent = next === 'dark' ? '☀' : '☾';
+      localStorage.setItem('spark-theme', next);
+    });
+  </script>
+  <script src="assets/chat-widget.js"></script>
+</body>
+</html>
