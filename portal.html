@@ -815,7 +815,7 @@
           <span class="icon">📊</span><span>廣告成效</span>
         </div>
         <div class="portal-nav-item" data-view="seo" style="position:relative;">
-          <span class="icon">🔍</span><span>SEO / AEO 日報</span>
+          <span class="icon">🔍</span><span>SEO / AEO</span>
           <span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:linear-gradient(135deg,#E07532,#C45A1E);color:#fff;font-size:9px;letter-spacing:.1em;padding:2px 6px;border-radius:8px;font-weight:700;">NEW</span>
         </div>
         <div class="portal-nav-item" data-view="files">
@@ -1313,174 +1313,184 @@
         </div>
       </div>
 
-      <!-- ===== SEO / AEO Dashboard ===== -->
+      <!-- ===== SEO / AEO ===== -->
       <div class="portal-view" data-view="seo">
         <div class="portal-topbar">
           <div>
             <div class="crumbs">SPARK PORTAL ／ SEO ・ AEO</div>
-            <h1>SEO / AEO 日報 <span style="font-size:11px;letter-spacing:.18em;background:linear-gradient(135deg,#E07532,#C45A1E);color:#fff;padding:4px 10px;border-radius:10px;font-weight:700;margin-left:10px;vertical-align:middle;">🌟 全台首創</span></h1>
-            <p class="topbar-sub">每日 06:00 自動稽核 ・ 每週一 09:00 LINE 推播完整週報 ・ AI Agent 一鍵修復</p>
+            <h1>SEO / AEO <span style="font-size:11px;letter-spacing:.18em;background:linear-gradient(135deg,#E07532,#C45A1E);color:#fff;padding:4px 10px;border-radius:10px;font-weight:700;margin-left:10px;vertical-align:middle;">🌟 全台首創</span></h1>
+            <p class="topbar-sub">本月績效報表 ・ 資料更新於 2026/05/14 06:00 ・ 來源：GSC ＋ Semrush ＋ AEO 引用爬蟲</p>
           </div>
           <div class="topbar-actions">
-            <button class="btn-outline">下載 PDF 週報</button>
+            <button class="btn-outline">下載 PDF 月報</button>
             <button class="btn-primary">LINE 接收設定</button>
           </div>
         </div>
 
-        <div class="metric-grid">
-          <div class="metric">
-            <div class="label">SEO 健康度分數</div>
-            <div class="value" style="color:#E07532;">94<span style="font-size:14px;color:#5BA45A;margin-left:6px;">↑6</span></div>
-            <div class="hint">11 項稽核全通過率</div>
+        <div class="seo-tabs" style="display:flex;gap:4px;border-bottom:2px solid #eee;margin-top:18px;">
+          <div class="seo-tab is-active" data-seotab="seo" style="padding:12px 20px;cursor:pointer;font-size:13px;font-weight:600;color:#E07532;border-bottom:2px solid #E07532;margin-bottom:-2px;">SEO 績效</div>
+          <div class="seo-tab" data-seotab="aeo" style="padding:12px 20px;cursor:pointer;font-size:13px;font-weight:600;color:#888;">AEO 績效 <span style="font-size:10px;background:linear-gradient(135deg,#E07532,#C45A1E);color:#fff;padding:2px 6px;border-radius:8px;margin-left:4px;">🌟</span></div>
+          <div class="seo-tab" data-seotab="keywords" style="padding:12px 20px;cursor:pointer;font-size:13px;font-weight:600;color:#888;">關鍵字排名</div>
+        </div>
+
+        <div class="seo-panel" data-seotab="seo" style="margin-top:18px;">
+          <div class="metric-grid">
+            <div class="metric"><div class="label">本月點擊</div><div class="value" style="color:#E07532;">2,847</div><div class="hint" style="color:#5BA45A;">↑ 38.4% MoM</div></div>
+            <div class="metric"><div class="label">本月曝光</div><div class="value">48,392</div><div class="hint" style="color:#5BA45A;">↑ 21.2% MoM</div></div>
+            <div class="metric"><div class="label">平均排名</div><div class="value" style="color:#1565C0;">14.2</div><div class="hint" style="color:#5BA45A;">↑ 3.1 名</div></div>
+            <div class="metric"><div class="label">點擊率 CTR</div><div class="value" style="color:#E07532;">5.9%</div><div class="hint" style="color:#5BA45A;">↑ 1.2%</div></div>
           </div>
-          <div class="metric">
-            <div class="label">本月自然點擊</div>
-            <div class="value">2,847<span style="font-size:14px;color:#5BA45A;margin-left:6px;">↑38%</span></div>
-            <div class="hint">vs 上月 2,062</div>
+
+          <div class="portal-card" style="margin-top:18px;">
+            <div class="portal-card-head"><h3>點擊 ＆ 曝光趨勢（30 天）</h3><span style="font-size:11px;color:#888;">GSC</span></div>
+            <svg viewBox="0 0 700 240" style="width:100%;height:260px;">
+              <defs>
+                <linearGradient id="pClickG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#E07532" stop-opacity=".35"/><stop offset="100%" stop-color="#E07532" stop-opacity="0"/></linearGradient>
+              </defs>
+              <line x1="50" y1="30" x2="50" y2="200" stroke="#eee"/>
+              <line x1="50" y1="200" x2="690" y2="200" stroke="#eee"/>
+              <text x="10" y="35" font-size="10" fill="#aaa">200</text>
+              <text x="10" y="120" font-size="10" fill="#aaa">100</text>
+              <text x="10" y="200" font-size="10" fill="#aaa">0</text>
+              <g fill="#1565C0" opacity=".35">
+                <rect x="55" y="155" width="14" height="45"/><rect x="76" y="148" width="14" height="52"/><rect x="97" y="152" width="14" height="48"/><rect x="118" y="138" width="14" height="62"/><rect x="139" y="142" width="14" height="58"/><rect x="160" y="125" width="14" height="75"/><rect x="181" y="130" width="14" height="70"/><rect x="202" y="115" width="14" height="85"/><rect x="223" y="120" width="14" height="80"/><rect x="244" y="100" width="14" height="100"/><rect x="265" y="108" width="14" height="92"/><rect x="286" y="92" width="14" height="108"/><rect x="307" y="85" width="14" height="115"/><rect x="328" y="88" width="14" height="112"/><rect x="349" y="75" width="14" height="125"/><rect x="370" y="80" width="14" height="120"/><rect x="391" y="68" width="14" height="132"/><rect x="412" y="72" width="14" height="128"/><rect x="433" y="58" width="14" height="142"/><rect x="454" y="65" width="14" height="135"/><rect x="475" y="52" width="14" height="148"/><rect x="496" y="48" width="14" height="152"/><rect x="517" y="55" width="14" height="145"/><rect x="538" y="40" width="14" height="160"/><rect x="559" y="45" width="14" height="155"/><rect x="580" y="35" width="14" height="165"/><rect x="601" y="40" width="14" height="160"/><rect x="622" y="30" width="14" height="170"/><rect x="643" y="35" width="14" height="165"/><rect x="664" y="28" width="14" height="172"/>
+              </g>
+              <path d="M62,180 L83,175 L104,178 L125,165 L146,168 L167,150 L188,155 L209,138 L230,142 L251,122 L272,128 L293,108 L314,98 L335,102 L356,88 L377,92 L398,78 L419,82 L440,68 L461,72 L482,58 L503,52 L524,60 L545,45 L566,50 L587,40 L608,45 L629,32 L650,38 L671,28 L671,200 L62,200 Z" fill="url(#pClickG)"/>
+              <path d="M62,180 L83,175 L104,178 L125,165 L146,168 L167,150 L188,155 L209,138 L230,142 L251,122 L272,128 L293,108 L314,98 L335,102 L356,88 L377,92 L398,78 L419,82 L440,68 L461,72 L482,58 L503,52 L524,60 L545,45 L566,50 L587,40 L608,45 L629,32 L650,38 L671,28" stroke="#E07532" stroke-width="2.5" fill="none"/>
+              <text x="50" y="225" font-size="10" fill="#888">04/15</text>
+              <text x="350" y="225" font-size="10" fill="#888">04/30</text>
+              <text x="650" y="225" font-size="10" fill="#888">05/14</text>
+              <g font-size="10">
+                <rect x="540" y="8" width="10" height="10" fill="#E07532"/><text x="555" y="17" fill="#555">點擊</text>
+                <rect x="595" y="8" width="10" height="10" fill="#1565C0" opacity=".5"/><text x="610" y="17" fill="#555">曝光</text>
+              </g>
+            </svg>
           </div>
-          <div class="metric">
-            <div class="label">索引頁數</div>
-            <div class="value">128</div>
-            <div class="hint">Google + Bing</div>
-          </div>
-          <div class="metric">
-            <div class="label">AI 引擎引用</div>
-            <div class="value" style="color:#1565C0;">23<span style="font-size:14px;color:#5BA45A;margin-left:6px;">↑</span></div>
-            <div class="hint">ChatGPT / Perplexity / Claude</div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px;">
+            <div class="portal-card">
+              <div class="portal-card-head"><h3>熱門查詢字串 TOP 7</h3><span style="font-size:11px;color:#888;">本月點擊</span></div>
+              <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;">
+                <div><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>個人化保養品</span><b>624</b></div><div style="background:#f3f3f3;height:12px;border-radius:3px;overflow:hidden;"><div style="background:#E07532;height:100%;width:100%;"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>沐浴油霜推薦</span><b>478</b></div><div style="background:#f3f3f3;height:12px;border-radius:3px;overflow:hidden;"><div style="background:#E07532;height:100%;width:76%;"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>Velireo 評價</span><b>389</b></div><div style="background:#f3f3f3;height:12px;border-radius:3px;overflow:hidden;"><div style="background:#E07532;height:100%;width:62%;"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>敏感肌沐浴油</span><b>312</b></div><div style="background:#f3f3f3;height:12px;border-radius:3px;overflow:hidden;"><div style="background:#E07532;height:100%;width:50%;"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>身體乳 推薦</span><b>248</b></div><div style="background:#f3f3f3;height:12px;border-radius:3px;overflow:hidden;"><div style="background:#E07532;height:100%;width:40%;"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>油霜質地</span><b>196</b></div><div style="background:#f3f3f3;height:12px;border-radius:3px;overflow:hidden;"><div style="background:#E07532;height:100%;width:31%;"></div></div></div>
+                <div><div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span>韓國保養品 牌子</span><b>152</b></div><div style="background:#f3f3f3;height:12px;border-radius:3px;overflow:hidden;"><div style="background:#E07532;height:100%;width:24%;"></div></div></div>
+              </div>
+            </div>
+
+            <div class="portal-card">
+              <div class="portal-card-head"><h3>熱門頁面 TOP 5</h3><span style="font-size:11px;color:#888;">本月點擊</span></div>
+              <div style="display:flex;flex-direction:column;gap:10px;font-size:12px;">
+                <div style="border-left:3px solid #E07532;padding:6px 10px;background:#FFFAF3;border-radius:0 6px 6px 0;"><div style="display:flex;justify-content:space-between;"><b>/products/oil-cream</b><span><b>892</b> 次</span></div><div style="color:#888;font-size:11px;margin-top:2px;">沐浴油霜（主打商品）</div></div>
+                <div style="border-left:3px solid #E07532;padding:6px 10px;background:#FFFAF3;border-radius:0 6px 6px 0;"><div style="display:flex;justify-content:space-between;"><b>/quiz</b><span><b>647</b> 次</span></div><div style="color:#888;font-size:11px;margin-top:2px;">膚質檢測工具</div></div>
+                <div style="border-left:3px solid #E07532;padding:6px 10px;background:#FFFAF3;border-radius:0 6px 6px 0;"><div style="display:flex;justify-content:space-between;"><b>/blog/sensitive-skin</b><span><b>421</b> 次</span></div><div style="color:#888;font-size:11px;margin-top:2px;">敏感肌部落格</div></div>
+                <div style="border-left:3px solid #E07532;padding:6px 10px;background:#FFFAF3;border-radius:0 6px 6px 0;"><div style="display:flex;justify-content:space-between;"><b>/about</b><span><b>358</b> 次</span></div><div style="color:#888;font-size:11px;margin-top:2px;">品牌故事</div></div>
+                <div style="border-left:3px solid #E07532;padding:6px 10px;background:#FFFAF3;border-radius:0 6px 6px 0;"><div style="display:flex;justify-content:space-between;"><b>/products</b><span><b>289</b> 次</span></div><div style="color:#888;font-size:11px;margin-top:2px;">全產品列表</div></div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-top:18px;">
-          <div class="portal-card">
-            <div class="portal-card-head">
-              <h3>SEO ＆ AEO 全項稽核（Lovable Engine）</h3>
-              <span style="font-size:11px;color:#888;">2026/05/14 06:00 ・ Powered by Lovable</span>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:14px;font-size:13px;">
-
-              <div>
-                <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:.12em;margin-bottom:6px;">🌐 AEO（AI 引擎優化）</div>
-                <div style="display:flex;flex-direction:column;gap:4px;">
-                  <div style="display:flex;justify-content:space-between;padding:6px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ llms.txt 有效性</span><b style="color:#2E7D32;">PASS</b></div>
-                  <div style="display:flex;justify-content:space-between;padding:6px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ AI 助理可將網站識別為 Markdown</span><b style="color:#2E7D32;">PASS</b></div>
-                </div>
-              </div>
-
-              <div>
-                <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:.12em;margin-bottom:6px;">📄 頁面基礎</div>
-                <div style="display:flex;flex-direction:column;gap:4px;">
-                  <div style="display:flex;justify-content:space-between;padding:6px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ Viewport 設定</span><b style="color:#2E7D32;">PASS</b></div>
-                  <div style="display:flex;justify-content:space-between;padding:6px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ HTML lang 屬性</span><b style="color:#2E7D32;">zh-Hant</b></div>
-                </div>
-              </div>
-
-              <div>
-                <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:.12em;margin-bottom:6px;">🔍 索引可見性</div>
-                <div style="display:flex;flex-direction:column;gap:4px;">
-                  <div style="display:flex;justify-content:space-between;padding:6px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ 首頁可達性</span><b style="color:#2E7D32;">PASS</b></div>
-                  <div style="display:flex;justify-content:space-between;padding:6px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ noindex 標籤檢查</span><b style="color:#2E7D32;">PASS</b></div>
-                  <div style="display:flex;justify-content:space-between;padding:6px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ X-Robots-Tag 標頭</span><b style="color:#2E7D32;">PASS</b></div>
-                </div>
-              </div>
-
-              <div>
-                <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:.12em;margin-bottom:6px;">🕷 爬蟲規則 / Sitemap</div>
-                <div style="display:flex;flex-direction:column;gap:4px;">
-                  <div style="display:flex;justify-content:space-between;padding:6px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ robots.txt 存在且格式正確</span><b style="color:#2E7D32;">PASS</b></div>
-                  <div style="display:flex;justify-content:space-between;padding:6px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ Sitemap.xml 有效性 + URL 一致</span><b style="color:#2E7D32;">PASS</b></div>
-                </div>
-              </div>
-
-              <div>
-                <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:.12em;margin-bottom:6px;">🏷 中繼資料 / 結構化資料</div>
-                <div style="display:flex;flex-direction:column;gap:4px;">
-                  <div style="display:flex;justify-content:space-between;padding:6px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ 標題獨特性 + Meta description 品質</span><b style="color:#2E7D32;">PASS</b></div>
-                  <div style="display:flex;justify-content:space-between;padding:6px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ Canonical URL 正確</span><b style="color:#2E7D32;">PASS</b></div>
-                  <div style="display:flex;justify-content:space-between;padding:6px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ Open Graph / Twitter Card</span><b style="color:#2E7D32;">PASS</b></div>
-                  <div style="display:flex;justify-content:space-between;padding:6px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ JSON-LD Schema（Product / Article）</span><b style="color:#2E7D32;">PASS</b></div>
-                </div>
-              </div>
-
-              <div>
-                <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:.12em;margin-bottom:6px;">📝 內容結構</div>
-                <div style="display:flex;flex-direction:column;gap:4px;">
-                  <div style="display:flex;justify-content:space-between;padding:6px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ H1 標題唯一 + 標題層級順序</span><b style="color:#2E7D32;">PASS</b></div>
-                  <div style="display:flex;justify-content:space-between;padding:6px 12px;background:#FFF4E8;border-radius:6px;border-left:3px solid #E07532;"><span>⚠ 替代文字（alt）覆蓋率 88%</span><b style="color:#E07532;">需修復</b></div>
-                  <div style="display:flex;justify-content:space-between;padding:6px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ 連結文字描述性</span><b style="color:#2E7D32;">PASS</b></div>
-                </div>
-              </div>
-
-              <div>
-                <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:.12em;margin-bottom:6px;">⚡ Core Web Vitals（效能）</div>
-                <div style="display:flex;flex-direction:column;gap:4px;">
-                  <div style="display:flex;justify-content:space-between;padding:6px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ LCP（首次內容繪製）</span><b style="color:#2E7D32;">1.8s</b></div>
-                  <div style="display:flex;justify-content:space-between;padding:6px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ CLS（版面偏移）</span><b style="color:#2E7D32;">0.04</b></div>
-                  <div style="display:flex;justify-content:space-between;padding:6px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ INP（互動繪製）</span><b style="color:#2E7D32;">142ms</b></div>
-                  <div style="display:flex;justify-content:space-between;padding:6px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ 影像最佳化</span><b style="color:#2E7D32;">WebP</b></div>
-                </div>
-              </div>
-
-              <div>
-                <div style="font-size:11px;font-weight:700;color:#888;letter-spacing:.12em;margin-bottom:6px;">♿ 可及性 / 行動易用性</div>
-                <div style="display:flex;flex-direction:column;gap:4px;">
-                  <div style="display:flex;justify-content:space-between;padding:6px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ 色彩對比度 + ARIA 標籤 + 地標導航</span><b style="color:#2E7D32;">PASS</b></div>
-                  <div style="display:flex;justify-content:space-between;padding:6px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ 點擊目標大小 + 回應式配置</span><b style="color:#2E7D32;">PASS</b></div>
-                </div>
-              </div>
-
-            </div>
-            <div style="background:linear-gradient(135deg,#FFF4E8,#FFE0C5);border-radius:8px;padding:14px;margin-top:14px;display:flex;justify-content:space-between;align-items:center;">
-              <div>
-                <b style="color:#7a4520;">🤖 AI Agent 一鍵修復</b>
-                <p style="margin:4px 0 0;font-size:12px;color:#7a4520;">替代文字覆蓋率不足 — Lovable 已生成 3 張產品圖 alt，預計 SEO 分數 +4。</p>
-              </div>
-              <button style="background:linear-gradient(135deg,#E07532,#C45A1E);color:#fff;border:none;padding:10px 18px;border-radius:20px;font-weight:700;cursor:pointer;">Try to fix</button>
-            </div>
+        <div class="seo-panel" data-seotab="aeo" style="margin-top:18px;display:none;">
+          <div class="metric-grid">
+            <div class="metric"><div class="label">本月 AI 引用</div><div class="value" style="color:#E07532;">52</div><div class="hint" style="color:#5BA45A;">↑ 23 次（上月 29）</div></div>
+            <div class="metric"><div class="label">被引用引擎數</div><div class="value">4</div><div class="hint">GPT/Perplexity/Claude/Gemini</div></div>
+            <div class="metric"><div class="label">被引用 TOP 頁</div><div class="value" style="color:#1565C0;font-size:16px;">/products/oil-cream</div><div class="hint">18 次</div></div>
+            <div class="metric"><div class="label">部署健康度</div><div class="value" style="color:#5BA45A;">3 / 4</div><div class="hint">1 項建議優化</div></div>
           </div>
 
-          <div class="portal-card">
-            <div class="portal-card-head">
-              <h3>關鍵字研究（Semrush）</h3>
-              <span style="font-size:11px;color:#888;">Velireo Skin Brand</span>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;">
-              <div style="font-size:11px;color:#888;margin-bottom:4px;">本月關鍵字排名（GSC ＋ Semrush）</div>
-              <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px dashed #eee;"><span>沐浴油霜</span><span><b style="color:#E07532;">#3</b> <span style="color:#5BA45A;font-size:11px;">↑2</span></span></div>
-              <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px dashed #eee;"><span>益生菌沐浴</span><span><b style="color:#E07532;">#5</b> <span style="color:#5BA45A;font-size:11px;">↑1</span></span></div>
-              <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px dashed #eee;"><span>懶人保養</span><span><b>#7</b> <span style="color:#888;font-size:11px;">—</span></span></div>
-              <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px dashed #eee;"><span>無皂沐浴</span><span><b>#11</b> <span style="color:#5BA45A;font-size:11px;">↑4</span></span></div>
-              <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;"><span>敏感肌沐浴</span><span><b>#14</b> <span style="color:#5BA45A;font-size:11px;">↑3</span></span></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px;">
+            <div class="portal-card">
+              <div class="portal-card-head"><h3>AI 引擎引用佔比</h3><span style="font-size:11px;color:#888;">本月 52 次</span></div>
+              <div style="display:flex;align-items:center;gap:16px;">
+                <svg viewBox="0 0 120 120" style="width:140px;height:140px;flex-shrink:0;">
+                  <circle cx="60" cy="60" r="48" fill="none" stroke="#eee" stroke-width="16"/>
+                  <circle cx="60" cy="60" r="48" fill="none" stroke="#10A37F" stroke-width="16" stroke-dasharray="125 275" transform="rotate(-90 60 60)"/>
+                  <circle cx="60" cy="60" r="48" fill="none" stroke="#1FB7C3" stroke-width="16" stroke-dasharray="92 308" stroke-dashoffset="-125" transform="rotate(-90 60 60)"/>
+                  <circle cx="60" cy="60" r="48" fill="none" stroke="#E07532" stroke-width="16" stroke-dasharray="58 342" stroke-dashoffset="-217" transform="rotate(-90 60 60)"/>
+                  <circle cx="60" cy="60" r="48" fill="none" stroke="#4285F4" stroke-width="16" stroke-dasharray="27 373" stroke-dashoffset="-275" transform="rotate(-90 60 60)"/>
+                </svg>
+                <div style="font-size:12px;flex:1;">
+                  <div style="display:flex;justify-content:space-between;padding:4px 0;"><span><span style="display:inline-block;width:8px;height:8px;background:#10A37F;border-radius:2px;margin-right:6px;"></span>ChatGPT</span><b>21（40%）</b></div>
+                  <div style="display:flex;justify-content:space-between;padding:4px 0;"><span><span style="display:inline-block;width:8px;height:8px;background:#1FB7C3;border-radius:2px;margin-right:6px;"></span>Perplexity</span><b>16（31%）</b></div>
+                  <div style="display:flex;justify-content:space-between;padding:4px 0;"><span><span style="display:inline-block;width:8px;height:8px;background:#E07532;border-radius:2px;margin-right:6px;"></span>Claude</span><b>10（19%）</b></div>
+                  <div style="display:flex;justify-content:space-between;padding:4px 0;"><span><span style="display:inline-block;width:8px;height:8px;background:#4285F4;border-radius:2px;margin-right:6px;"></span>Gemini</span><b>5（10%）</b></div>
+                </div>
+              </div>
+
+              <div class="portal-card-head" style="margin-top:20px;"><h3>引用次數趨勢（6 個月）</h3></div>
+              <svg viewBox="0 0 400 160" style="width:100%;height:160px;">
+                <line x1="40" y1="20" x2="40" y2="130" stroke="#eee"/>
+                <line x1="40" y1="130" x2="390" y2="130" stroke="#eee"/>
+                <text x="10" y="25" font-size="10" fill="#aaa">60</text>
+                <text x="10" y="80" font-size="10" fill="#aaa">30</text>
+                <text x="10" y="130" font-size="10" fill="#aaa">0</text>
+                <g fill="#E07532">
+                  <rect x="60" y="105" width="40" height="25"/>
+                  <rect x="115" y="95" width="40" height="35"/>
+                  <rect x="170" y="80" width="40" height="50"/>
+                  <rect x="225" y="68" width="40" height="62"/>
+                  <rect x="280" y="55" width="40" height="75"/>
+                  <rect x="335" y="35" width="40" height="95"/>
+                </g>
+                <g font-size="10" fill="#888" text-anchor="middle">
+                  <text x="80" y="148">12 月</text><text x="135" y="148">1 月</text><text x="190" y="148">2 月</text><text x="245" y="148">3 月</text><text x="300" y="148">4 月</text><text x="355" y="148">5 月</text>
+                </g>
+                <g font-size="10" font-weight="700" fill="#fff" text-anchor="middle">
+                  <text x="80" y="120">8</text><text x="135" y="110">15</text><text x="190" y="95">22</text><text x="245" y="83">29</text><text x="300" y="70">38</text><text x="355" y="50">52</text>
+                </g>
+              </svg>
             </div>
 
-            <div class="portal-card-head" style="margin-top:18px;">
-              <h3 style="font-size:14px;">Semrush 競爭對手 / 反向連結</h3>
-            </div>
-            <div style="font-size:12px;color:#555;display:flex;flex-direction:column;gap:4px;">
-              <div>📊 競爭對手 Top 3：<b>aesop / loccitane / kiehls</b></div>
-              <div>🔗 反向連結機會：本月 +12（美妝媒體、KOL 文章）</div>
-              <div>💡 SEO 策略建議：補強「敏感肌」長尾關鍵字內容</div>
-            </div>
+            <div class="portal-card">
+              <div class="portal-card-head"><h3>📝 近期被 AI 引用語句</h3><span style="font-size:11px;color:#888;">最新 4 筆</span></div>
+              <div style="display:flex;flex-direction:column;gap:10px;font-size:12px;">
+                <div style="background:#F8F9FA;border-left:3px solid #10A37F;padding:10px 12px;border-radius:4px;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><b style="color:#10A37F;">ChatGPT</b><span style="color:#888;font-size:11px;">2026/05/13</span></div><span style="color:#555;">「Velireo 的個人化沐浴油霜會依膚質調配油酸比例，敏感肌可選低濃度配方…」</span><div style="margin-top:6px;color:#888;font-size:11px;">引用頁：/products/oil-cream</div></div>
+                <div style="background:#F8F9FA;border-left:3px solid #1FB7C3;padding:10px 12px;border-radius:4px;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><b style="color:#1FB7C3;">Perplexity</b><span style="color:#888;font-size:11px;">2026/05/12</span></div><span style="color:#555;">「沐浴油霜質地比一般身體乳液更滋潤，沖洗後不黏膩…」</span><div style="margin-top:6px;color:#888;font-size:11px;">引用頁：/blog/oil-cream-texture</div></div>
+                <div style="background:#F8F9FA;border-left:3px solid #E07532;padding:10px 12px;border-radius:4px;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><b style="color:#E07532;">Claude</b><span style="color:#888;font-size:11px;">2026/05/11</span></div><span style="color:#555;">「品牌透過免費膚質檢測工具，可在 1 分鐘內推薦合適產品…」</span><div style="margin-top:6px;color:#888;font-size:11px;">引用頁：/quiz</div></div>
+                <div style="background:#F8F9FA;border-left:3px solid #4285F4;padding:10px 12px;border-radius:4px;"><div style="display:flex;justify-content:space-between;margin-bottom:4px;"><b style="color:#4285F4;">Gemini</b><span style="color:#888;font-size:11px;">2026/05/09</span></div><span style="color:#555;">「Velireo 主打韓式肌膚科學基底…」</span><div style="margin-top:6px;color:#888;font-size:11px;">引用頁：/about</div></div>
+              </div>
 
-            <div class="portal-card-head" style="margin-top:18px;">
-              <h3 style="font-size:14px;">GSC Search Performance</h3>
-            </div>
-            <div style="font-size:12px;color:#555;display:flex;flex-direction:column;gap:4px;">
-              <div>👁 曝光：<b>48,392</b>（↑22%）</div>
-              <div>👆 點擊：<b>2,847</b>（CTR 5.9%）</div>
-              <div>📍 平均排名：<b>14.2</b>（↑3.1）</div>
-              <div>📑 索引覆蓋率：<b>128 / 132 頁</b></div>
-            </div>
-
-            <div class="portal-card-head" style="margin-top:18px;">
-              <h3 style="font-size:14px;">AI 引擎引用紀錄</h3>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:#555;">
-              <div>🤖 <b>ChatGPT</b>：「推薦沐浴油霜」引用 Velireo 產品頁（5/13）</div>
-              <div>🤖 <b>Perplexity</b>：「無皂沐浴推薦」引用品牌故事頁（5/12）</div>
-              <div>🤖 <b>Claude</b>：「懶人保養」引用部落格文章（5/11）</div>
+              <div class="portal-card-head" style="margin-top:20px;"><h3 style="font-size:13px;">⚙️ AEO 部署健康度</h3><span style="font-size:10px;color:#888;">影響 AI 能否引用您的網站</span></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;">
+                <div style="background:#F0F8F0;border-radius:8px;padding:10px;"><div style="color:#2E7D32;font-weight:700;">✓ llms.txt 已部署</div><div style="color:#888;font-size:11px;margin-top:2px;">AI 助理可直接索引網站結構</div></div>
+                <div style="background:#F0F8F0;border-radius:8px;padding:10px;"><div style="color:#2E7D32;font-weight:700;">✓ AI Markdown 可見</div><div style="color:#888;font-size:11px;margin-top:2px;">內容可被 AI 完整解析</div></div>
+                <div style="background:#FFF4E8;border-radius:8px;padding:10px;"><div style="color:#E07532;font-weight:700;">⚠ JSON-LD 建議優化</div><div style="color:#888;font-size:11px;margin-top:2px;">建議補上 FAQ schema 提升引用率</div></div>
+                <div style="background:#F0F8F0;border-radius:8px;padding:10px;"><div style="color:#2E7D32;font-weight:700;">✓ AI Bot 全開放</div><div style="color:#888;font-size:11px;margin-top:2px;">GPTBot / ClaudeBot / PerplexityBot</div></div>
+              </div>
             </div>
           </div>
         </div>
+
+        <div class="seo-panel" data-seotab="keywords" style="margin-top:18px;display:none;">
+          <div class="metric-grid">
+            <div class="metric"><div class="label">追蹤關鍵字</div><div class="value">48</div><div class="hint">本月新增 6 字</div></div>
+            <div class="metric"><div class="label">前 3 名</div><div class="value" style="color:#E07532;">7</div><div class="hint" style="color:#5BA45A;">↑ 3 字</div></div>
+            <div class="metric"><div class="label">前 10 名</div><div class="value" style="color:#E07532;">19</div><div class="hint" style="color:#5BA45A;">↑ 5 字</div></div>
+            <div class="metric"><div class="label">平均排名</div><div class="value" style="color:#1565C0;">14.2</div><div class="hint" style="color:#5BA45A;">↑ 3.1 名</div></div>
+          </div>
+
+          <div class="portal-card" style="margin-top:18px;">
+            <div class="portal-card-head"><h3>關鍵字排名表</h3><span style="font-size:11px;color:#888;">Semrush ・ 本月</span></div>
+            <table style="width:100%;border-collapse:collapse;font-size:12px;">
+              <thead><tr style="text-align:left;border-bottom:2px solid #eee;color:#888;font-size:11px;letter-spacing:.1em;"><th style="padding:10px 6px;">關鍵字</th><th style="padding:10px 6px;">類型</th><th style="padding:10px 6px;text-align:right;">排名</th><th style="padding:10px 6px;text-align:right;">變化</th><th style="padding:10px 6px;text-align:right;">月搜尋量</th><th style="padding:10px 6px;text-align:right;">點擊</th></tr></thead>
+              <tbody>
+                <tr style="border-bottom:1px solid #f3f3f3;background:#FFFAF3;"><td style="padding:10px 6px;"><b>Velireo</b></td><td style="padding:10px 6px;color:#888;">品牌字</td><td style="padding:10px 6px;text-align:right;"><b style="color:#E07532;">1</b></td><td style="padding:10px 6px;text-align:right;color:#888;">—</td><td style="padding:10px 6px;text-align:right;">1,200</td><td style="padding:10px 6px;text-align:right;">389</td></tr>
+                <tr style="border-bottom:1px solid #f3f3f3;"><td style="padding:10px 6px;"><b>個人化保養品</b></td><td style="padding:10px 6px;color:#888;">產品字</td><td style="padding:10px 6px;text-align:right;"><b style="color:#E07532;">3</b></td><td style="padding:10px 6px;text-align:right;color:#5BA45A;">↑ 8</td><td style="padding:10px 6px;text-align:right;">8,100</td><td style="padding:10px 6px;text-align:right;">624</td></tr>
+                <tr style="border-bottom:1px solid #f3f3f3;"><td style="padding:10px 6px;"><b>沐浴油霜推薦</b></td><td style="padding:10px 6px;color:#888;">產品字</td><td style="padding:10px 6px;text-align:right;"><b style="color:#E07532;">7</b></td><td style="padding:10px 6px;text-align:right;color:#5BA45A;">↑ 3</td><td style="padding:10px 6px;text-align:right;">2,400</td><td style="padding:10px 6px;text-align:right;">478</td></tr>
+                <tr style="border-bottom:1px solid #f3f3f3;"><td style="padding:10px 6px;"><b>敏感肌沐浴油</b></td><td style="padding:10px 6px;color:#888;">長尾字</td><td style="padding:10px 6px;text-align:right;"><b style="color:#E07532;">6</b></td><td style="padding:10px 6px;text-align:right;color:#5BA45A;">↑ 12</td><td style="padding:10px 6px;text-align:right;">1,300</td><td style="padding:10px 6px;text-align:right;">312</td></tr>
+                <tr style="border-bottom:1px solid #f3f3f3;"><td style="padding:10px 6px;"><b>身體乳 推薦</b></td><td style="padding:10px 6px;color:#888;">長尾字</td><td style="padding:10px 6px;text-align:right;"><b>9</b></td><td style="padding:10px 6px;text-align:right;color:#5BA45A;">↑ 4</td><td style="padding:10px 6px;text-align:right;">5,400</td><td style="padding:10px 6px;text-align:right;">248</td></tr>
+                <tr style="border-bottom:1px solid #f3f3f3;"><td style="padding:10px 6px;"><b>油霜質地</b></td><td style="padding:10px 6px;color:#888;">長尾字</td><td style="padding:10px 6px;text-align:right;"><b>11</b></td><td style="padding:10px 6px;text-align:right;color:#5BA45A;">↑ 2</td><td style="padding:10px 6px;text-align:right;">880</td><td style="padding:10px 6px;text-align:right;">196</td></tr>
+                <tr style="border-bottom:1px solid #f3f3f3;"><td style="padding:10px 6px;"><b>韓國保養品 牌子</b></td><td style="padding:10px 6px;color:#888;">長尾字</td><td style="padding:10px 6px;text-align:right;"><b>14</b></td><td style="padding:10px 6px;text-align:right;color:#5BA45A;">↑ 6</td><td style="padding:10px 6px;text-align:right;">3,200</td><td style="padding:10px 6px;text-align:right;">152</td></tr>
+                <tr><td style="padding:10px 6px;"><b>保養品 訂閱制</b></td><td style="padding:10px 6px;color:#888;">長尾字</td><td style="padding:10px 6px;text-align:right;"><b>18</b></td><td style="padding:10px 6px;text-align:right;color:#C45A1E;">↓ 2</td><td style="padding:10px 6px;text-align:right;">720</td><td style="padding:10px 6px;text-align:right;">88</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </div>
 
       <!-- ===== Payments ===== -->
@@ -1554,6 +1564,24 @@
         navItems.forEach(n => n.classList.toggle('is-active', n === item));
         views.forEach(v => v.classList.toggle('is-active', v.dataset.view === target));
         window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    // ===== SEO Tab switching =====
+    document.querySelectorAll('.portal-view[data-view="seo"]').forEach(view => {
+      const tabs = view.querySelectorAll('.seo-tab');
+      const panels = view.querySelectorAll('.seo-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const target = tab.dataset.seotab;
+          tabs.forEach(t => {
+            const on = t === tab;
+            t.classList.toggle('is-active', on);
+            t.style.color = on ? '#E07532' : '#888';
+            t.style.borderBottom = on ? '2px solid #E07532' : 'none';
+          });
+          panels.forEach(p => { p.style.display = p.dataset.seotab === target ? 'block' : 'none'; });
+        });
       });
     });
   </script>
