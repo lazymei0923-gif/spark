@@ -814,6 +814,10 @@
         <div class="portal-nav-item" data-view="ads">
           <span class="icon">📊</span><span>廣告成效</span>
         </div>
+        <div class="portal-nav-item" data-view="seo" style="position:relative;">
+          <span class="icon">🔍</span><span>SEO / AEO 日報</span>
+          <span style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:linear-gradient(135deg,#E07532,#C45A1E);color:#fff;font-size:9px;letter-spacing:.1em;padding:2px 6px;border-radius:8px;font-weight:700;">NEW</span>
+        </div>
         <div class="portal-nav-item" data-view="files">
           <span class="icon">◇</span><span>檔案下載</span>
         </div>
@@ -1304,6 +1308,97 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SEO / AEO Dashboard ===== -->
+      <div class="portal-view" data-view="seo">
+        <div class="portal-topbar">
+          <div>
+            <div class="crumbs">SPARK PORTAL ／ SEO ・ AEO</div>
+            <h1>SEO / AEO 日報 <span style="font-size:11px;letter-spacing:.18em;background:linear-gradient(135deg,#E07532,#C45A1E);color:#fff;padding:4px 10px;border-radius:10px;font-weight:700;margin-left:10px;vertical-align:middle;">🌟 全台首創</span></h1>
+            <p class="topbar-sub">每日 06:00 自動稽核 ・ 每週一 09:00 LINE 推播完整週報 ・ AI Agent 一鍵修復</p>
+          </div>
+          <div class="topbar-actions">
+            <button class="btn-outline">下載 PDF 週報</button>
+            <button class="btn-primary">LINE 接收設定</button>
+          </div>
+        </div>
+
+        <div class="metric-grid">
+          <div class="metric">
+            <div class="label">SEO 健康度分數</div>
+            <div class="value" style="color:#E07532;">94<span style="font-size:14px;color:#5BA45A;margin-left:6px;">↑6</span></div>
+            <div class="hint">11 項稽核全通過率</div>
+          </div>
+          <div class="metric">
+            <div class="label">本月自然點擊</div>
+            <div class="value">2,847<span style="font-size:14px;color:#5BA45A;margin-left:6px;">↑38%</span></div>
+            <div class="hint">vs 上月 2,062</div>
+          </div>
+          <div class="metric">
+            <div class="label">索引頁數</div>
+            <div class="value">128</div>
+            <div class="hint">Google + Bing</div>
+          </div>
+          <div class="metric">
+            <div class="label">AI 引擎引用</div>
+            <div class="value" style="color:#1565C0;">23<span style="font-size:14px;color:#5BA45A;margin-left:6px;">↑</span></div>
+            <div class="hint">ChatGPT / Perplexity / Claude</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-top:18px;">
+          <div class="portal-card">
+            <div class="portal-card-head">
+              <h3>11 項 SEO 健康度稽核</h3>
+              <span style="font-size:11px;color:#888;">2026/05/14 06:00 更新</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;">
+              <div style="display:flex;justify-content:space-between;padding:8px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ llms.txt 已部署（AEO 基礎）</span><b style="color:#2E7D32;">PASS</b></div>
+              <div style="display:flex;justify-content:space-between;padding:8px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ Schema.org Product 結構化資料</span><b style="color:#2E7D32;">PASS</b></div>
+              <div style="display:flex;justify-content:space-between;padding:8px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ Open Graph / Twitter Card</span><b style="color:#2E7D32;">PASS</b></div>
+              <div style="display:flex;justify-content:space-between;padding:8px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ Sitemap.xml 提交 GSC</span><b style="color:#2E7D32;">PASS</b></div>
+              <div style="display:flex;justify-content:space-between;padding:8px 12px;background:#FFF4E8;border-radius:6px;border-left:3px solid #E07532;"><span>⚠ 3 張產品圖缺少 alt 屬性</span><b style="color:#E07532;">需修復</b></div>
+              <div style="display:flex;justify-content:space-between;padding:8px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ H1 標籤每頁唯一</span><b style="color:#2E7D32;">PASS</b></div>
+              <div style="display:flex;justify-content:space-between;padding:8px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ Meta description 全頁覆蓋</span><b style="color:#2E7D32;">PASS</b></div>
+              <div style="display:flex;justify-content:space-between;padding:8px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ Lighthouse Performance</span><b style="color:#2E7D32;">96 分</b></div>
+              <div style="display:flex;justify-content:space-between;padding:8px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ Mobile Friendly Test</span><b style="color:#2E7D32;">PASS</b></div>
+              <div style="display:flex;justify-content:space-between;padding:8px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ Core Web Vitals 全綠</span><b style="color:#2E7D32;">PASS</b></div>
+              <div style="display:flex;justify-content:space-between;padding:8px 12px;background:#F0F8F0;border-radius:6px;"><span>✓ Canonical 設定正確</span><b style="color:#2E7D32;">PASS</b></div>
+            </div>
+            <div style="background:linear-gradient(135deg,#FFF4E8,#FFE0C5);border-radius:8px;padding:14px;margin-top:14px;display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <b style="color:#7a4520;">🤖 AI Agent 修復建議</b>
+                <p style="margin:4px 0 0;font-size:12px;color:#7a4520;">已為 3 張產品圖生成 alt 文字，預計提升 SEO 健康度 +4 分。</p>
+              </div>
+              <button style="background:linear-gradient(135deg,#E07532,#C45A1E);color:#fff;border:none;padding:10px 18px;border-radius:20px;font-weight:700;cursor:pointer;">一鍵修復</button>
+            </div>
+          </div>
+
+          <div class="portal-card">
+            <div class="portal-card-head">
+              <h3>關鍵字排名 Top 10</h3>
+              <span style="font-size:11px;color:#888;">Semrush + GSC</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px dashed #eee;"><span>沐浴油霜</span><span><b style="color:#E07532;">#3</b> <span style="color:#5BA45A;font-size:11px;">↑2</span></span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px dashed #eee;"><span>益生菌沐浴</span><span><b style="color:#E07532;">#5</b> <span style="color:#5BA45A;font-size:11px;">↑1</span></span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px dashed #eee;"><span>懶人保養</span><span><b>#7</b> <span style="color:#888;font-size:11px;">—</span></span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px dashed #eee;"><span>無皂沐浴</span><span><b>#11</b> <span style="color:#5BA45A;font-size:11px;">↑4</span></span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px dashed #eee;"><span>Velireo</span><span><b style="color:#E07532;">#1</b> <span style="color:#888;font-size:11px;">—</span></span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;"><span>敏感肌沐浴</span><span><b>#14</b> <span style="color:#5BA45A;font-size:11px;">↑3</span></span></div>
+            </div>
+
+            <div class="portal-card-head" style="margin-top:18px;">
+              <h3 style="font-size:14px;">AI 引擎引用紀錄</h3>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:#555;">
+              <div>🤖 <b>ChatGPT</b>：「推薦沐浴油霜」引用 Velireo 產品頁（5/13）</div>
+              <div>🤖 <b>Perplexity</b>：「無皂沐浴推薦」引用品牌故事頁（5/12）</div>
+              <div>🤖 <b>Claude</b>：「懶人保養」引用部落格文章（5/11）</div>
             </div>
           </div>
         </div>
