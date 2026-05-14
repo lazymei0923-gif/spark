@@ -769,6 +769,10 @@
         <div class="admin-nav-item" data-view="assets">
           <span class="icon">◇</span><span>內容與素材</span>
         </div>
+        <div class="admin-nav-item" data-view="seo" style="position:relative;">
+          <span class="icon">🔍</span><span>SEO / AEO Dashboard</span>
+          <span class="badge" style="background:linear-gradient(135deg,#E07532,#C45A1E);color:#fff;">NEW</span>
+        </div>
       </nav>
 
       <div class="admin-user">
@@ -1762,6 +1766,168 @@
           </div>
         </div>
         <!-- /上傳素材 pane -->
+      </div>
+
+      <!-- ===== SEO / AEO Dashboard ===== -->
+      <div class="admin-view" data-view="seo">
+        <div class="admin-topbar">
+          <div>
+            <div class="crumbs">SPARK ADMIN ／ SEO ・ AEO</div>
+            <h1>SEO / AEO Dashboard <span style="font-size:11px;letter-spacing:.18em;background:linear-gradient(135deg,#E07532,#C45A1E);color:#fff;padding:4px 10px;border-radius:10px;font-weight:700;margin-left:10px;vertical-align:middle;">🌟 全台首創</span></h1>
+            <p class="topbar-sub">同時管理火花官網 + 所有客戶網站的 SEO/AEO 表現 ・ Powered by Lovable Engine + Semrush + GSC</p>
+          </div>
+          <div class="topbar-actions">
+            <button class="cta-btn">＋ 新增監控站</button>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <span class="filter-pill is-active" data-tab="all">全部站點（5）</span>
+          <span class="filter-pill" data-tab="spark">火花官網</span>
+          <span class="filter-pill" data-tab="clients">客戶網站（4）</span>
+          <span class="filter-pill" data-tab="aeo">AEO 監控</span>
+        </div>
+
+        <div class="metric-grid" style="margin-top:14px;">
+          <div class="metric"><div class="label">監控中網站</div><div class="value">5</div><div class="hint">火花 ＋ 4 個客戶</div></div>
+          <div class="metric"><div class="label">平均 SEO 分數</div><div class="value" style="color:#E07532;">91<span style="font-size:14px;color:#5BA45A;margin-left:6px;">↑3</span></div><div class="hint">本月各站均值</div></div>
+          <div class="metric"><div class="label">本週新增 AI 引用</div><div class="value" style="color:#1565C0;">47</div><div class="hint">ChatGPT/Perplexity/Claude</div></div>
+          <div class="metric"><div class="label">待修復項目</div><div class="value" style="color:#C45A1E;">8</div><div class="hint">AI Agent 可一鍵處理 6 項</div></div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-top:18px;">
+
+          <div class="portal-card">
+            <div class="portal-card-head">
+              <h3>客戶網站 SEO 排行</h3>
+              <span style="font-size:11px;color:#888;">2026/05/14 06:00 ・ 自動稽核</span>
+            </div>
+            <table style="width:100%;border-collapse:collapse;font-size:13px;">
+              <thead>
+                <tr style="text-align:left;border-bottom:2px solid #eee;color:#888;font-size:11px;letter-spacing:.12em;">
+                  <th style="padding:8px 6px;">客戶 / 網站</th>
+                  <th style="padding:8px 6px;">SEO 分數</th>
+                  <th style="padding:8px 6px;">點擊</th>
+                  <th style="padding:8px 6px;">AEO</th>
+                  <th style="padding:8px 6px;">待修</th>
+                  <th style="padding:8px 6px;"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid #f3f3f3;">
+                  <td style="padding:10px 6px;"><b>SPARK 官網</b><br><span style="color:#888;font-size:11px;">spark.tw</span></td>
+                  <td style="padding:10px 6px;"><b style="color:#E07532;">96</b> <span style="color:#5BA45A;font-size:11px;">↑2</span></td>
+                  <td style="padding:10px 6px;">1,284</td>
+                  <td style="padding:10px 6px;"><span style="background:#F0F8F0;color:#2E7D32;padding:2px 6px;border-radius:8px;font-size:11px;">✓ 已部署</span></td>
+                  <td style="padding:10px 6px;"><b>0</b></td>
+                  <td style="padding:10px 6px;text-align:right;"><a style="color:#E07532;font-size:11px;">查看 →</a></td>
+                </tr>
+                <tr style="border-bottom:1px solid #f3f3f3;background:#FFFAF3;">
+                  <td style="padding:10px 6px;"><b>Velireo Skin</b><br><span style="color:#888;font-size:11px;">velireoskin.com</span></td>
+                  <td style="padding:10px 6px;"><b style="color:#E07532;">94</b> <span style="color:#5BA45A;font-size:11px;">↑6</span></td>
+                  <td style="padding:10px 6px;">2,847</td>
+                  <td style="padding:10px 6px;"><span style="background:#F0F8F0;color:#2E7D32;padding:2px 6px;border-radius:8px;font-size:11px;">✓ 已部署</span></td>
+                  <td style="padding:10px 6px;"><b style="color:#E07532;">1</b></td>
+                  <td style="padding:10px 6px;text-align:right;"><a style="color:#E07532;font-size:11px;">查看 →</a></td>
+                </tr>
+                <tr style="border-bottom:1px solid #f3f3f3;">
+                  <td style="padding:10px 6px;"><b>老饕鍋物</b><br><span style="color:#888;font-size:11px;">laoftaohotpot.com</span></td>
+                  <td style="padding:10px 6px;"><b>89</b> <span style="color:#5BA45A;font-size:11px;">↑4</span></td>
+                  <td style="padding:10px 6px;">3,420</td>
+                  <td style="padding:10px 6px;"><span style="background:#F0F8F0;color:#2E7D32;padding:2px 6px;border-radius:8px;font-size:11px;">✓ 已部署</span></td>
+                  <td style="padding:10px 6px;"><b style="color:#E07532;">3</b></td>
+                  <td style="padding:10px 6px;text-align:right;"><a style="color:#E07532;font-size:11px;">查看 →</a></td>
+                </tr>
+                <tr style="border-bottom:1px solid #f3f3f3;">
+                  <td style="padding:10px 6px;"><b>小島製作</b><br><span style="color:#888;font-size:11px;">island-studio.tw</span></td>
+                  <td style="padding:10px 6px;"><b>88</b> <span style="color:#5BA45A;font-size:11px;">↑3</span></td>
+                  <td style="padding:10px 6px;">982</td>
+                  <td style="padding:10px 6px;"><span style="background:#F0F8F0;color:#2E7D32;padding:2px 6px;border-radius:8px;font-size:11px;">✓ 已部署</span></td>
+                  <td style="padding:10px 6px;"><b style="color:#E07532;">2</b></td>
+                  <td style="padding:10px 6px;text-align:right;"><a style="color:#E07532;font-size:11px;">查看 →</a></td>
+                </tr>
+                <tr>
+                  <td style="padding:10px 6px;"><b>柔光美學</b><br><span style="color:#888;font-size:11px;">soft-beauty.com</span></td>
+                  <td style="padding:10px 6px;"><b>87</b> <span style="color:#888;font-size:11px;">—</span></td>
+                  <td style="padding:10px 6px;">1,524</td>
+                  <td style="padding:10px 6px;"><span style="background:#FFF4E8;color:#E07532;padding:2px 6px;border-radius:8px;font-size:11px;">⚠ 待部署</span></td>
+                  <td style="padding:10px 6px;"><b style="color:#E07532;">2</b></td>
+                  <td style="padding:10px 6px;text-align:right;"><a style="color:#E07532;font-size:11px;">查看 →</a></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="portal-card-head" style="margin-top:24px;">
+              <h3>Lovable Engine 稽核分類（11 大類）</h3>
+              <span style="font-size:11px;color:#888;">本月平均通過率</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;font-size:12px;">
+              <div style="display:flex;justify-content:space-between;padding:6px 10px;background:#F0F8F0;border-radius:6px;"><span>頁面基礎（viewport / lang）</span><b style="color:#2E7D32;">100%</b></div>
+              <div style="display:flex;justify-content:space-between;padding:6px 10px;background:#F0F8F0;border-radius:6px;"><span>索引可見性（noindex / X-Robots / hreflang）</span><b style="color:#2E7D32;">100%</b></div>
+              <div style="display:flex;justify-content:space-between;padding:6px 10px;background:#F0F8F0;border-radius:6px;"><span>爬蟲規則（robots.txt）</span><b style="color:#2E7D32;">100%</b></div>
+              <div style="display:flex;justify-content:space-between;padding:6px 10px;background:#F0F8F0;border-radius:6px;"><span>Sitemap（XML / 主機匹配）</span><b style="color:#2E7D32;">100%</b></div>
+              <div style="display:flex;justify-content:space-between;padding:6px 10px;background:#F0F8F0;border-radius:6px;"><span>中繼資料（title / meta / canonical）</span><b style="color:#2E7D32;">96%</b></div>
+              <div style="display:flex;justify-content:space-between;padding:6px 10px;background:#F0F8F0;border-radius:6px;"><span>社群圖譜（Open Graph）</span><b style="color:#2E7D32;">100%</b></div>
+              <div style="display:flex;justify-content:space-between;padding:6px 10px;background:#F0F8F0;border-radius:6px;"><span>結構化資料（JSON-LD）</span><b style="color:#2E7D32;">94%</b></div>
+              <div style="display:flex;justify-content:space-between;padding:6px 10px;background:#FFF4E8;border-radius:6px;"><span>內容結構（H1 / alt / link text）</span><b style="color:#E07532;">88%</b></div>
+              <div style="display:flex;justify-content:space-between;padding:6px 10px;background:#F0F8F0;border-radius:6px;"><span>效能（LCP / CLS / INP）</span><b style="color:#2E7D32;">95%</b></div>
+              <div style="display:flex;justify-content:space-between;padding:6px 10px;background:#F0F8F0;border-radius:6px;"><span>可及性（ARIA / 對比）</span><b style="color:#2E7D32;">97%</b></div>
+              <div style="display:flex;justify-content:space-between;padding:6px 10px;background:#F0F8F0;border-radius:6px;"><span>行動易用性</span><b style="color:#2E7D32;">100%</b></div>
+              <div style="display:flex;justify-content:space-between;padding:6px 10px;background:#F0F8F0;border-radius:6px;grid-column:1 / -1;border:1.5px dashed rgba(224,117,50,.4);"><span><b>🌐 AEO：llms.txt + Markdown 可見性</b></span><b style="color:#2E7D32;">100%（全 5 站已部署）</b></div>
+            </div>
+          </div>
+
+          <div class="portal-card">
+            <div class="portal-card-head">
+              <h3>🤖 AI Agent 修復佇列</h3>
+              <span style="font-size:11px;color:#888;">點 Try to fix 即可</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;">
+              <div style="background:#FFF4E8;border-radius:8px;padding:10px;border-left:3px solid #E07532;">
+                <b>Velireo Skin</b><br>
+                <span style="color:#7a4520;">⚠ 替代文字（alt）覆蓋率 88% — 3 張產品圖</span>
+                <button style="margin-top:6px;background:linear-gradient(135deg,#E07532,#C45A1E);color:#fff;border:none;padding:5px 12px;border-radius:14px;font-weight:700;font-size:11px;cursor:pointer;">Try to fix</button>
+              </div>
+              <div style="background:#FFF4E8;border-radius:8px;padding:10px;border-left:3px solid #E07532;">
+                <b>老饕鍋物</b><br>
+                <span style="color:#7a4520;">⚠ sitemap.xml 缺 8 筆新文章 URL</span>
+                <button style="margin-top:6px;background:linear-gradient(135deg,#E07532,#C45A1E);color:#fff;border:none;padding:5px 12px;border-radius:14px;font-weight:700;font-size:11px;cursor:pointer;">Try to fix</button>
+              </div>
+              <div style="background:#FFF4E8;border-radius:8px;padding:10px;border-left:3px solid #E07532;">
+                <b>老饕鍋物</b><br>
+                <span style="color:#7a4520;">⚠ Meta description 重複 4 頁</span>
+                <button style="margin-top:6px;background:linear-gradient(135deg,#E07532,#C45A1E);color:#fff;border:none;padding:5px 12px;border-radius:14px;font-weight:700;font-size:11px;cursor:pointer;">Try to fix</button>
+              </div>
+              <div style="background:#FFF4E8;border-radius:8px;padding:10px;border-left:3px solid #E07532;">
+                <b>柔光美學</b><br>
+                <span style="color:#7a4520;">⚠ llms.txt 尚未部署（AEO）</span>
+                <button style="margin-top:6px;background:linear-gradient(135deg,#E07532,#C45A1E);color:#fff;border:none;padding:5px 12px;border-radius:14px;font-weight:700;font-size:11px;cursor:pointer;">Try to fix</button>
+              </div>
+            </div>
+
+            <div class="portal-card-head" style="margin-top:20px;">
+              <h3 style="font-size:14px;">📅 客戶推播排程</h3>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:#555;">
+              <div>📱 每週一 09:00 LINE 完整週報 → <b>5 站</b></div>
+              <div>📄 每月 1 號 PDF 月報 → <b>5 站</b></div>
+              <div>🚨 SEO 分數降 5+ 即時告警 → <b>5 站</b></div>
+              <div style="color:#1565C0;margin-top:4px;">🌟 AEO 新引用即時通知 → <b>5 站</b></div>
+            </div>
+
+            <div class="portal-card-head" style="margin-top:20px;">
+              <h3 style="font-size:14px;">💰 SEO 服務商機</h3>
+            </div>
+            <div style="background:linear-gradient(135deg,#FFF4E8,#FFE0C5);border-radius:8px;padding:12px;font-size:12px;color:#7a4520;">
+              <div>業界 SEO 顧問月費 <b>NT$ 35-50k</b>（簽 1 年）</div>
+              <div>火花含進整套合作 → <b>客戶端 0 元</b></div>
+              <div style="margin-top:6px;border-top:1px dashed rgba(224,117,50,.4);padding-top:6px;">
+                ✨ 對外可用<b>市場半價（NT$ 18-25k/月）</b>吸客拓展高利潤新業務
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </main>
   </div>
