@@ -674,6 +674,31 @@
 
       <style>
         .portal-tour .tour-tab:hover { border-color: #E07532 !important; transform: translateX(2px); }
+        .portal-tour .tour-tab.is-active{ border-color:#E07532 !important; box-shadow:0 4px 16px rgba(224,117,50,.18); }
+        .portal-tour .tour-tab.is-active b{ color:#E07532 !important; }
+        :root[data-theme="dark"] .portal-tour{
+          background:radial-gradient(circle at 50% 0%, rgba(224,117,50,.10), transparent 38%),
+            linear-gradient(180deg, #07101c 0%, #0a0b10 55%, #120c0c 100%) !important;
+        }
+        :root[data-theme="dark"] .portal-tour h2{ color:#f6f0e8 !important; }
+        :root[data-theme="dark"] .portal-tour > div > div > p{ color:rgba(246,240,232,.72) !important; }
+        :root[data-theme="dark"] .portal-tour .tour-tab{
+          background:rgba(18,23,31,.78) !important;
+          border-color:rgba(255,255,255,.10) !important;
+          backdrop-filter:blur(10px);
+        }
+        :root[data-theme="dark"] .portal-tour .tour-tab.is-active{
+          background:rgba(224,117,50,.08) !important;
+          border-color:#E07532 !important;
+        }
+        :root[data-theme="dark"] .portal-tour .tour-tab b{ color:#f6f0e8 !important; }
+        :root[data-theme="dark"] .portal-tour .tour-tab.is-active b{ color:#f08c4a !important; }
+        :root[data-theme="dark"] .portal-tour .tour-tab > div:last-child{ color:rgba(246,240,232,.55) !important; }
+        :root[data-theme="dark"] .portal-tour .tour-pane{
+          background:#0d1117 !important;
+          border:1px solid rgba(255,255,255,.08);
+          box-shadow:0 24px 60px rgba(0,0,0,.5) !important;
+        }
         @media (max-width: 900px) {
           .portal-tour .tour-stage { grid-template-columns: 1fr !important; }
           .portal-tour .tour-tabs { flex-direction: row !important; overflow-x: auto; padding-bottom: 8px; }
@@ -691,9 +716,9 @@
               tabs.forEach(t => {
                 const on = t === tab;
                 t.classList.toggle('is-active', on);
-                t.style.border = on ? '2px solid #E07532' : '2px solid #eee';
-                t.style.boxShadow = on ? '0 4px 16px rgba(224,117,50,.18)' : 'none';
-                t.querySelector('b').style.color = on ? '#E07532' : '#1A1A1A';
+                t.style.removeProperty('border');
+                t.style.removeProperty('box-shadow');
+                t.querySelector('b').style.removeProperty('color');
               });
               imgs.forEach(i => { i.style.display = i.dataset.tour === target ? 'block' : 'none'; });
             });
